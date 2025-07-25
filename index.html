@@ -5,289 +5,448 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ontester Uganda Directory</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e5e7eb; /* Light gray background */
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #ffffff; /* White cards */
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb; /* Light gray border */
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+        .card-highlight {
+            border: 2px solid #f97316; /* Orange highlight */
+            background-color: #fff7ed; /* Light orange background */
+        }
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: linear-gradient(to right, #1f2937, #374151); /* Dark gray gradient */
+        }
+        .btn-gradient {
+            background: linear-gradient(to right, #f97316, #fb923c); /* Orange gradient */
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(to right, #fb923c, #f97316);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        #searchSuggestions {
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            width: 100%;
+            max-width: 32rem;
+            background-color: #ffffff; /* White suggestions */
+            border: 1px solid #e5e7eb; /* Light gray border */
+            border-radius: 0.5rem;
+        }
+        .suggestion-item {
+            transition: background-color 0.2s ease;
+        }
+        .suggestion-item:hover {
+            background-color: #fff7ed; /* Light orange hover */
+        }
+        .form-input {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #ffffff; /* White input fields */
+            border-color: #e5e7eb; /* Light gray border */
+        }
+        .form-input:focus {
+            border-color: #f97316; /* Orange focus */
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+        }
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="text-gray-800">
     <!-- Header -->
-    <header class="bg-blue-600 text-white py-4">
+    <header class="text-white py-4 shadow-lg">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Ontester Uganda Directory</h1>
+            <h1 class="text-3xl font-bold tracking-tight">Ontester Uganda Directory</h1>
             <nav>
-                <ul class="flex space-x-4">
-                    <li><a href="#services" class="hover:underline">Services</a></li>
-                    <li><a href="#investments" class="hover:underline">Investments</a></li>
-                    <li><a href="#calculator" class="hover:underline">Tax Calculator</a></li>
-                    <li><a href="#contact" class="hover:underline">Contact</a></li>
+                <ul class="flex space-x-6 md:space-x-8">
+                    <li><a href="#services" class="hover:text-orange-300 transition duration-200">Services</a></li>
+                    <li><a href="#investments" class="hover:text-orange-300 transition duration-200">Investments</a></li>
+                    <li><a href="#calculator" class="hover:text-orange-300 transition duration-200">Tax Calculator</a></li>
+                    <li><a href="#contact" class="hover:text-orange-300 transition duration-200">Contact Us</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <!-- Search Section -->
-    <section class="bg-white py-8">
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-semibold text-center mb-4">Explore Uganda's Business Opportunities</h2>
-            <div class="flex justify-center">
-                <input type="text" id="searchInput" placeholder="Search services or investments..." class="w-full max-w-md p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-600">
-                <button onclick="searchDirectory()" class="bg-blue-600 text-white p-2 rounded-r-md hover:bg-blue-700">Search</button>
+    <section class="bg-white py-12">
+        <div class="container mx-auto px-4 animate-fade-in">
+            <h2 class="text-3xl font-semibold text-center mb-6 text-gray-800">Explore Uganda's Business Opportunities</h2>
+            <div class="relative flex justify-center max-w-2xl mx-auto">
+                <input type="text" id="searchInput" placeholder="Search services or investments..." class="w-full p-3 border rounded-l-lg form-input text-gray-700" oninput="showSuggestions()" autocomplete="off">
+                <button onclick="searchDirectory()" class="btn-gradient text-white p-3 rounded-r-lg">Search</button>
+                <div id="searchSuggestions" class="absolute top-full left-0 shadow-lg hidden"></div>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl font-semibold mb-4">Key Government Services in Uganda</h2>
+    <section id="services" class="container mx-auto px-4 py-12">
+        <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Key Government Services in Uganda</h2>
         <div id="servicesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Government Communication -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=UMC" alt="Uganda Media Center Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">Government Communication</h3>
-                <p class="text-gray-600">Location: Kampala, Uganda</p>
-                <p class="text-gray-600">Services: Coordinates government communication, facilitates media dissemination of policies and programs, promotes public awareness</p>
-                <p class="text-gray-600">Contact: +256 414 237 141</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="https://www.mediacentre.go.ug/contact-us" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.mediacentre.go.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Government Communication" data-keywords="government communication, media, public awareness, policies, kampala">
+                <img src="https://via.placeholder.com/50?text=UMC" alt="Uganda Media Center Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Government Communication</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Coordinates government communication, facilitates media dissemination of policies and programs, promotes public awareness</p>
+                <p class="text-gray-600 text-sm">Contact: +256 414 237 141</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="https://www.mediacentre.go.ug/contact-us" target="_blank" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.mediacentre.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
-            <!-- ICT Policy & Digital Transformation -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=NITA-U" alt="NITA-U Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">ICT Policy & Digital Transformation</h3>
-                <p class="text-gray-600">Location: Kampala, Uganda</p>
-                <p class="text-gray-600">Services: Implements ICT policies, manages national IT infrastructure, promotes e-services and digital transformation</p>
-                <p class="text-gray-600">Contact: +256 417 801 038</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="https://www.nita.go.ug/contact-us" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.nita.go.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="ICT Policy & Digital Transformation" data-keywords="ict policy, digital transformation, e-services, infrastructure, kampala">
+                <img src="https://via.placeholder.com/50?text=NITA-U" alt="NITA-U Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">ICT Policy & Digital Transformation</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Implements ICT policies, manages national IT infrastructure, promotes e-services and digital transformation</p>
+                <p class="text-gray-600 text-sm">Contact: +256 417 801 038</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="https://www.nita.go.ug/contact-us" target="_blank" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.nita.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
-            <!-- Telecom & Broadcasting Regulation -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=UCC" alt="Uganda Communications Commission Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">Telecom & Broadcasting Regulation</h3>
-                <p class="text-gray-600">Location: Bugolobi, Kampala, Uganda</p>
-                <p class="text-gray-600">Services: Regulates telecom, broadcasting, and postal services, licenses operators, develops communication infrastructure</p>
-                <p class="text-gray-600">Contact: +256 414 339 000</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="mailto:ucc@ucc.co.ug" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.ucc.co.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Telecom & Broadcasting Regulation" data-keywords="telecom, broadcasting, regulation, licenses, bugolobi">
+                <img src="https://via.placeholder.com/50?text=UCC" alt="Uganda Communications Commission Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Telecom & Broadcasting Regulation</h3>
+                <p class="text-gray-600 text-sm">Location: Bugolobi, Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Regulates telecom, broadcasting, and postal services, licenses operators, develops communication infrastructure</p>
+                <p class="text-gray-600 text-sm">Contact: +256 414 339 000</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="mailto:ucc@ucc.co.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.ucc.co.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
-            <!-- Public Broadcasting -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=UBC" alt="Uganda Broadcasting Corporation Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">Public Broadcasting</h3>
-                <p class="text-gray-600">Location: Kampala, Uganda</p>
-                <p class="text-gray-600">Services: Provides national radio and TV broadcasting, public service content, and media programming</p>
-                <p class="text-gray-600">Contact: +256 414 595 000</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="https://www.ubc.go.ug/contact-us" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.ubc.go.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Public Broadcasting" data-keywords="public broadcasting, radio, tv, media, kampala">
+                <img src="https://via.placeholder.com/50?text=UBC" alt="Uganda Broadcasting Corporation Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Public Broadcasting</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Provides national radio and TV broadcasting, public service content, and media programming</p>
+                <p class="text-gray-600 text-sm">Contact: +256 414 595 000</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="https://www.ubc.go.ug/contact-us" target="_blank" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.ubc.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
-            <!-- ICT Training -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=UICT" alt="Uganda Institute of ICT Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">ICT Training</h3>
-                <p class="text-gray-600">Location: Kampala, Uganda</p>
-                <p class="text-gray-600">Services: Offers ICT training, hands-on skill development, and innovation programs for students and professionals</p>
-                <p class="text-gray-600">Contact: +256 414 220 279</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="mailto:info@uict.ac.ug" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.uict.ac.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="ICT Training" data-keywords="ict training, skill development, innovation, kampala">
+                <img src="https://via.placeholder.com/50?text=UICT" alt="Uganda Institute of ICT Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">ICT Training</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Offers ICT training, hands-on skill development, and innovation programs for students and professionals</p>
+                <p class="text-gray-600 text-sm">Contact: +256 414 220 279</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="mailto:info@uict.ac.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.uict.ac.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
-            <!-- Tax Collection -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=URA" alt="Uganda Revenue Authority Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">Tax Collection</h3>
-                <p class="text-gray-600">Location: Kampala, Uganda</p>
-                <p class="text-gray-600">Services: Enforces tax laws, collects corporate tax, VAT, and customs duties, supports revenue compliance</p>
-                <p class="text-gray-600">Contact: +256 417 442 054</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="mailto:info@ura.go.ug" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.ura.go.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Tax Collection" data-keywords="tax collection, corporate tax, vat, customs, kampala">
+                <img src="https://via.placeholder.com/50?text=URA" alt="Uganda Revenue Authority Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Tax Collection</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Enforces tax laws, collects corporate tax, VAT, and customs duties, supports revenue compliance</p>
+                <p class="text-gray-600 text-sm">Contact: +256 417 442 054</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="mailto:info@ura.go.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.ura.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
-            <!-- Standards & Quality Assurance -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=UNBS" alt="Uganda National Bureau of Standards Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">Standards & Quality Assurance</h3>
-                <p class="text-gray-600">Location: Bweyogerere, Uganda</p>
-                <p class="text-gray-600">Services: Sets product standards, enforces quality assurance, supports export compliance and consumer protection</p>
-                <p class="text-gray-600">Contact: +256 417 333 250</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="mailto:info@unbs.go.ug" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.unbs.go.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Standards & Quality Assurance" data-keywords="standards, quality assurance, export compliance, bweyogerere">
+                <img src="https://via.placeholder.com/50?text=UNBS" alt="Uganda National Bureau of Standards Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Standards & Quality Assurance</h3>
+                <p class="text-gray-600 text-sm">Location: Bweyogerere, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Sets product standards, enforces quality assurance, supports export compliance and consumer protection</p>
+                <p class="text-gray-600 text-sm">Contact: +256 417 333 250</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="mailto:info@unbs.go.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.unbs.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Investments Section -->
-    <section id="investments" class="container mx-auto px-4 py-8 bg-gray-50">
-        <h2 class="text-2xl font-semibold mb-4">Investment Services</h2>
+    <section id="investments" class="container mx-auto px-4 py-12 bg-gray-100">
+        <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Investment Services</h2>
         <div id="investmentsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Investment Promotion -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=UIA" alt="Uganda Investment Authority Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">Investment Promotion</h3>
-                <p class="text-gray-600">Location: Kololo, Kampala, Uganda</p>
-                <p class="text-gray-600">Services: Promotes domestic and foreign investments, facilitates licensing, issues industrial land permits, supports SMEs with advisory and aftercare</p>
-                <p class="text-gray-600">Contact: +256 414 301 000; Toll-free: 0800 100 077</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="mailto:info@ugandainvest.go.ug" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.ugandainvest.go.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Investment Promotion" data-keywords="investment promotion, licensing, sme, kololo">
+                <img src="https://via.placeholder.com/50?text=UIA" alt="Uganda Investment Authority Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Investment Promotion</h3>
+                <p class="text-gray-600 text-sm">Location: Kololo, Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Promotes domestic and foreign investments, facilitates licensing, issues industrial land permits, supports SMEs with advisory and aftercare</p>
+                <p class="text-gray-600 text-sm">Contact: +256 414 301 000; Toll-free: 0800 100 077</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="mailto:info@ugandainvest.go.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.ugandainvest.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
-            <!-- Free-Zone Management -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=UFZA" alt="Uganda Free Zones Authority Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">Free-Zone Management</h3>
-                <p class="text-gray-600">Location: Kampala, Uganda</p>
-                <p class="text-gray-600">Services: Oversees export-oriented Free Zones, promotes high-value manufacturing and trade investments</p>
-                <p class="text-gray-600">Contact: +256 417 722 600</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="https://www.freezones.go.ug/contact-us" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.freezones.go.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Free-Zone Management" data-keywords="free zones, manufacturing, trade, kampala">
+                <img src="https://via.placeholder.com/50?text=UFZA" alt="Uganda Free Zones Authority Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Free-Zone Management</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Oversees export-oriented Free Zones, promotes high-value manufacturing and trade investments</p>
+                <p class="text-gray-600 text-sm">Contact: +256 417 722 600</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="https://www.freezones.go.ug/contact-us" target="_blank" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.freezones.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
-            <!-- Investment Policy & Reforms -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=MFPED" alt="Ministry of Finance Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">Investment Policy & Reforms</h3>
-                <p class="text-gray-600">Location: Kampala, Uganda</p>
-                <p class="text-gray-600">Services: Formulates investment policies, oversees industrial parks and SME finance, manages economic reforms and investment climate improvements</p>
-                <p class="text-gray-600">Contact: +256 414 707 000</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="https://www.finance.go.ug/contact-us" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.finance.go.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Investment Policy & Reforms" data-keywords="investment policy, reforms, industrial parks, kampala">
+                <img src="https://via.placeholder.com/50?text=MFPED" alt="Ministry of Finance Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Investment Policy & Reforms</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Formulates investment policies, oversees industrial parks and SME finance, manages economic reforms and investment climate improvements</p>
+                <p class="text-gray-600 text-sm">Contact: +256 414 707 000</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="https://www.finance.go.ug/contact-us" target="_blank" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.finance.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
-            <!-- Capital Markets Regulation -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=CMA" alt="Capital Markets Authority Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">Capital Markets Regulation</h3>
-                <p class="text-gray-600">Location: Kampala, Uganda</p>
-                <p class="text-gray-600">Services: Regulates capital markets, licenses fund managers and brokers, oversees securities issuance, protects investor interests</p>
-                <p class="text-gray-600">Contact: +256 414 342 788</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="mailto:info@cmauganda.co.ug" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.cmauganda.co.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Capital Markets Regulation" data-keywords="capital markets, securities, brokers, kampala">
+                <img src="https://via.placeholder.com/50?text=CMA" alt="Capital Markets Authority Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Capital Markets Regulation</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Regulates capital markets, licenses fund managers and brokers, oversees securities issuance, protects investor interests</p>
+                <p class="text-gray-600 text-sm">Contact: +256 414 342 788</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="mailto:info@cmauganda.co.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.cmauganda.co.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
-            <!-- Renewable Energy Finance -->
-            <div class="bg-white p-4 rounded-md shadow-md">
-                <img src="https://via.placeholder.com/50?text=UECCC" alt="Uganda Energy Credit Capitalisation Company Logo" class="w-12 h-12 mb-2">
-                <h3 class="text-lg font-semibold">Renewable Energy Finance</h3>
-                <p class="text-gray-600">Location: Kampala, Uganda</p>
-                <p class="text-gray-600">Services: Provides liquidity refinance, interest-rate buy-downs, partial risk guarantees, asset finance, and advisory for renewable energy investments</p>
-                <p class="text-gray-600">Contact: +256 312 165 200</p>
-                <div class="mt-2 flex space-x-2">
-                    <a href="mailto:info@ueccc.or.ug" class="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700">Email</a>
-                    <a href="https://www.ueccc.or.ug" target="_blank" class="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700">Website</a>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Renewable Energy Finance" data-keywords="renewable energy, finance, guarantees, kampala">
+                <img src="https://via.placeholder.com/50?text=UECCC" alt="Uganda Energy Credit Capitalisation Company Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Renewable Energy Finance</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Provides liquidity refinance, interest-rate buy-downs, partial risk guarantees, asset finance, and advisory for renewable energy investments</p>
+                <p class="text-gray-600 text-sm">Contact: +256 312 165 200</p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="mailto:info@ueccc.or.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <a href="https://www.ueccc.or.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Tax and Incentive Calculator Section -->
-    <section id="calculator" class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl font-semibold mb-4">Tax and Incentive Calculator</h2>
-        <div class="bg-white p-6 rounded-md shadow-md max-w-lg mx-auto">
-            <div class="mb-4">
+    <section id="calculator" class="container mx-auto px-4 py-12">
+        <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Tax and Incentive Calculator</h2>
+        <div class="bg-white p-8 rounded-lg shadow-md max-w-lg mx-auto animate-fade-in">
+            <div class="mb-6">
                 <label for="investmentAmount" class="block text-gray-700 font-medium mb-2">Investment Amount (USD)</label>
-                <input type="number" id="investmentAmount" placeholder="Enter amount" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+                <input type="number" id="investmentAmount" placeholder="Enter amount" class="w-full p-3 border rounded-lg form-input">
             </div>
-            <div class="mb-4">
+            <div class="mb-6">
                 <label for="sector" class="block text-gray-700 font-medium mb-2">Sector</label>
-                <select id="sector" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+                <select id="sector" class="w-full p-3 border rounded-lg form-input">
                     <option value="agriculture">Agriculture</option>
                     <option value="technology">Technology</option>
                     <option value="tourism">Tourism</option>
                     <option value="energy">Energy</option>
                 </select>
             </div>
-            <button onclick="calculateTax()" class="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 w-full">Calculate</button>
-            <div id="result" class="mt-4 text-gray-700"></div>
+            <button onclick="calculateTax()" class="btn-gradient text-white p-3 rounded-lg w-full">Calculate</button>
+            <div id="result" class="mt-6 text-gray-700"></div>
         </div>
     </section>
 
     <!-- Contact Us Section -->
-    <section id="contact" class="container mx-auto px-4 py-8 bg-gray-50">
-        <h2 class="text-2xl font-semibold mb-4 text-center">Contact Us</h2>
-        <div class="bg-white p-6 rounded-md shadow-md max-w-lg mx-auto">
-            <p class="text-gray-600 mb-4 text-center">Please provide your details and let us know your interests. Our team will get back to you promptly.</p>
-            <form id="contactForm" onsubmit="handleContactSubmit(event)">
-                <div class="mb-4">
-                    <label for="name" class="block text-gray-700 font-medium mb-2">Full Name *</label>
-                    <input type="text" id="name" name="name" required placeholder="Enter your name" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
-                </div>
-                <div class="mb-4">
-                    <label for="email" class="block text-gray-700 font-medium mb-2">Email Address *</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
-                </div>
-                <div class="mb-4">
-                    <label for="phone" class="block text-gray-700 font-medium mb-2">Phone Number *</label>
-                    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
-                </div>
-                <div class="mb-4">
-                    <label for="organization" class="block text-gray-700 font-medium mb-2">Organization (Optional)</label>
-                    <input type="text" id="organization" name="organization" placeholder="Enter your organization" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
-                </div>
-                <div class="mb-4">
-                    <label for="interests" class="block text-gray-700 font-medium mb-2">Areas of Interest *</label>
-                    <select id="interests" name="interests" required class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
-                        <option value="" disabled selected>Select an interest</option>
-                        <option value="government-communication">Government Communication</option>
-                        <option value="ict-policy">ICT Policy & Digital Transformation</option>
-                        <option value="telecom-regulation">Telecom & Broadcasting Regulation</option>
-                        <option value="public-broadcasting">Public Broadcasting</option>
-                        <option value="ict-training">ICT Training</option>
-                        <option value="tax-collection">Tax Collection</option>
-                        <option value="standards-quality">Standards & Quality Assurance</option>
-                        <option value="investment-promotion">Investment Promotion</option>
-                        <option value="free-zone-management">Free-Zone Management</option>
-                        <option value="investment-policy">Investment Policy & Reforms</option>
-                        <option value="capital-markets">Capital Markets Regulation</option>
-                        <option value="renewable-energy">Renewable Energy Finance</option>
-                        <option value="tax-incentives">Tax and Incentives Information</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="message" class="block text-gray-700 font-medium mb-2">Additional Information (Optional)</label>
-                    <textarea id="message" name="message" placeholder="Tell us more about your needs" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" rows="4"></textarea>
-                </div>
-                <button type="submit" class="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 w-full">Submit</button>
-            </form>
-            <div id="formResult" class="mt-4 text-gray-700"></div>
+    <section id="contact" class="container mx-auto px-4 py-12 bg-white">
+        <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Contact Us</h2>
+        <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">Reach out to our team for inquiries, support, or to explore business opportunities in Uganda.</p>
+        <div class="bg-white p-8 rounded-lg shadow-md max-w-lg mx-auto animate-fade-in">
+            <div class="mb-6">
+                <label for="contactName" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                <input type="text" id="contactName" placeholder="Enter your full name" class="w-full p-3 border rounded-lg form-input" required>
+            </div>
+            <div class="mb-6">
+                <label for="contactEmail" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                <input type="email" id="contactEmail" placeholder="Enter your email" class="w-full p-3 border rounded-lg form-input" required>
+            </div>
+            <div class="mb-6">
+                <label for="contactPhone" class="block text-gray-700 font-medium mb-2">Phone Number</label>
+                <input type="tel" id="contactPhone" placeholder="Enter your phone number" class="w-full p-3 border rounded-lg form-input">
+            </div>
+            <div class="mb-6">
+                <label for="contactSubject" class="block text-gray-700 font-medium mb-2">Subject</label>
+                <input type="text" id="contactSubject" placeholder="Enter the subject" class="w-full p-3 border rounded-lg form-input" required>
+            </div>
+            <div class="mb-6">
+                <label for="contactMessage" class="block text-gray-700 font-medium mb-2">Message</label>
+                <textarea id="contactMessage" placeholder="Your message or inquiry" class="w-full p-3 border rounded-lg form-input" rows="5" required></textarea>
+            </div>
+            <button onclick="submitContactForm()" class="btn-gradient text-white p-3 rounded-lg w-full">Send Message</button>
+            <div id="contactResult" class="mt-6 text-gray-700"></div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-4">
+    <footer class="bg-gray-900 text-white py-6">
         <div class="container mx-auto px-4 text-center">
-            <p>© 2025 Ontester Uganda Directory. All rights reserved.</p>
-            <p><a href="#" class="hover:underline">Privacy Policy</a> | <a href="#" class="hover:underline">Terms of Service</a></p>
+            <p class="text-sm">© 2025 Ontester Uganda Directory. All rights reserved.</p>
+            <p class="text-sm mt-2">
+                <a href="#" class="hover:text-orange-300 transition duration-200">Privacy Policy</a> | 
+                <a href="#" class="hover:text-orange-300 transition duration-200">Terms of Service</a>
+            </p>
         </div>
     </footer>
 
     <script>
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section > div').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Data for suggestions and source links
+        const listingsData = [
+            { title: 'Government Communication', keywords: ['government communication', 'media', 'public awareness', 'policies', 'kampala'], section: 'services', website: 'https://www.mediacentre.go.ug' },
+            { title: 'ICT Policy & Digital Transformation', keywords: ['ict policy', 'digital transformation', 'e-services', 'infrastructure', 'kampala'], section: 'services', website: 'https://www.nita.go.ug' },
+            { title: 'Telecom & Broadcasting Regulation', keywords: ['telecom', 'broadcasting', 'regulation', 'licenses', 'bugolobi'], section: 'services', website: 'https://www.ucc.co.ug' },
+            { title: 'Public Broadcasting', keywords: ['public broadcasting', 'radio', 'tv', 'media', 'kampala'], section: 'services', website: 'https://www.ubc.go.ug' },
+            { title: 'ICT Training', keywords: ['ict training', 'skill development', 'innovation', 'kampala'], section: 'services', website: 'https://www.uict.ac.ug' },
+            { title: 'Tax Collection', keywords: ['tax collection', 'corporate tax', 'vat', 'customs', 'kampala'], section: 'services', website: 'https://www.ura.go.ug' },
+            { title: 'Standards & Quality Assurance', keywords: ['standards', 'quality assurance', 'export compliance', 'bweyogerere'], section: 'services', website: 'https://www.unbs.go.ug' },
+            { title: 'Investment Promotion', keywords: ['investment promotion', 'licensing', 'sme', 'kololo'], section: 'investments', website: 'https://www.ugandainvest.go.ug' },
+            { title: 'Free-Zone Management', keywords: ['free zones', 'manufacturing', 'trade', 'kampala'], section: 'investments', website: 'https://www.freezones.go.ug' },
+            { title: 'Investment Policy & Reforms', keywords: ['investment policy', 'reforms', 'industrial parks', 'kampala'], section: 'investments', website: 'https://www.finance.go.ug' },
+            { title: 'Capital Markets Regulation', keywords: ['capital markets', 'securities', 'brokers', 'kampala'], section: 'investments', website: 'https://www.cmauganda.co.ug' },
+            { title: 'Renewable Energy Finance', keywords: ['renewable energy', 'finance', 'guarantees', 'kampala'], section: 'investments', website: 'https://www.ueccc.or.ug' }
+        ];
+
+        function showSuggestions() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const suggestionsDiv = document.getElementById('searchSuggestions');
+            suggestionsDiv.innerHTML = '';
+            suggestionsDiv.classList.add('hidden');
+
+            if (searchInput.length < 2) return;
+
+            const matches = listingsData.filter(item =>
+                item.title.toLowerCase().includes(searchInput) ||
+                item.keywords.some(keyword => keyword.includes(searchInput))
+            );
+
+            if (matches.length > 0) {
+                suggestionsDiv.classList.remove('hidden');
+                matches.forEach(match => {
+                    const suggestion = document.createElement('div');
+                    suggestion.className = 'suggestion-item p-3 border-b border-gray-200 cursor-pointer text-gray-700';
+                    suggestion.textContent = match.title;
+                    suggestion.onclick = () => selectSuggestion(match.title, match.section, match.website);
+                    suggestionsDiv.appendChild(suggestion);
+                });
+            }
+        }
+
+        function selectSuggestion(title, section, website) {
+            const searchInput = document.getElementById('searchInput');
+            const suggestionsDiv = document.getElementById('searchSuggestions');
+            searchInput.value = title;
+            suggestionsDiv.classList.add('hidden');
+
+            document.querySelectorAll('.card-highlight').forEach(card => {
+                card.classList.remove('card-highlight');
+            });
+
+            const cards = document.querySelectorAll(`#${section}List .card`);
+            let found = false;
+            for (let card of cards) {
+                if (card.dataset.title.toLowerCase() === title.toLowerCase()) {
+                    card.classList.add('card-highlight');
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    found = true;
+                    setTimeout(() => {
+                        window.open(website, '_blank');
+                    }, 1000);
+                    break;
+                }
+            }
+
+            if (!found) {
+                window.open(website, '_blank');
+            }
+
+            searchDirectory();
+        }
+
         function searchDirectory() {
             const searchInput = document.getElementById('searchInput').value.toLowerCase();
             const servicesList = document.getElementById('servicesList').children;
             const investmentsList = document.getElementById('investmentsList').children;
+            const suggestionsDiv = document.getElementById('searchSuggestions');
 
-            // Search Services
+            suggestionsDiv.classList.add('hidden');
+
+            document.querySelectorAll('.card-highlight').forEach(card => {
+                card.classList.remove('card-highlight');
+            });
+
             for (let listing of servicesList) {
-                const title = listing.querySelector('h3').textContent.toLowerCase();
-                listing.style.display = title.includes(searchInput) ? 'block' : 'none';
+                const title = listing.dataset.title.toLowerCase();
+                const keywords = listing.dataset.keywords.toLowerCase();
+                const description = listing.querySelector('p:nth-child(3)').textContent.toLowerCase();
+                listing.style.display = (title.includes(searchInput) || keywords.includes(searchInput) || description.includes(searchInput)) ? 'block' : 'none';
+                if ((title.includes(searchInput) || keywords.includes(searchInput) || description.includes(searchInput))) {
+                    listing.classList.add('card-highlight');
+                }
             }
 
-            // Search Investments
             for (let listing of investmentsList) {
-                const title = listing.querySelector('h3').textContent.toLowerCase();
-                listing.style.display = title.includes(searchInput) ? 'block' : 'none';
+                const title = listing.dataset.title.toLowerCase();
+                const keywords = listing.dataset.keywords.toLowerCase();
+                const description = listing.querySelector('p:nth-child(3)').textContent.toLowerCase();
+                listing.style.display = (title.includes(searchInput) || keywords.includes(searchInput) || description.includes(searchInput)) ? 'block' : 'none';
+                if ((title.includes(searchInput) || keywords.includes(searchInput) || description.includes(searchInput))) {
+                    listing.classList.add('card-highlight');
+                }
             }
         }
 
@@ -301,51 +460,64 @@
                 return;
             }
 
-            // Sample tax and incentive logic (simplified)
-            let taxRate = 0.3; // Default corporate tax rate (30%)
+            let taxRate = 0.3;
             let incentive = 0;
 
             if (sector === 'agriculture') {
-                taxRate = 0.2; // Reduced tax rate for agriculture
-                incentive = investmentAmount * 0.1; // 10% incentive
+                taxRate = 0.2;
+                incentive = investmentAmount * 0.1;
             } else if (sector === 'energy') {
-                taxRate = 0.15; // Reduced tax rate for energy
-                incentive = investmentAmount * 0.15; // 15% incentive
+                taxRate = 0.15;
+                incentive = investmentAmount * 0.15;
             }
 
             const taxAmount = investmentAmount * taxRate;
             const netAmount = investmentAmount - taxAmount + incentive;
 
             resultDiv.innerHTML = `
-                <p>Tax Rate: ${(taxRate * 100).toFixed(2)}%</p>
-                <p>Tax Amount: $${taxAmount.toFixed(2)}</p>
-                <p>Incentive: $${incentive.toFixed(2)}</p>
-                <p>Net Amount After Tax & Incentive: $${netAmount.toFixed(2)}</p>
+                <p class="font-medium">Tax Rate: ${(taxRate * 100).toFixed(2)}%</p>
+                <p class="font-medium">Tax Amount: $${taxAmount.toFixed(2)}</p>
+                <p class="font-medium">Incentive: $${incentive.toFixed(2)}</p>
+                <p class="font-medium">Net Amount After Tax & Incentive: $${netAmount.toFixed(2)}</p>
             `;
         }
 
-        function handleContactSubmit(event) {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-            const resultDiv = document.getElementById('formResult');
+        function submitContactForm() {
+            const contactName = document.getElementById('contactName').value.trim();
+            const contactEmail = document.getElementById('contactEmail').value.trim();
+            const contactPhone = document.getElementById('contactPhone').value.trim();
+            const contactSubject = document.getElementById('contactSubject').value.trim();
+            const contactMessage = document.getElementById('contactMessage').value.trim();
+            const contactResult = document.getElementById('contactResult');
 
-            // Basic client-side validation
-            const name = formData.get('name').trim();
-            const email = formData.get('email').trim();
-            const phone = formData.get('phone').trim();
-            const interests = formData.get('interests');
-
-            if (!name || !email || !phone || !interests) {
-                resultDiv.innerHTML = '<p class="text-red-600">Please fill in all required fields.</p>';
+            if (!contactName) {
+                contactResult.innerHTML = '<p class="text-red-600">Please enter your full name.</p>';
+                return;
+            }
+            if (!contactEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
+                contactResult.innerHTML = '<p class="text-red-600">Please enter a valid email address.</p>';
+                return;
+            }
+            if (!contactSubject) {
+                contactResult.innerHTML = '<p class="text-red-600">Please enter a subject.</p>';
+                return;
+            }
+            if (!contactMessage) {
+                contactResult.innerHTML = '<p class="text-red-600">Please enter a message.</p>';
                 return;
             }
 
-            // Placeholder for form submission (replace with backend integration)
-            resultDiv.innerHTML = '<p class="text-green-600">Thank you for your submission! We will contact you soon.</p>';
+            contactResult.innerHTML = `
+                <p class="text-green-600 font-medium">Thank you, ${contactName}! Your message has been sent.</p>
+                <p class="font-medium">Subject: ${contactSubject}</p>
+                <p class="font-medium">We will respond to you at ${contactEmail} ${contactPhone ? 'or ' + contactPhone : ''} soon.</p>
+            `;
 
-            // Clear form after submission
-            form.reset();
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactPhone').value = '';
+            document.getElementById('contactSubject').value = '';
+            document.getElementById('contactMessage').value = '';
         }
     </script>
 </body>
