@@ -1,0 +1,3058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ontester Uganda - Business Services & Investment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --primary-dark: #0f1419;
+            --secondary: #2d3748;
+            --accent: #e53e3e;
+            --accent-light: #fed7d7;
+            --success: #38a169;
+            --success-light: #c6f6d5;
+            --warning: #d69e2e;
+            --warning-light: #faf089;
+            --info: #3182ce;
+            --info-light: #bee3f8;
+            --dark: #1a202c;
+            --light: #f7fafc;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent) 0%, #fc8181 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            padding: 64px 0 32px;
+            position: relative;
+            overflow: hidden;
+            background: var(--gradient-primary);
+            border-radius: 0 0 32px 32px;
+            box-shadow: var(--shadow-xl);
+            margin-bottom: 32px;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.7;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: white;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 700px;
+            margin: 0 auto 32px;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+        }
+
+        /* Search Section */
+        .search-container {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 48px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 2px solid var(--gray-300);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            color: var(--gray-700);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(26, 54, 93, 0.1);
+        }
+
+        .search-btn {
+            padding: 16px 32px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 12px 20px;
+            background: var(--gray-100);
+            border: 2px solid var(--gray-200);
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .search-results {
+            margin-top: 24px;
+            padding: 20px;
+            background: var(--gray-50);
+            border-radius: 12px;
+            border: 1px solid var(--gray-200);
+            display: none;
+        }
+
+        .search-results.show {
+            display: block;
+        }
+
+        .result-item {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 0.875rem;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Modules Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+        }
+
+        .module-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+        }
+
+        .module-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--gradient-primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .module-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--gray-900);
+        }
+
+        .module-description {
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+
+        .module-cta {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--gray-100);
+            color: var(--primary);
+            border-radius: 24px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .module-card:hover .module-cta {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Page Styles */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid var(--gray-300);
+            border-radius: 24px;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 32px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            font-size: 0.875rem;
+        }
+
+        .back-btn:hover {
+            background: var(--gray-50);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateX(-4px);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 48px;
+            position: relative;
+            padding: 32px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: var(--gray-900);
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-header h1::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 48px;
+            border: 1px solid var(--gray-200);
+        }
+
+        /* Agency Cards */
+        .agency-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 32px;
+            transition: all 0.4s ease;
+            border: 1px solid var(--gray-200);
+            border-top: 4px solid var(--primary);
+        }
+
+        .agency-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .agency-header {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .agency-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--gray-100);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            flex-shrink: 0;
+            border: 1px solid var(--gray-200);
+        }
+
+        .agency-info {
+            flex: 1;
+        }
+
+        .agency-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: var(--gray-900);
+        }
+
+        .agency-role {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .agency-contact {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            font-size: 0.75rem;
+        }
+
+        .contact-button:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-button.email {
+            background: var(--info);
+        }
+
+        .contact-button.web {
+            background: var(--success);
+        }
+
+        .contact-button.about {
+            background: var(--warning);
+        }
+
+        .agency-body {
+            padding: 24px;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--gray-900);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .service-item {
+            background: var(--gray-50);
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+            border: 1px solid var(--gray-200);
+        }
+
+        .service-item:hover {
+            background: var(--gray-100);
+            transform: translateX(4px);
+        }
+
+        .service-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--gray-900);
+        }
+
+        .service-desc {
+            color: var(--gray-600);
+            margin-bottom: 16px;
+            font-size: 0.875rem;
+        }
+
+        .service-tag {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .opportunity-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s ease;
+            border: 1px solid var(--gray-200);
+            border-top: 4px solid var(--info);
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .opportunity-header {
+            padding: 20px;
+            background: var(--info-light);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .opportunity-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--gray-900);
+        }
+
+        .opportunity-body {
+            padding: 20px;
+        }
+
+        .opportunity-desc {
+            color: var(--gray-600);
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .opportunity-contact {
+            background: var(--gray-50);
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .contact-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Calculator Styles */
+        .calculator-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .calculator-form {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .form-input, .form-select {
+            padding: 16px;
+            border: 2px solid var(--gray-300);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            color: var(--gray-700);
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(26, 54, 93, 0.1);
+        }
+
+        .calculate-btn {
+            grid-column: span 2;
+            padding: 18px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .result-box {
+            background: var(--success-light);
+            border: 2px solid var(--success);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 32px;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        .result-header {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .result-item {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+        }
+
+        .result-label {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .result-value {
+            font-size: 1.125rem;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+
+        .result-highlight {
+            background: var(--gray-100);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid var(--gray-200);
+        }
+
+        /* Agency Detail Page */
+        .agency-detail {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .agency-hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 48px;
+            border-radius: 20px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .agency-hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+
+        .agency-hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .detail-section {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+        }
+
+        .detail-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .contact-item {
+            background: var(--gray-50);
+            padding: 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .highlight-box {
+            background: var(--info-light);
+            border: 2px solid var(--info);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .highlight-title {
+            font-weight: 700;
+            color: var(--info);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 48px 0;
+            color: var(--gray-500);
+            font-size: 1rem;
+            border-top: 2px solid var(--gray-200);
+            margin-top: 32px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-btn {
+                width: 100%;
+                padding: 18px;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calculator-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .calculate-btn {
+                grid-column: span 1;
+            }
+            
+            .agency-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .agency-contact {
+                justify-content: center;
+            }
+
+            .page-content {
+                padding: 24px;
+            }
+
+            .container {
+                padding: 12px;
+            }
+
+            .agency-hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 40px 0 24px;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .module-card {
+                padding: 24px;
+            }
+
+            .page-header {
+                padding: 24px;
+            }
+
+            .page-header h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Main Page -->
+        <div class="page active" id="mainPage">
+            <div class="header">
+                <h1>🇺🇬 Ontester Uganda</h1>
+                <p>Your Premier Business Directory & Government Services Platform</p>
+            </div>
+
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search for services, businesses, investments...">
+                    <button class="search-btn" onclick="performSearch()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                <div class="search-filters">
+                    <div class="filter-btn active" onclick="setFilter('all')">All Categories</div>
+                    <div class="filter-btn" onclick="setFilter('services')">Government Services</div>
+                    <div class="filter-btn" onclick="setFilter('investment')">Investment</div>
+                    <div class="filter-btn" onclick="setFilter('tax')">Tax & Incentives</div>
+                </div>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+
+            <div class="modules-grid">
+                <!-- Government Services Module -->
+                <div class="module-card" onclick="showPage('servicesPage')">
+                    <div class="module-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="module-title">Government Services</div>
+                    <div class="module-description">
+                        Essential government agencies for business registration, tax compliance, regulatory oversight, and quality standards. Access 8 key agencies including URSB, URA, NSSF, and more.
+                    </div>
+                    <div class="module-cta">Explore Services</div>
+                </div>
+
+                <!-- Investment Module -->
+                <div class="module-card" onclick="showPage('investmentPage')">
+                    <div class="module-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="module-title">Investment Opportunities</div>
+                    <div class="module-description">
+                        Investment opportunities, UIA services, and government incentives. Discover priority sectors, industrial parks, and investment facilitation services.
+                    </div>
+                    <div class="module-cta">Discover Investments</div>
+                </div>
+
+                <!-- Tax & Incentives Calculator Module -->
+                <div class="module-card" onclick="showPage('taxPage')">
+                    <div class="module-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="module-title">Tax & Incentives Calculator</div>
+                    <div class="module-description">
+                        Calculate your tax obligations and discover available incentives. Professional tax planning tools with real-time calculations for businesses and investors.
+                    </div>
+                    <div class="module-cta">Calculate Now</div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>&copy; 2025 Ontester Uganda. Empowering Business Growth Across Uganda.</p>
+            </div>
+        </div>
+
+        <!-- Government Services Page -->
+        <div class="page" id="servicesPage">
+            <button class="back-btn" onclick="showPage('mainPage')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            <div class="page-header">
+                <h1>Government Services</h1>
+                <p>Essential government agencies and services to support your business operations in Uganda</p>
+            </div>
+            <div class="page-content">
+                
+                <!-- URSB Agency Card -->
+                <div class="agency-card">
+                    <div class="agency-header">
+                        <div class="agency-logo">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <div class="agency-info">
+                            <div class="agency-name">Uganda Registration Services Bureau (URSB)</div>
+                            <div class="agency-role">Business Registration & Intellectual Property</div>
+                            <div class="agency-contact">
+                                <a href="https://ursb.go.ug" target="_blank" class="contact-button web">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                                <a href="mailto:ursb@ursb.go.ug" class="contact-button email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </a>
+                                <div class="contact-button">
+                                    <i class="fas fa-phone"></i> +256 414 233 219
+                                </div>
+                                <button class="contact-button about" onclick="showAgencyDetail('ursb')">
+                                    <i class="fas fa-info-circle"></i> About Agency
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agency-body">
+                        <div class="section-title">Key Services Offered</div>
+                        <div class="services-grid">
+                            <div class="service-item">
+                                <div class="service-title">Online Business Registration</div>
+                                <div class="service-desc">Company registration via OBRS portal with mobile money payments</div>
+                                <div class="service-tag">URSB</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Intellectual Property</div>
+                                <div class="service-desc">Trademark, patent & industrial design registration</div>
+                                <div class="service-tag">URSB</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Annual Returns</div>
+                                <div class="service-desc">Digital filing and company compliance management</div>
+                                <div class="service-tag">URSB</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">SIMPO Registry</div>
+                                <div class="service-desc">Security Interest in Movable Property registration</div>
+                                <div class="service-tag">URSB</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- URA Agency Card -->
+                <div class="agency-card">
+                    <div class="agency-header">
+                        <div class="agency-logo">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="agency-info">
+                            <div class="agency-name">Uganda Revenue Authority (URA)</div>
+                            <div class="agency-role">Tax Collection & Compliance</div>
+                            <div class="agency-contact">
+                                <a href="https://ura.go.ug" target="_blank" class="contact-button web">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                                <a href="mailto:info@ura.go.ug" class="contact-button email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </a>
+                                <div class="contact-button">
+                                    <i class="fas fa-phone"></i> 0800 117 000
+                                </div>
+                                <button class="contact-button about" onclick="showAgencyDetail('ura')">
+                                    <i class="fas fa-info-circle"></i> About Agency
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agency-body">
+                        <div class="section-title">Key Services Offered</div>
+                        <div class="services-grid">
+                            <div class="service-item">
+                                <div class="service-title">Tax Registration</div>
+                                <div class="service-desc">TIN, VAT registration & E-Tax Portal access</div>
+                                <div class="service-tag">URA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">EFRIS Compliance</div>
+                                <div class="service-desc">Electronic Fiscal Receipting and Invoicing System</div>
+                                <div class="service-tag">URA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Digital Tax Stamps</div>
+                                <div class="service-desc">DTS for cigarettes, spirits, and other products</div>
+                                <div class="service-tag">URA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Customs Services</div>
+                                <div class="service-desc">Import/export clearance and trade facilitation</div>
+                                <div class="service-tag">URA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NSSF Agency Card -->
+                <div class="agency-card">
+                    <div class="agency-header">
+                        <div class="agency-logo">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="agency-info">
+                            <div class="agency-name">National Social Security Fund (NSSF)</div>
+                            <div class="agency-role">Social Security & Employee Benefits</div>
+                            <div class="agency-contact">
+                                <a href="https://www.nssfug.org" target="_blank" class="contact-button web">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                                <a href="mailto:customerservice@nssfug.org" class="contact-button email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </a>
+                                <div class="contact-button">
+                                    <i class="fas fa-phone"></i> 0800 286 773
+                                </div>
+                                <button class="contact-button about" onclick="showAgencyDetail('nssf')">
+                                    <i class="fas fa-info-circle"></i> About Agency
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agency-body">
+                        <div class="section-title">Key Services Offered</div>
+                        <div class="services-grid">
+                            <div class="service-item">
+                                <div class="service-title">Employer Registration</div>
+                                <div class="service-desc">Register employees and manage contributions via NSSF GO app</div>
+                                <div class="service-tag">NSSF</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Contribution Management</div>
+                                <div class="service-desc">15% total contribution (5% employee, 10% employer)</div>
+                                <div class="service-tag">NSSF</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Benefits Processing</div>
+                                <div class="service-desc">Retirement, disability, and survivor benefits</div>
+                                <div class="service-tag">NSSF</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Flexi Savings Plan</div>
+                                <div class="service-desc">Voluntary savings with competitive returns</div>
+                                <div class="service-tag">NSSF</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CMA Agency Card -->
+                <div class="agency-card">
+                    <div class="agency-header">
+                        <div class="agency-logo">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="agency-info">
+                            <div class="agency-name">Capital Markets Authority Uganda (CMA)</div>
+                            <div class="agency-role">Capital Markets Regulation</div>
+                            <div class="agency-contact">
+                                <a href="https://cmauganda.co.ug" target="_blank" class="contact-button web">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                                <a href="mailto:info@cmauganda.co.ug" class="contact-button email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </a>
+                                <div class="contact-button">
+                                    <i class="fas fa-phone"></i> +256 414 342 788
+                                </div>
+                                <button class="contact-button about" onclick="showAgencyDetail('cma')">
+                                    <i class="fas fa-info-circle"></i> About Agency
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agency-body">
+                        <div class="section-title">Key Services Offered</div>
+                        <div class="services-grid">
+                            <div class="service-item">
+                                <div class="service-title">Securities Licensing</div>
+                                <div class="service-desc">License stockbrokers, investment advisors, and fund managers</div>
+                                <div class="service-tag">CMA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Market Oversight</div>
+                                <div class="service-desc">Regulate Uganda Securities Exchange operations</div>
+                                <div class="service-tag">CMA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Unit Trust Schemes</div>
+                                <div class="service-desc">Authorize and supervise collective investment schemes</div>
+                                <div class="service-tag">CMA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Investor Protection</div>
+                                <div class="service-desc">Educate investors and ensure market integrity</div>
+                                <div class="service-tag">CMA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UCC Agency Card -->
+                <div class="agency-card">
+                    <div class="agency-header">
+                        <div class="agency-logo">
+                            <i class="fas fa-broadcast-tower"></i>
+                        </div>
+                        <div class="agency-info">
+                            <div class="agency-name">Uganda Communications Commission (UCC)</div>
+                            <div class="agency-role">Telecommunications & Broadcasting Regulation</div>
+                            <div class="agency-contact">
+                                <a href="https://www.ucc.co.ug" target="_blank" class="contact-button web">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                                <a href="mailto:ucc@ucc.co.ug" class="contact-button email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </a>
+                                <div class="contact-button">
+                                    <i class="fas fa-phone"></i> +256 414 339 000
+                                </div>
+                                <button class="contact-button about" onclick="showAgencyDetail('ucc')">
+                                    <i class="fas fa-info-circle"></i> About Agency
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agency-body">
+                        <div class="section-title">Key Services Offered</div>
+                        <div class="services-grid">
+                            <div class="service-item">
+                                <div class="service-title">Telecom Licensing</div>
+                                <div class="service-desc">License telecom operators and service providers</div>
+                                <div class="service-tag">UCC</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Broadcasting Authorization</div>
+                                <div class="service-desc">TV, radio, and online media licensing</div>
+                                <div class="service-tag">UCC</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Spectrum Management</div>
+                                <div class="service-desc">Radio frequency allocation and monitoring</div>
+                                <div class="service-tag">UCC</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Equipment Approval</div>
+                                <div class="service-desc">Type approval for telecommunications equipment</div>
+                                <div class="service-tag">UCC</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FIA Agency Card -->
+                <div class="agency-card">
+                    <div class="agency-header">
+                        <div class="agency-logo">
+                            <i class="fas fa-search-dollar"></i>
+                        </div>
+                        <div class="agency-info">
+                            <div class="agency-name">Financial Intelligence Authority (FIA)</div>
+                            <div class="agency-role">Anti-Money Laundering & Financial Intelligence</div>
+                            <div class="agency-contact">
+                                <a href="https://www.fia.go.ug" target="_blank" class="contact-button web">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                                <a href="mailto:fia@fia.go.ug" class="contact-button email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </a>
+                                <div class="contact-button">
+                                    <i class="fas fa-phone"></i> +256 41 789 2600
+                                </div>
+                                <button class="contact-button about" onclick="showAgencyDetail('fia')">
+                                    <i class="fas fa-info-circle"></i> About Agency
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agency-body">
+                        <div class="section-title">Key Services Offered</div>
+                        <div class="services-grid">
+                            <div class="service-item">
+                                <div class="service-title">AML/CFT Compliance</div>
+                                <div class="service-desc">Anti-money laundering and counter-terrorism financing oversight</div>
+                                <div class="service-tag">FIA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">STR Processing</div>
+                                <div class="service-desc">Suspicious transaction reporting via goAML system</div>
+                                <div class="service-tag">FIA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Business Registration</div>
+                                <div class="service-desc">Register reporting institutions and designated entities</div>
+                                <div class="service-tag">FIA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Training & Guidance</div>
+                                <div class="service-desc">AML/CFT training and compliance guidance</div>
+                                <div class="service-tag">FIA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MoFPED Agency Card -->
+                <div class="agency-card">
+                    <div class="agency-header">
+                        <div class="agency-logo">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="agency-info">
+                            <div class="agency-name">Ministry of Finance, Planning & Economic Development</div>
+                            <div class="agency-role">Economic Policy & Financial Oversight</div>
+                            <div class="agency-contact">
+                                <a href="https://www.finance.go.ug" target="_blank" class="contact-button web">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                                <a href="mailto:info@finance.go.ug" class="contact-button email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </a>
+                                <div class="contact-button">
+                                    <i class="fas fa-phone"></i> +256 414 707 305
+                                </div>
+                                <button class="contact-button about" onclick="showAgencyDetail('mofped')">
+                                    <i class="fas fa-info-circle"></i> About Agency
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agency-body">
+                        <div class="section-title">Key Services Offered</div>
+                        <div class="services-grid">
+                            <div class="service-item">
+                                <div class="service-title">Economic Planning</div>
+                                <div class="service-desc">National development planning and Ten-Fold Growth Strategy</div>
+                                <div class="service-tag">MoFPED</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Tax Policy</div>
+                                <div class="service-desc">Tax policy development and revenue administration oversight</div>
+                                <div class="service-tag">MoFPED</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Investment Policy</div>
+                                <div class="service-desc">Investment climate reforms and private sector development</div>
+                                <div class="service-tag">MoFPED</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Public-Private Partnerships</div>
+                                <div class="service-desc">PPP project facilitation and oversight</div>
+                                <div class="service-tag">MoFPED</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UNBS Agency Card -->
+                <div class="agency-card">
+                    <div class="agency-header">
+                        <div class="agency-logo">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="agency-info">
+                            <div class="agency-name">Uganda National Bureau of Standards (UNBS)</div>
+                            <div class="agency-role">Quality Standards & Certification</div>
+                            <div class="agency-contact">
+                                <a href="https://www.unbs.go.ug" target="_blank" class="contact-button web">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                                <a href="mailto:info@unbs.go.ug" class="contact-button email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </a>
+                                <div class="contact-button">
+                                    <i class="fas fa-phone"></i> 0417 333 250
+                                </div>
+                                <button class="contact-button about" onclick="showAgencyDetail('unbs')">
+                                    <i class="fas fa-info-circle"></i> About Agency
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agency-body">
+                        <div class="section-title">Key Services Offered</div>
+                        <div class="services-grid">
+                            <div class="service-item">
+                                <div class="service-title">Q-Mark Certification</div>
+                                <div class="service-desc">Product quality certification for local and export markets</div>
+                                <div class="service-tag">UNBS</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">ISO Certification</div>
+                                <div class="service-desc">Management systems certification (ISO 9001, 22000, etc.)</div>
+                                <div class="service-tag">UNBS</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Laboratory Testing</div>
+                                <div class="service-desc">Product testing and quality assurance services</div>
+                                <div class="service-tag">UNBS</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Standards Development</div>
+                                <div class="service-desc">National standards development and harmonization</div>
+                                <div class="service-tag">UNBS</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Investment Page -->
+        <div class="page" id="investmentPage">
+            <button class="back-btn" onclick="showPage('mainPage')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            <div class="page-header">
+                <h1>Investment Opportunities</h1>
+                <p>Explore priority sectors, investment projects, and government facilitation services in Uganda</p>
+            </div>
+            <div class="page-content">
+                
+                <!-- UIA Investment Services -->
+                <div class="agency-card">
+                    <div class="agency-header">
+                        <div class="agency-logo">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <div class="agency-info">
+                            <div class="agency-name">Uganda Investment Authority (UIA)</div>
+                            <div class="agency-role">Investment Promotion & Facilitation</div>
+                            <div class="agency-contact">
+                                <a href="https://www.ugandainvest.go.ug" target="_blank" class="contact-button web">
+                                    <i class="fas fa-globe"></i> Website
+                                </a>
+                                <a href="mailto:info@ugandainvest.go.ug" class="contact-button email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </a>
+                                <div class="contact-button">
+                                    <i class="fas fa-phone"></i> +256 414 301 000
+                                </div>
+                                <button class="contact-button about" onclick="showAgencyDetail('uia')">
+                                    <i class="fas fa-info-circle"></i> About Agency
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agency-body">
+                        <div class="section-title">Investment Services</div>
+                        <div class="services-grid">
+                            <div class="service-item">
+                                <div class="service-title">48-Hour Investment Licensing</div>
+                                <div class="service-desc">Fast-track investment license processing via eBiz portal</div>
+                                <div class="service-tag">UIA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">One-Stop Centre</div>
+                                <div class="service-desc">Company registration, permits, TINs, work visas in one location</div>
+                                <div class="service-tag">UIA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Industrial Parks</div>
+                                <div class="service-desc">Serviced land allocation in 25+ industrial parks</div>
+                                <div class="service-tag">UIA</div>
+                            </div>
+                            <div class="service-item">
+                                <div class="service-title">Domestic Investment Division</div>
+                                <div class="service-desc">Dedicated support for Ugandan investors (launched 2024)</div>
+                                <div class="service-tag">UIA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">Priority Investment Sectors</div>
+                <div class="opportunity-grid">
+                    <!-- Agriculture Opportunity -->
+                    <div class="opportunity-card">
+                        <div class="opportunity-header">
+                            <div class="opportunity-title">Agriculture & Agro-industrialization</div>
+                        </div>
+                        <div class="opportunity-body">
+                            <div class="opportunity-desc">
+                                Value-addition processing plants, modern farming infrastructure, and agricultural technology. Uganda is Africa's largest coffee exporter with 35 million hectares of arable land and 12 million hectares suitable for agriculture.
+                            </div>
+                            <div class="opportunity-contact">
+                                <div class="contact-title">Investment Facilitation:</div>
+                                <div class="contact-details">
+                                    <a href="https://www.ugandainvest.go.ug" target="_blank" class="contact-button web">
+                                        <i class="fas fa-globe"></i> UIA Portal
+                                    </a>
+                                    <a href="mailto:info@ugandainvest.go.ug" class="contact-button email">
+                                        <i class="fas fa-envelope"></i> Contact UIA
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tourism Opportunity -->
+                    <div class="opportunity-card">
+                        <div class="opportunity-header">
+                            <div class="opportunity-title">Tourism & Hospitality</div>
+                        </div>
+                        <div class="opportunity-body">
+                            <div class="opportunity-desc">
+                                Eco-lodges, adventure tourism facilities, cultural tourism experiences, and MICE (Meetings, Incentives, Conferences, Events) infrastructure. Uganda offers diverse wildlife, mountain gorillas, and scenic attractions.
+                            </div>
+                            <div class="opportunity-contact">
+                                <div class="contact-title">Investment Facilitation:</div>
+                                <div class="contact-details">
+                                    <a href="https://www.ugandainvest.go.ug" target="_blank" class="contact-button web">
+                                        <i class="fas fa-globe"></i> UIA Portal
+                                    </a>
+                                    <a href="mailto:info@ugandainvest.go.ug" class="contact-button email">
+                                        <i class="fas fa-envelope"></i> Contact UIA
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mining Opportunity -->
+                    <div class="opportunity-card">
+                        <div class="opportunity-header">
+                            <div class="opportunity-title">Mineral Value Addition</div>
+                        </div>
+                        <div class="opportunity-body">
+                            <div class="opportunity-desc">
+                                Mining and processing of minerals including gold, copper, cobalt, iron ore, limestone, phosphates, and other valuable mineral resources. Focus on value-addition rather than raw material export.
+                            </div>
+                            <div class="opportunity-contact">
+                                <div class="contact-title">Investment Facilitation:</div>
+                                <div class="contact-details">
+                                    <a href="https://www.ugandainvest.go.ug" target="_blank" class="contact-button web">
+                                        <i class="fas fa-globe"></i> UIA Portal
+                                    </a>
+                                    <a href="mailto:info@ugandainvest.go.ug" class="contact-button email">
+                                        <i class="fas fa-envelope"></i> Contact UIA
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Energy Opportunity -->
+                    <div class="opportunity-card">
+                        <div class="opportunity-header">
+                            <div class="opportunity-title">Oil, Gas & Renewable Energy</div>
+                        </div>
+                        <div class="opportunity-body">
+                            <div class="opportunity-desc">
+                                Petroleum refining infrastructure, renewable energy projects, hydroelectric power development, solar and wind energy installations. Uganda has confirmed oil reserves and significant renewable energy potential.
+                            </div>
+                            <div class="opportunity-contact">
+                                <div class="contact-title">Investment Facilitation:</div>
+                                <div class="contact-details">
+                                    <a href="https://www.ugandainvest.go.ug" target="_blank" class="contact-button web">
+                                        <i class="fas fa-globe"></i> UIA Portal
+                                    </a>
+                                    <a href="mailto:info@ugandainvest.go.ug" class="contact-button email">
+                                        <i class="fas fa-envelope"></i> Contact UIA
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ICT Opportunity -->
+                    <div class="opportunity-card">
+                        <div class="opportunity-header">
+                            <div class="opportunity-title">ICT & Innovation</div>
+                        </div>
+                        <div class="opportunity-body">
+                            <div class="opportunity-desc">
+                                Technology startups, fintech solutions, business process outsourcing, software development, digital infrastructure, and innovation hubs. Uganda has a growing tech ecosystem and digital payment adoption.
+                            </div>
+                            <div class="opportunity-contact">
+                                <div class="contact-title">Investment Facilitation:</div>
+                                <div class="contact-details">
+                                    <a href="https://www.ugandainvest.go.ug" target="_blank" class="contact-button web">
+                                        <i class="fas fa-globe"></i> UIA Portal
+                                    </a>
+                                    <a href="mailto:info@ugandainvest.go.ug" class="contact-button email">
+                                        <i class="fas fa-envelope"></i> Contact UIA
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Manufacturing Opportunity -->
+                    <div class="opportunity-card">
+                        <div class="opportunity-header">
+                            <div class="opportunity-title">Manufacturing</div>
+                        </div>
+                        <div class="opportunity-body">
+                            <div class="opportunity-desc">
+                                Pharmaceuticals, edible oils, textiles and garments, electronics assembly, automotive assembly, and other industrial manufacturing in specialized economic zones and industrial parks.
+                            </div>
+                            <div class="opportunity-contact">
+                                <div class="contact-title">Investment Facilitation:</div>
+                                <div class="contact-details">
+                                    <a href="https://www.ugandainvest.go.ug" target="_blank" class="contact-button web">
+                                        <i class="fas fa-globe"></i> UIA Portal
+                                    </a>
+                                    <a href="mailto:info@ugandainvest.go.ug" class="contact-button email">
+                                        <i class="fas fa-envelope"></i> Contact UIA
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tax Calculator Page -->
+        <div class="page" id="taxPage">
+            <button class="back-btn" onclick="showPage('mainPage')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            <div class="page-header">
+                <h1>Tax & Incentives Calculator</h1>
+                <p>Calculate your tax obligations and discover available incentives for businesses in Uganda</p>
+            </div>
+            <div class="page-content">
+                <div class="calculator-container">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-briefcase"></i> Business Type
+                            </label>
+                            <select class="form-select" id="businessType">
+                                <option value="small">Small Business (Turnover < 150M UGX)</option>
+                                <option value="medium">Medium Business (150M - 10B UGX)</option>
+                                <option value="large">Large Business (> 10B UGX)</option>
+                                <option value="export">Export-Oriented Business</option>
+                                <option value="manufacturing">Manufacturing</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-money-bill-wave"></i> Annual Turnover (UGX)
+                            </label>
+                            <input type="number" class="form-input" id="annualTurnover" placeholder="e.g., 500000000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-chart-line"></i> Taxable Profit (UGX)
+                            </label>
+                            <input type="number" class="form-input" id="taxableProfit" placeholder="e.g., 100000000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-map-marker-alt"></i> Location
+                            </label>
+                            <select class="form-select" id="businessLocation">
+                                <option value="kampala">Kampala</option>
+                                <option value="industrial-park">Industrial Park</option>
+                                <option value="export-zone">Export Processing Zone</option>
+                                <option value="rural">Rural Area</option>
+                            </select>
+                        </div>
+                        <button class="calculate-btn" onclick="calculateTax()">
+                            <i class="fas fa-calculator"></i> Calculate Tax & Incentives
+                        </button>
+                    </div>
+                    <div class="result-box" id="taxResult"></div>
+                </div>
+                
+                <div class="agency-card" style="margin-top: 40px;">
+                    <div class="agency-header">
+                        <div class="agency-logo">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="agency-info">
+                            <div class="agency-name">Uganda Revenue Authority (URA)</div>
+                            <div class="agency-role">Tax Consultation & Support</div>
+                            <div class="agency-contact">
+                                <a href="https://ura.go.ug" target="_blank" class="contact-button web">
+                                    <i class="fas fa-globe"></i> URA Website
+                                </a>
+                                <a href="mailto:info@ura.go.ug" class="contact-button email">
+                                    <i class="fas fa-envelope"></i> Email URA
+                                </a>
+                                <div class="contact-button">
+                                    <i class="fas fa-phone"></i> 0800 117 000
+                                </div>
+                                <button class="contact-button about" onclick="showAgencyDetail('ura')">
+                                    <i class="fas fa-info-circle"></i> About URA
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agency-body">
+                        <p style="font-size: 1rem; margin-bottom: 16px; color: var(--gray-600);">For detailed tax consultation and compliance assistance, contact URA directly. They offer:</p>
+                        <ul style="margin: 16px 0 16px 32px; color: var(--gray-600); font-size: 0.875rem; line-height: 1.6;">
+                            <li>Free tax education workshops and webinars</li>
+                            <li>One-on-one consultation services via appointment</li>
+                            <li>Online tax filing support through E-Tax Portal</li>
+                            <li>Customized tax planning for businesses</li>
+                            <li>EFRIS implementation assistance</li>
+                        </ul>
+                        <p style="font-size: 1rem; color: var(--gray-600);">Visit their website for comprehensive tax guides, forms, and current rates.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agency Detail Pages -->
+        <!-- URSB Detail Page -->
+        <div class="page" id="ursbDetail">
+            <button class="back-btn" onclick="showPage('servicesPage')">
+                <i class="fas fa-arrow-left"></i> Back to Services
+            </button>
+            <div class="agency-detail">
+                <div class="agency-hero">
+                    <h1>Uganda Registration Services Bureau</h1>
+                    <p>Business Registration & Intellectual Property Authority</p>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-title">Agency Overview</div>
+                    <p>URSB is Uganda's premier business registration authority, established to provide efficient and modern business registration services. In 2024, URSB completed full digitization with the launch of the Online Business Registration System (OBRS), revolutionizing how businesses register and maintain compliance in Uganda.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-star"></i> 2024 Achievements
+                        </div>
+                        <p><strong>23,789 new companies registered</strong> in FY 2022/23 with total revenue of <strong>UGX 77.14 billion</strong>. Complete digitization achieved in July 2024 with mobile money payment integration.</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Contact Information</div>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                            <div>
+                                <strong>Website</strong><br>
+                                <a href="https://ursb.go.ug" target="_blank">ursb.go.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-laptop"></i></div>
+                            <div>
+                                <strong>Online Portal</strong><br>
+                                <a href="https://obrs.ursb.go.ug" target="_blank">obrs.ursb.go.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +256 414 233 219
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Toll Free</strong><br>
+                                0800 100 006
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>General Email</strong><br>
+                                ursb@ursb.go.ug
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <strong>Address</strong><br>
+                                Plot 1 Baskerville Avenue, Kololo, Kampala
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Core Services</div>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-title">Online Business Registration</div>
+                            <div class="service-desc">Complete company registration via OBRS portal with mobile money payments and real-time processing</div>
+                            <div class="service-tag">Digital</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Business Names Registration</div>
+                            <div class="service-desc">Business name reservation and registration for sole proprietorships and partnerships</div>
+                            <div class="service-tag">Core Service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Intellectual Property</div>
+                            <div class="service-desc">Trademark, patent, industrial design, and utility model registration and protection</div>
+                            <div class="service-tag">IP Services</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">SIMPO Registry</div>
+                            <div class="service-desc">Security Interest in Movable Property registration for asset-based lending</div>
+                            <div class="service-tag">New Service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Annual Returns</div>
+                            <div class="service-desc">Online filing and management of company annual returns and compliance documents</div>
+                            <div class="service-tag">Compliance</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Document Authentication</div>
+                            <div class="service-desc">Certification and authentication of business documents and certificates</div>
+                            <div class="service-tag">Support Service</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Recent Developments</div>
+                    <ul style="line-height: 1.8; color: var(--gray-700);">
+                        <li><strong>April 2024:</strong> Launch of Online Business Registration System (OBRS) enabling complete digital registration</li>
+                        <li><strong>July 2024:</strong> Full digitization of all records and processes completed</li>
+                        <li><strong>2024:</strong> Integration of mobile money payments (MTN, Airtel) for registration fees</li>
+                        <li><strong>2024:</strong> Civil registration functions transferred to NIRA, allowing focus on business services</li>
+                        <li><strong>WhatsApp Support:</strong> Customer service available via +256 712 448 448</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- URA Detail Page -->
+        <div class="page" id="uraDetail">
+            <button class="back-btn" onclick="showPage('servicesPage')">
+                <i class="fas fa-arrow-left"></i> Back to Services
+            </button>
+            <div class="agency-detail">
+                <div class="agency-hero">
+                    <h1>Uganda Revenue Authority</h1>
+                    <p>Tax Collection & Compliance Authority</p>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-title">Agency Overview</div>
+                    <p>URA is Uganda's premier revenue collection agency, responsible for tax administration, customs services, and trade facilitation. Under Commissioner General John Musinguzi Rujoki, URA achieved historic performance in 2024/25, collecting Shs31.3 trillion and achieving the first budget surplus in nearly a decade.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-trophy"></i> Historic Achievement 2024/25
+                        </div>
+                        <p><strong>Shs31.3 trillion collected</strong> (100.84% of target) with a <strong>Shs100 billion surplus</strong> - the first turnaround in nearly 10 years.</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Contact Information</div>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                            <div>
+                                <strong>Website</strong><br>
+                                <a href="https://ura.go.ug" target="_blank">ura.go.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +256 323 443 610
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Toll Free</strong><br>
+                                0800 117 000
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>General Email</strong><br>
+                                info@ura.go.ug
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>Services Email</strong><br>
+                                services@ura.go.ug
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <strong>Address</strong><br>
+                                URA Tower, Nakawa Industrial Area, Kampala
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Core Services</div>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-title">Tax Registration</div>
+                            <div class="service-desc">TIN, VAT, PAYE registration via E-Tax Portal with digital certificates</div>
+                            <div class="service-tag">Core Service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">EFRIS Compliance</div>
+                            <div class="service-desc">Electronic Fiscal Receipting and Invoicing System - mandatory for VAT taxpayers</div>
+                            <div class="service-tag">Digital</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Digital Tax Stamps</div>
+                            <div class="service-desc">DTS for cigarettes, spirits, and other excisable products</div>
+                            <div class="service-tag">Compliance</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Customs Services</div>
+                            <div class="service-desc">Import/export clearance, customs valuation, and trade facilitation</div>
+                            <div class="service-tag">Trade</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Tax Education</div>
+                            <div class="service-desc">Workshops, webinars, and training programs for taxpayer education</div>
+                            <div class="service-tag">Support</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">E-Tax Portal</div>
+                            <div class="service-desc">Online tax filing, payment, and account management platform</div>
+                            <div class="service-tag">Digital</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Recent Developments</div>
+                    <ul style="line-height: 1.8; color: var(--gray-700);">
+                        <li><strong>2024/25:</strong> Historic revenue collection of Shs31.3 trillion with Shs100 billion surplus</li>
+                        <li><strong>October 2023:</strong> Enhanced E-Tax Portal launch with multi-language support</li>
+                        <li><strong>EFRIS Enforcement:</strong> UGX 6 million penalties for non-compliance introduced</li>
+                        <li><strong>Real-time Compliance:</strong> Integration with goAML system for suspicious transaction monitoring</li>
+                        <li><strong>Mobile Money Integration:</strong> Tax payments now possible via mobile money platforms</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- UIA Detail Page -->
+        <div class="page" id="uiaDetail">
+            <button class="back-btn" onclick="showPage('investmentPage')">
+                <i class="fas fa-arrow-left"></i> Back to Investment
+            </button>
+            <div class="agency-detail">
+                <div class="agency-hero">
+                    <h1>Uganda Investment Authority</h1>
+                    <p>Investment Promotion & Facilitation</p>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-title">Agency Overview</div>
+                    <p>UIA is Uganda's apex investment promotion agency, facilitating domestic and foreign investment through the One-Stop Centre, industrial park development, and comprehensive aftercare services. In 2024, UIA established a dedicated Domestic Investment Division to support Ugandan investors and implemented new board leadership under Dr. Robert Kyamanywa.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-rocket"></i> 2024 Developments
+                        </div>
+                        <p><strong>Domestic Investment Division launched</strong> in May 2024, targeting <strong>50% domestic investment by 2025</strong>. New board leadership inaugurated in October 2024.</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Contact Information</div>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                            <div>
+                                <strong>Website</strong><br>
+                                <a href="https://www.ugandainvest.go.ug" target="_blank">ugandainvest.go.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-laptop"></i></div>
+                            <div>
+                                <strong>eBiz Portal</strong><br>
+                                <a href="https://www.ebiz.go.ug" target="_blank">ebiz.go.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +256 414 301 000
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>Email</strong><br>
+                                info@ugandainvest.go.ug
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <strong>Address</strong><br>
+                                Plot 1, Baskerville Avenue, Kololo, Kampala
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-briefcase"></i></div>
+                            <div>
+                                <strong>Investment Thresholds</strong><br>
+                                Foreign: USD 250,000 | Domestic: USD 50,000
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Investment Services</div>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-title">48-Hour Investment Licensing</div>
+                            <div class="service-desc">Fast-track investment license processing through eBiz portal</div>
+                            <div class="service-tag">Fast Track</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">One-Stop Centre</div>
+                            <div class="service-desc">Company registration, permits, TINs, work visas, and land titles</div>
+                            <div class="service-tag">Integrated</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Industrial Parks</div>
+                            <div class="service-desc">Serviced land allocation in 25+ industrial parks nationwide</div>
+                            <div class="service-tag">Infrastructure</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Domestic Investment Division</div>
+                            <div class="service-desc">Dedicated support for Ugandan investors with lower thresholds</div>
+                            <div class="service-tag">New 2024</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Investor Aftercare</div>
+                            <div class="service-desc">Post-investment support, matchmaking, and business advisory services</div>
+                            <div class="service-tag">Support</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Investment Promotion</div>
+                            <div class="service-desc">Market research, investment opportunity identification, and matchmaking</div>
+                            <div class="service-tag">Promotion</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Recent Developments</div>
+                    <ul style="line-height: 1.8; color: var(--gray-700);">
+                        <li><strong>May 2024:</strong> Domestic Investment Division launched targeting 50% domestic investment</li>
+                        <li><strong>October 2024:</strong> New board leadership inaugurated under Dr. Robert Kyamanywa</li>
+                        <li><strong>2024 Tax Reforms:</strong> Reduced capital gains tax (5%) and private equity exemptions</li>
+                        <li><strong>eBiz Enhancement:</strong> Improved online investment licensing portal</li>
+                        <li><strong>Industrial Parks:</strong> Continued expansion with new parks in development</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- NSSF Detail Page -->
+        <div class="page" id="nssfDetail">
+            <button class="back-btn" onclick="showPage('servicesPage')">
+                <i class="fas fa-arrow-left"></i> Back to Services
+            </button>
+            <div class="agency-detail">
+                <div class="agency-hero">
+                    <h1>National Social Security Fund</h1>
+                    <p>Social Security & Employee Benefits</p>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-title">Agency Overview</div>
+                    <p>NSSF is Uganda's premier social security institution, managing retirement savings and benefits for formal and informal workers. With assets of UGX 22.13 trillion (US$6.065 billion) as of June 2024, NSSF achieved their strategic target 1.5 years ahead of schedule and launched the innovative Smartlife Flexi Savings Plan in November 2024.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-chart-line"></i> Milestone Achievement
+                        </div>
+                        <p><strong>UGX 22.13 trillion in assets</strong> (US$6.065 billion) achieved in June 2024, reaching strategic target <strong>1.5 years early</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Contact Information</div>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                            <div>
+                                <strong>Website</strong><br>
+                                <a href="https://www.nssfug.org" target="_blank">nssfug.org</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-mobile-alt"></i></div>
+                            <div>
+                                <strong>Mobile App</strong><br>
+                                <a href="https://nssfgo.app" target="_blank">NSSF GO App</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +256 313 331 755
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Toll Free</strong><br>
+                                0800 286 773
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>Email</strong><br>
+                                customerservice@nssfug.org
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <strong>Address</strong><br>
+                                Workers House, 14th Floor, Pilkington Road, Kampala
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Core Services</div>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-title">Employer Registration</div>
+                            <div class="service-desc">Register employees and manage contributions via NSSF GO mobile app</div>
+                            <div class="service-tag">Digital</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Contribution Management</div>
+                            <div class="service-desc">15% total contribution rate (5% employee, 10% employer) with mobile money payments</div>
+                            <div class="service-tag">Core Service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Retirement Benefits</div>
+                            <div class="service-desc">Lump sum and monthly pension payments for qualified members</div>
+                            <div class="service-tag">Benefits</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Smartlife Flexi Savings</div>
+                            <div class="service-desc">Voluntary savings plan with competitive returns launched November 2024</div>
+                            <div class="service-tag">New Product</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Disability Benefits</div>
+                            <div class="service-desc">Compensation for work-related injuries and permanent disabilities</div>
+                            <div class="service-tag">Benefits</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Survivor Benefits</div>
+                            <div class="service-desc">Benefits for dependants of deceased members</div>
+                            <div class="service-tag">Benefits</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Recent Developments</div>
+                    <ul style="line-height: 1.8; color: var(--gray-700);">
+                        <li><strong>June 2024:</strong> Assets reached UGX 22.13 trillion, achieving strategic target 1.5 years early</li>
+                        <li><strong>November 2024:</strong> Smartlife Flexi Savings Plan launched for voluntary savings</li>
+                        <li><strong>January 2022:</strong> NSSF Act amendment expanded coverage to all formal and informal workers</li>
+                        <li><strong>NSSF GO App:</strong> Mobile app provides comprehensive employer services and mobile money payments</li>
+                        <li><strong>Digital Transformation:</strong> Real-time benefit tracking and online contribution management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CMA Detail Page -->
+        <div class="page" id="cmaDetail">
+            <button class="back-btn" onclick="showPage('servicesPage')">
+                <i class="fas fa-arrow-left"></i> Back to Services
+            </button>
+            <div class="agency-detail">
+                <div class="agency-hero">
+                    <h1>Capital Markets Authority Uganda</h1>
+                    <p>Capital Markets Regulation & Development</p>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-title">Agency Overview</div>
+                    <p>CMA is Uganda's capital markets regulator, overseeing securities trading, investment management, and collective investment schemes. Under CEO Josephine Okui Ossiya (appointed February 2024), CMA has seen remarkable growth in the collective investment schemes market, which expanded from Shs 2.8 trillion to Shs 4.2 trillion by March 2025.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-trending-up"></i> Market Growth 2024-2025
+                        </div>
+                        <p>Collective investment schemes market grew from <strong>Shs 2.8 trillion to Shs 4.2 trillion</strong> with fund accounts increasing by <strong>12.8%</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Contact Information</div>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                            <div>
+                                <strong>Website</strong><br>
+                                <a href="https://cmauganda.co.ug" target="_blank">cmauganda.co.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +256 414 342 788/791
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Alternative</strong><br>
+                                +256 312 264 950/951
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>Email</strong><br>
+                                info@cmauganda.co.ug
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <strong>Address</strong><br>
+                                Uganda Business Facilitation Centre, 8th Floor, Kololo
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-user"></i></div>
+                            <div>
+                                <strong>CEO</strong><br>
+                                Josephine Okui Ossiya (Feb 2024)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Regulatory Services</div>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-title">Securities Licensing</div>
+                            <div class="service-desc">License and supervise stockbrokers, investment advisors, and dealers</div>
+                            <div class="service-tag">Licensing</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Fund Manager Authorization</div>
+                            <div class="service-desc">Authorize and regulate investment fund managers and advisors</div>
+                            <div class="service-tag">Authorization</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Unit Trust Oversight</div>
+                            <div class="service-desc">Supervise 22 unit trust schemes and collective investment vehicles</div>
+                            <div class="service-tag">Supervision</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Market Surveillance</div>
+                            <div class="service-desc">Monitor trading activities and ensure market integrity</div>
+                            <div class="service-tag">Monitoring</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Investor Education</div>
+                            <div class="service-desc">Financial literacy programs and investor protection initiatives</div>
+                            <div class="service-tag">Education</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Market Development</div>
+                            <div class="service-desc">Policy development for capital markets growth and innovation</div>
+                            <div class="service-tag">Development</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Market Statistics</div>
+                    <div class="highlight-box">
+                        <p><strong>Current Market Composition:</strong></p>
+                        <ul style="margin: 12px 0 0 20px; line-height: 1.6;">
+                            <li>2 Stock Exchanges</li>
+                            <li>8 Licensed Brokers</li>
+                            <li>12 Fund Managers</li>
+                            <li>22 Unit Trust Schemes</li>
+                            <li>Collective Investment Schemes: Shs 4.2 trillion (March 2025)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UCC Detail Page -->
+        <div class="page" id="uccDetail">
+            <button class="back-btn" onclick="showPage('servicesPage')">
+                <i class="fas fa-arrow-left"></i> Back to Services
+            </button>
+            <div class="agency-detail">
+                <div class="agency-hero">
+                    <h1>Uganda Communications Commission</h1>
+                    <p>Telecommunications & Broadcasting Regulation</p>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-title">Agency Overview</div>
+                    <p>UCC regulates Uganda's telecommunications and broadcasting sectors, ensuring quality service delivery, consumer protection, and sector development. Under Executive Director George William Nyombi Thembo (appointed November 2023), UCC has enhanced digital service delivery and strengthened content regulation frameworks.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-digital-tachograph"></i> Digital Enhancement 2024
+                        </div>
+                        <p><strong>Comprehensive online licensing</strong> through eServices platform launched, streamlining all telecommunications and broadcasting applications.</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Contact Information</div>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                            <div>
+                                <strong>Website</strong><br>
+                                <a href="https://www.ucc.co.ug" target="_blank">ucc.co.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-laptop"></i></div>
+                            <div>
+                                <strong>eServices Portal</strong><br>
+                                <a href="https://eservices.ucc.co.ug" target="_blank">eservices.ucc.co.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +256 414 339 000
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Consumer Affairs</strong><br>
+                                0800 222 777
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>Email</strong><br>
+                                ucc@ucc.co.ug
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <strong>Address</strong><br>
+                                UCC House, Plot 42-44, Spring Road, Bugolobi
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Regulatory Services</div>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-title">Telecommunications Licensing</div>
+                            <div class="service-desc">License telecom operators, service providers, and infrastructure companies</div>
+                            <div class="service-tag">Licensing</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Broadcasting Authorization</div>
+                            <div class="service-desc">TV, radio, and online media licensing and regulation</div>
+                            <div class="service-tag">Broadcasting</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Spectrum Management</div>
+                            <div class="service-desc">Radio frequency allocation, planning, and interference monitoring</div>
+                            <div class="service-tag">Spectrum</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Equipment Type Approval</div>
+                            <div class="service-desc">Type approval for telecommunications and broadcasting equipment</div>
+                            <div class="service-tag">Technical</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Content Regulation</div>
+                            <div class="service-desc">Content standards and guidelines for all media platforms</div>
+                            <div class="service-tag">Content</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Consumer Protection</div>
+                            <div class="service-desc">Quality of service monitoring and consumer complaints handling</div>
+                            <div class="service-tag">Consumer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Recent Developments</div>
+                    <ul style="line-height: 1.8; color: var(--gray-700);">
+                        <li><strong>2024:</strong> Comprehensive online licensing through eServices platform launched</li>
+                        <li><strong>December 2024:</strong> New content regulation directives targeting vulgar content</li>
+                        <li><strong>October 2024:</strong> Major enforcement operations against unlicensed broadcasters</li>
+                        <li><strong>November 2023:</strong> George William Nyombi Thembo appointed as Executive Director</li>
+                        <li><strong>Digital Transformation:</strong> Enhanced online application and payment systems</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIA Detail Page -->
+        <div class="page" id="fiaDetail">
+            <button class="back-btn" onclick="showPage('servicesPage')">
+                <i class="fas fa-arrow-left"></i> Back to Services
+            </button>
+            <div class="agency-detail">
+                <div class="agency-hero">
+                    <h1>Financial Intelligence Authority</h1>
+                    <p>Anti-Money Laundering & Financial Intelligence</p>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-title">Agency Overview</div>
+                    <p>FIA is Uganda's financial intelligence unit, responsible for combating money laundering, terrorism financing, and other financial crimes. Under Executive Director Samuel Were Wandera (appointed 2024), FIA achieved the historic milestone of Uganda's removal from the FATF grey list in 2024, significantly improving the business environment.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-trophy"></i> Historic Achievement 2024
+                        </div>
+                        <p><strong>Uganda removed from FATF grey list</strong> in 2024, a major achievement for the business environment and international financial relations.</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Contact Information</div>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                            <div>
+                                <strong>Website</strong><br>
+                                <a href="https://www.fia.go.ug" target="_blank">fia.go.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-laptop"></i></div>
+                            <div>
+                                <strong>Reporting Portal</strong><br>
+                                <a href="https://wb.fia.go.ug" target="_blank">wb.fia.go.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +256 41 789 2600
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>General Email</strong><br>
+                                fia@fia.go.ug
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>Compliance Email</strong><br>
+                                compliance@fia.go.ug
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <strong>Address</strong><br>
+                                Rwenzori Towers, Plot 6, Nakasero Road, Wing A & B
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Core Services</div>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-title">AML/CFT Compliance</div>
+                            <div class="service-desc">Anti-money laundering and counter-terrorism financing oversight and supervision</div>
+                            <div class="service-tag">Compliance</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">STR Processing</div>
+                            <div class="service-desc">Suspicious transaction reporting via enhanced goAML system with URA integration</div>
+                            <div class="service-tag">Reporting</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Business Registration</div>
+                            <div class="service-desc">Register reporting institutions and designated non-financial businesses</div>
+                            <div class="service-tag">Registration</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Public Reporting</div>
+                            <div class="service-desc">Community-driven financial crime reporting platform launched 2024</div>
+                            <div class="service-tag">New Platform</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Training & Guidance</div>
+                            <div class="service-desc">AML/CFT training programs and compliance guidance for institutions</div>
+                            <div class="service-tag">Training</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Financial Analysis</div>
+                            <div class="service-desc">Financial intelligence analysis and investigation support</div>
+                            <div class="service-tag">Analysis</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Recent Developments</div>
+                    <ul style="line-height: 1.8; color: var(--gray-700);">
+                        <li><strong>2024:</strong> Uganda removed from FATF grey list - major business environment improvement</li>
+                        <li><strong>2024/25:</strong> Compliance rate improved from 63% to 72%</li>
+                        <li><strong>2024:</strong> Public Reporting Platform launched for community financial crime reporting</li>
+                        <li><strong>2024:</strong> Enhanced goAML system with URA integration for tax compliance</li>
+                        <li><strong>December 2024:</strong> New board inaugurated with Samuel Were Wandera as Executive Director</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- MoFPED Detail Page -->
+        <div class="page" id="mofpedDetail">
+            <button class="back-btn" onclick="showPage('servicesPage')">
+                <i class="fas fa-arrow-left"></i> Back to Services
+            </button>
+            <div class="agency-detail">
+                <div class="agency-hero">
+                    <h1>Ministry of Finance, Planning & Economic Development</h1>
+                    <p>Economic Policy & Financial Oversight</p>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-title">Ministry Overview</div>
+                    <p>MoFPED is Uganda's apex economic policy ministry, responsible for national planning, budget management, tax policy, and oversight of key government agencies. The ministry launched the ambitious Ten-Fold Growth Strategy (ATMS) in 2024/25, targeting economic expansion from USD 50 billion to USD 500 billion by 2040.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-rocket"></i> Ten-Fold Growth Strategy 2024
+                        </div>
+                        <p><strong>Target: USD 50 billion to USD 500 billion by 2040</strong> through agro-industrialization, tourism, mineral development, and innovation.</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Contact Information</div>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                            <div>
+                                <strong>Website</strong><br>
+                                <a href="https://www.finance.go.ug" target="_blank">finance.go.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-laptop"></i></div>
+                            <div>
+                                <strong>Budget Portal</strong><br>
+                                <a href="https://www.budget.finance.go.ug" target="_blank">budget.finance.go.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +256 414 707 305/440
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Budget Hotline</strong><br>
+                                0800 229 229
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>General Email</strong><br>
+                                info@finance.go.ug
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <strong>Address</strong><br>
+                                Plot 2/12 Apollo Kaggwa Road, Kampala
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Key Functions</div>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-title">Economic Planning</div>
+                            <div class="service-desc">National development planning and Ten-Fold Growth Strategy implementation</div>
+                            <div class="service-tag">Planning</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Budget Management</div>
+                            <div class="service-desc">National budget formulation, execution, and monitoring</div>
+                            <div class="service-tag">Budget</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Tax Policy</div>
+                            <div class="service-desc">Tax policy development and revenue administration oversight</div>
+                            <div class="service-tag">Policy</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Investment Climate</div>
+                            <div class="service-desc">Investment policy reforms and private sector development initiatives</div>
+                            <div class="service-tag">Investment</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Public-Private Partnerships</div>
+                            <div class="service-desc">PPP project facilitation and oversight through dedicated units</div>
+                            <div class="service-tag">PPP</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Agency Oversight</div>
+                            <div class="service-desc">Oversight of URA, UIA, CMA, and other key government agencies</div>
+                            <div class="service-tag">Oversight</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Recent Achievements</div>
+                    <ul style="line-height: 1.8; color: var(--gray-700);">
+                        <li><strong>FY 2023/24:</strong> Uganda achieved 6.0% GDP growth, surpassing Sub-Saharan Africa average</li>
+                        <li><strong>2024/25:</strong> Ten-Fold Growth Strategy launched targeting USD 500 billion economy by 2040</li>
+                        <li><strong>July 2025:</strong> INVITE Project received first UGX 170 billion tranche for private sector support</li>
+                        <li><strong>2024 Reforms:</strong> Tax policy reforms including reduced capital gains tax and private equity exemptions</li>
+                        <li><strong>Digital Enhancement:</strong> Improved budget portal and online services</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- UNBS Detail Page -->
+        <div class="page" id="unbsDetail">
+            <button class="back-btn" onclick="showPage('servicesPage')">
+                <i class="fas fa-arrow-left"></i> Back to Services
+            </button>
+            <div class="agency-detail">
+                <div class="agency-hero">
+                    <h1>Uganda National Bureau of Standards</h1>
+                    <p>Quality Standards & Certification Authority</p>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-title">Agency Overview</div>
+                    <p>UNBS is Uganda's national standards body, responsible for developing standards, providing certification services, and ensuring product quality for both local and export markets. UNBS has implemented subsidized certification fees for MSMEs and harmonized over 505 standards with the East African Community.</p>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">
+                            <i class="fas fa-handshake"></i> MSME Support 2024
+                        </div>
+                        <p><strong>Subsidized certification fees</strong> for MSMEs (UGX 250,000 + testing) and <strong>batch certification options</strong> introduced to support small businesses.</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Contact Information</div>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-globe"></i></div>
+                            <div>
+                                <strong>Website</strong><br>
+                                <a href="https://www.unbs.go.ug" target="_blank">unbs.go.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-laptop"></i></div>
+                            <div>
+                                <strong>Certification Portal</strong><br>
+                                <a href="https://cims.unbs.go.ug" target="_blank">cims.unbs.go.ug</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Phone</strong><br>
+                                0417 333 250/251/252
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <strong>Toll Free</strong><br>
+                                0800 133 133
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <strong>Email</strong><br>
+                                info@unbs.go.ug
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <strong>Address</strong><br>
+                                Standards House, Bweyogerere Industrial Park
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Certification Services</div>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-title">Q-Mark Certification</div>
+                            <div class="service-desc">Product quality certification for local and export markets with UNBS quality mark</div>
+                            <div class="service-tag">Product</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">ISO Management Systems</div>
+                            <div class="service-desc">ISO 9001, ISO 22000, ISO 14001, and other management systems certification</div>
+                            <div class="service-tag">Systems</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Laboratory Testing</div>
+                            <div class="service-desc">Comprehensive product testing and quality assurance laboratory services</div>
+                            <div class="service-tag">Testing</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Export Certification</div>
+                            <div class="service-desc">Export quality certification for international market access</div>
+                            <div class="service-tag">Export</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Standards Development</div>
+                            <div class="service-desc">National standards development and harmonization with EAC and ISO</div>
+                            <div class="service-tag">Standards</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-title">Import Clearance</div>
+                            <div class="service-desc">Pre-export verification and import clearance services</div>
+                            <div class="service-tag">Import</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Recent Developments</div>
+                    <ul style="line-height: 1.8; color: var(--gray-700);">
+                        <li><strong>2024-2025:</strong> Subsidized certification fees for MSMEs (UGX 250,000 + testing) introduced</li>
+                        <li><strong>Standards Harmonization:</strong> 505 standards harmonized with EAC, 2,355 with ISO</li>
+                        <li><strong>Batch Certification:</strong> New options for small-scale producers and cooperatives</li>
+                        <li><strong>Enhanced e-Portal:</strong> Launching soon for faster import clearance and services</li>
+                        <li><strong>SANAS Accreditation:</strong> Maintained accreditation for ISO 9001 and ISO 22000 certification</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let activeFilter = 'all';
+        
+        // Comprehensive search data including all agencies and services
+        const searchData = [
+            // URSB Services
+            { category: 'services', title: 'Company Registration', description: 'Online business registration via OBRS portal', agency: 'URSB' },
+            { category: 'services', title: 'Business Names Registration', description: 'Business name reservation and registration', agency: 'URSB' },
+            { category: 'services', title: 'Trademark Registration', description: 'Protect your intellectual property and brand', agency: 'URSB' },
+            { category: 'services', title: 'Annual Returns Filing', description: 'Digital filing and company compliance', agency: 'URSB' },
+            { category: 'services', title: 'SIMPO Registry', description: 'Security Interest in Movable Property registration', agency: 'URSB' },
+
+            // URA Services
+            { category: 'services', title: 'Tax Registration', description: 'TIN, VAT registration & E-Tax Portal', agency: 'URA' },
+            { category: 'services', title: 'EFRIS Compliance', description: 'Electronic Fiscal Receipting and Invoicing', agency: 'URA' },
+            { category: 'services', title: 'Digital Tax Stamps', description: 'DTS for excisable products', agency: 'URA' },
+            { category: 'services', title: 'Customs Services', description: 'Import/export clearance and trade facilitation', agency: 'URA' },
+            { category: 'tax', title: 'Tax Incentives', description: 'Discover available tax benefits and rates', agency: 'URA' },
+
+            // NSSF Services
+            { category: 'services', title: 'Employer Registration', description: 'Register employees and manage contributions', agency: 'NSSF' },
+            { category: 'services', title: 'NSSF Contributions', description: '15% total contribution management', agency: 'NSSF' },
+            { category: 'services', title: 'Retirement Benefits', description: 'Pension and lump sum benefits processing', agency: 'NSSF' },
+            { category: 'services', title: 'Flexi Savings Plan', description: 'Voluntary savings with competitive returns', agency: 'NSSF' },
+
+            // CMA Services
+            { category: 'services', title: 'Securities Licensing', description: 'License stockbrokers and investment advisors', agency: 'CMA' },
+            { category: 'services', title: 'Unit Trust Authorization', description: 'Collective investment schemes oversight', agency: 'CMA' },
+            { category: 'services', title: 'Market Surveillance', description: 'Capital markets monitoring and regulation', agency: 'CMA' },
+
+            // UCC Services
+            { category: 'services', title: 'Telecom Licensing', description: 'License telecom operators and providers', agency: 'UCC' },
+            { category: 'services', title: 'Broadcasting Authorization', description: 'TV, radio, and online media licensing', agency: 'UCC' },
+            { category: 'services', title: 'Spectrum Management', description: 'Radio frequency allocation and monitoring', agency: 'UCC' },
+
+            // FIA Services
+            { category: 'services', title: 'AML/CFT Compliance', description: 'Anti-money laundering oversight', agency: 'FIA' },
+            { category: 'services', title: 'STR Processing', description: 'Suspicious transaction reporting', agency: 'FIA' },
+            { category: 'services', title: 'Business Registration', description: 'Register reporting institutions', agency: 'FIA' },
+
+            // UNBS Services
+            { category: 'services', title: 'Q-Mark Certification', description: 'Product quality certification', agency: 'UNBS' },
+            { category: 'services', title: 'ISO Certification', description: 'Management systems certification', agency: 'UNBS' },
+            { category: 'services', title: 'Laboratory Testing', description: 'Product testing and quality assurance', agency: 'UNBS' },
+
+            // UIA Investment Services
+            { category: 'investment', title: 'Investment Licensing', description: '48-hour investment license processing', agency: 'UIA' },
+            { category: 'investment', title: 'Industrial Parks', description: 'Serviced land in 25+ industrial parks', agency: 'UIA' },
+            { category: 'investment', title: 'One-Stop Centre', description: 'Integrated business services', agency: 'UIA' },
+            { category: 'investment', title: 'Agriculture Investment', description: 'Agro-processing and farming opportunities', agency: 'UIA' },
+            { category: 'investment', title: 'Tourism Development', description: 'Eco-tourism and hospitality opportunities', agency: 'UIA' },
+            { category: 'investment', title: 'Manufacturing', description: 'Industrial manufacturing opportunities', agency: 'UIA' },
+            { category: 'investment', title: 'Mining Investment', description: 'Mineral value addition opportunities', agency: 'UIA' },
+            { category: 'investment', title: 'Energy Projects', description: 'Oil, gas, and renewable energy', agency: 'UIA' },
+            { category: 'investment', title: 'ICT Innovation', description: 'Technology and fintech opportunities', agency: 'UIA' },
+
+            // MoFPED Services
+            { category: 'services', title: 'Economic Planning', description: 'National development planning and policy', agency: 'MoFPED' },
+            { category: 'services', title: 'Tax Policy', description: 'Tax policy development and oversight', agency: 'MoFPED' },
+            { category: 'investment', title: 'PPP Projects', description: 'Public-private partnership facilitation', agency: 'MoFPED' },
+            { category: 'investment', title: 'Ten-Fold Growth Strategy', description: 'USD 500 billion economy target by 2040', agency: 'MoFPED' }
+        ];
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function showAgencyDetail(agencyCode) {
+            const detailPageId = agencyCode + 'Detail';
+            showPage(detailPageId);
+        }
+
+        function setFilter(filter) {
+            activeFilter = filter;
+            
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Perform search with new filter
+            performSearch();
+        }
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const results = document.getElementById('searchResults');
+            
+            if (!query.trim()) {
+                results.classList.remove('show');
+                return;
+            }
+            
+            let filteredData = searchData;
+            
+            // Apply category filter
+            if (activeFilter !== 'all') {
+                filteredData = searchData.filter(item => item.category === activeFilter);
+            }
+            
+            // Apply search query
+            const searchResults = filteredData.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.description.toLowerCase().includes(query) ||
+                item.agency.toLowerCase().includes(query)
+            );
+            
+            // Display results
+            if (searchResults.length > 0) {
+                results.innerHTML = '<h3 style="margin-bottom: 16px; font-size: 1.125rem; font-weight: 700;">Search Results</h3>' + 
+                    searchResults.map(item => `
+                        <div class="result-item">
+                            <strong style="font-size: 1rem; color: var(--gray-900);">${item.title}</strong><br>
+                            <span style="color: var(--gray-600); font-size: 0.875rem; line-height: 1.6;">${item.description}</span>
+                            <div style="margin-top: 12px; display: flex; align-items: center; gap: 12px;">
+                                <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 16px; font-size: 0.75rem; font-weight: 600;">
+                                    ${item.agency}
+                                </span>
+                                <span style="background: var(--gray-200); color: var(--gray-700); padding: 4px 12px; border-radius: 16px; font-size: 0.75rem; font-weight: 600;">
+                                    ${item.category.charAt(0).toUpperCase() + item.category.slice(1)}
+                                </span>
+                            </div>
+                        </div>
+                    `).join('');
+                results.classList.add('show');
+            } else {
+                results.innerHTML = '<h3 style="font-size: 1.125rem; font-weight: 700; color: var(--gray-900);">No results found</h3><p style="font-size: 1rem; color: var(--gray-600); margin-top: 8px;">Try adjusting your search terms or filters.</p>';
+                results.classList.add('show');
+            }
+        }
+
+        function calculateTax() {
+            const businessType = document.getElementById('businessType').value;
+            const turnover = parseFloat(document.getElementById('annualTurnover').value) || 0;
+            const profit = parseFloat(document.getElementById('taxableProfit').value) || 0;
+            const location = document.getElementById('businessLocation').value;
+            
+            if (turnover <= 0 || profit <= 0) {
+                alert('Please enter valid financial figures');
+                return;
+            }
+            
+            let corporateTaxRate = 0.30; // Default 30%
+            let incentives = [];
+            
+            // Adjust tax rate based on business type
+            switch(businessType) {
+                case 'small':
+                    corporateTaxRate = 0.25; // 25% for small businesses
+                    incentives.push('Small Business Tax Rate (25%)');
+                    break;
+                case 'export':
+                    corporateTaxRate = 0.20; // 20% for export businesses
+                    incentives.push('Export Business Incentive (20% rate)');
+                    break;
+                case 'manufacturing':
+                    corporateTaxRate = 0.25;
+                    incentives.push('Manufacturing Incentive (25% rate)');
+                    break;
+            }
+            
+            // Location-based incentives
+            if (location === 'industrial-park') {
+                corporateTaxRate *= 0.9; // 10% reduction
+                incentives.push('Industrial Park Tax Holiday (10% reduction)');
+            } else if (location === 'export-zone') {
+                corporateTaxRate = 0.10; // Special rate for EPZ
+                incentives.push('Export Processing Zone Rate (10%)');
+            } else if (location === 'rural') {
+                corporateTaxRate *= 0.85; // 15% reduction
+                incentives.push('Rural Investment Allowance (15% reduction)');
+            }
+            
+            const corporateTax = profit * corporateTaxRate;
+            const vatRate = 0.18;
+            const estimatedVAT = turnover * vatRate;
+            const totalTax = corporateTax + estimatedVAT;
+            const effectiveTaxRate = (totalTax / profit) * 100;
+            
+            const resultBox = document.getElementById('taxResult');
+            resultBox.innerHTML = `
+                <div class="result-header">
+                    <i class="fas fa-file-invoice-dollar"></i> Tax Calculation Results
+                </div>
+                
+                <div class="result-details">
+                    <div class="result-item">
+                        <div class="result-label">Business Type</div>
+                        <div class="result-value">${businessType.charAt(0).toUpperCase() + businessType.slice(1)}</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Location</div>
+                        <div class="result-value">${location.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Corporate Tax Rate</div>
+                        <div class="result-value">${(corporateTaxRate * 100).toFixed(1)}%</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">VAT Rate</div>
+                        <div class="result-value">18%</div>
+                    </div>
+                </div>
+                
+                <div class="result-highlight">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 16px;">
+                        <div>
+                            <div class="result-label">Corporate Tax Due</div>
+                            <div class="result-value">UGX ${Math.round(corporateTax).toLocaleString()}</div>
+                        </div>
+                        <div>
+                            <div class="result-label">Estimated VAT</div>
+                            <div class="result-value">UGX ${Math.round(estimatedVAT).toLocaleString()}</div>
+                        </div>
+                    </div>
+                    <div style="background: var(--primary); color: white; padding: 16px; border-radius: 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                            <div>
+                                <div class="result-label" style="color: rgba(255,255,255,0.8);">Total Estimated Tax</div>
+                                <div class="result-value" style="color: white; font-size: 1.5rem;">UGX ${Math.round(totalTax).toLocaleString()}</div>
+                            </div>
+                            <div style="font-size: 1rem; background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 20px; font-weight: 700;">
+                                ${effectiveTaxRate.toFixed(1)}% Effective Rate
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                ${incentives.length > 0 ? `
+                <div style="margin-top: 24px; padding: 20px; background: var(--info-light); border-radius: 12px; border: 2px solid var(--info);">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <i class="fas fa-gift" style="color: var(--info); font-size: 1.25rem;"></i>
+                        <h3 style="font-size: 1.25rem; font-weight: 700;">Available Incentives</h3>
+                    </div>
+                    <ul style="margin-left: 24px; color: var(--gray-700); line-height: 1.8; font-size: 0.875rem;">
+                        ${incentives.map(incentive => `<li>${incentive}</li>`).join('')}
+                    </ul>
+                </div>
+                ` : ''}
+                
+                <div style="margin-top: 24px; padding: 16px; background: var(--warning-light); border-radius: 12px; border-left: 4px solid var(--warning);">
+                    <div style="display: flex; gap: 12px;">
+                        <i class="fas fa-lightbulb" style="color: var(--warning); font-size: 1.25rem; margin-top: 4px;"></i>
+                        <div style="font-size: 0.875rem; color: var(--gray-700); line-height: 1.6;">
+                            <strong>Important Note:</strong> This is an estimate based on your inputs. For accurate tax planning, compliance assistance, 
+                            and the latest rates, contact the Uganda Revenue Authority directly. Tax laws and incentives may vary based on specific circumstances.
+                        </div>
+                    </div>
+                </div>
+            `;
+            resultBox.classList.add('show');
+            
+            // Scroll to results
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Add enter key support for search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>
