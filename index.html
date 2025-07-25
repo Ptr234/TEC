@@ -74,6 +74,28 @@
             transform: scale(1.05);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
+        .email-modal {
+            backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        .modal-content {
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .modal-content.active {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .btn-email {
+            background: linear-gradient(to right, #3b82f6, #1d4ed8);
+            transition: all 0.3s ease;
+        }
+        .btn-email:hover {
+            background: linear-gradient(to right, #1d4ed8, #3b82f6);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+        }
         #searchSuggestions {
             max-height: 200px;
             overflow-y: auto;
@@ -153,7 +175,7 @@
                 <p class="text-gray-600 text-sm">Services: Coordinates government communication, facilitates media dissemination of policies and programs, promotes public awareness</p>
                 <p class="text-gray-600 text-sm">Contact: +256 414 237 141</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
-                    <a href="https://www.mediacentre.go.ug/contact-us" target="_blank" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <button onclick="openEmailModal('Government Communication', 'info@mediacentre.go.ug', 'Inquiry about Government Communication Services')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.mediacentre.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                     <a href="https://www.mediacentre.go.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
                 </div>
@@ -165,7 +187,7 @@
                 <p class="text-gray-600 text-sm">Services: Implements ICT policies, manages national IT infrastructure, promotes e-services and digital transformation</p>
                 <p class="text-gray-600 text-sm">Contact: +256 417 801 038</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
-                    <a href="https://www.nita.go.ug/contact-us" target="_blank" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <button onclick="openEmailModal('ICT Policy & Digital Transformation', 'info@nita.go.ug', 'Inquiry about ICT Policy Services')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.nita.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                     <a href="https://www.nita.go.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
                 </div>
@@ -177,7 +199,7 @@
                 <p class="text-gray-600 text-sm">Services: Regulates telecom, broadcasting, and postal services, licenses operators, develops communication infrastructure</p>
                 <p class="text-gray-600 text-sm">Contact: +256 414 339 000</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
-                    <a href="mailto:ucc@ucc.co.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <button onclick="openEmailModal('Telecom & Broadcasting Regulation', 'ucc@ucc.co.ug', 'Inquiry about Telecom Services')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.ucc.co.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                     <a href="https://www.ucc.co.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
                 </div>
@@ -189,7 +211,7 @@
                 <p class="text-gray-600 text-sm">Services: Provides national radio and TV broadcasting, public service content, and media programming</p>
                 <p class="text-gray-600 text-sm">Contact: +256 414 595 000</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
-                    <a href="https://www.ubc.go.ug/contact-us" target="_blank" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <button onclick="openEmailModal('Public Broadcasting', 'info@ubc.go.ug', 'Inquiry about Broadcasting Services')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.ubc.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                     <a href="https://www.ubc.go.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
                 </div>
@@ -201,7 +223,7 @@
                 <p class="text-gray-600 text-sm">Services: Offers ICT training, hands-on skill development, and innovation programs for students and professionals</p>
                 <p class="text-gray-600 text-sm">Contact: +256 414 220 279</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
-                    <a href="mailto:info@uict.ac.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <button onclick="openEmailModal('ICT Training', 'info@uict.ac.ug', 'Inquiry about ICT Training Programs')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.uict.ac.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                     <a href="https://www.uict.ac.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
                 </div>
@@ -213,7 +235,7 @@
                 <p class="text-gray-600 text-sm">Services: Enforces tax laws, collects corporate tax, VAT, and customs duties, supports revenue compliance</p>
                 <p class="text-gray-600 text-sm">Contact: +256 417 442 054</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
-                    <a href="mailto:info@ura.go.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <button onclick="openEmailModal('Tax Collection', 'info@ura.go.ug', 'Inquiry about Tax Services')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.ura.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                     <a href="https://www.ura.go.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
                 </div>
@@ -225,7 +247,7 @@
                 <p class="text-gray-600 text-sm">Services: Sets product standards, enforces quality assurance, supports export compliance and consumer protection</p>
                 <p class="text-gray-600 text-sm">Contact: +256 417 333 250</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
-                    <a href="mailto:info@unbs.go.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <button onclick="openEmailModal('Standards & Quality Assurance', 'info@unbs.go.ug', 'Inquiry about Quality Standards')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.unbs.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                     <a href="https://www.unbs.go.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
                 </div>
@@ -237,7 +259,7 @@
                 <p class="text-gray-600 text-sm">Services: Promotes investments, facilitates licensing, supports SMEs with advisory and aftercare services</p>
                 <p class="text-gray-600 text-sm">Contact: +256 414 301 000</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
-                    <a href="mailto:info@ugandainvest.go.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <button onclick="openEmailModal('Investment Facilitation', 'info@ugandainvest.go.ug', 'Investment Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.ugandainvest.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                     <a href="https://www.ugandainvest.go.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
                 </div>
@@ -249,7 +271,46 @@
                 <p class="text-gray-600 text-sm">Services: Manages business registration, trademarks, patents, and insolvency services</p>
                 <p class="text-gray-600 text-sm">Contact: +256 417 338 100</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
-                    <a href="mailto:ursb@ursb.go.ug" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <button onclick="openEmailModal('Business Registration', 'ursb@ursb.go.ug', 'Business Registration Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
+                    <a href="https://www.ursb.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
+                    <a href="https://www.ursb.go.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Road Infrastructure" data-keywords="road infrastructure, national roads, transport, kampala">
+                <img src="https://via.placeholder.com/50?text=UNRA" alt="Uganda National Roads Authority Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Road Infrastructure</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Develops and maintains national road network, enhances transport connectivity</p>
+                <p class="text-gray-600 text-sm">Contact: +256 312 233 100</p>
+                <div class="mt-4 flex space-x-3 flex-wrap gap-2">
+                    <button onclick="openEmailModal('Road Infrastructure', 'info@unra.go.ug', 'Infrastructure Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
+                    <a href="https://www.unra.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
+                    <a href="https://www.unra.go.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Social Security" data-keywords="social security, pensions, fund management, kampala">
+                <img src="https://github.com/Ptr234/TEC/raw/main/NSSF%20logo.png" alt="National Social Security Fund Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Social Security</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Provides social security coverage, manages pensions and retirement funds for workers</p>
+                <p class="text-gray-600 text-sm">Contact: +256 417 338 400</p>
+                <div class="mt-4 flex space-x-3 flex-wrap gap-2">
+                    <button onclick="openEmailModal('Social Security', 'info@nssfug.org', 'Social Security Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
+                    <a href="https://www.nssfug.org" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
+                    <a href="https://www.nssfug.org/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Financial Intelligence" data-keywords="financial intelligence, anti-money laundering, terrorism financing, kampala">
+                <img src="https://github.com/Ptr234/TEC/raw/main/FIA%20logo.png" alt="Financial Intelligence Authority Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Financial Intelligence</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Combats money laundering, terrorism financing, and other financial crimes</p>
+                <p class="text-gray-600 text-sm">Contact: +256 414 342 901</p>
+                <div class="mt-4 flex space-x-3 flex-wrap gap-2">
+                    <button onclick="openEmailModal('Financial Intelligence', 'info@fiaug.or.ug', 'Financial Compliance Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
+                    <a href="https://www.fiaug.or.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
+                    <a href="https://www.fiaug.or.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
+                </div>-4 py-2 rounded-lg text-sm">Email</a>
                     <a href="https://www.ursb.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                     <a href="https://www.ursb.go.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
                 </div>
@@ -304,7 +365,7 @@
                 <p class="text-gray-600 text-sm">Services: Oversees export-oriented Free Zones, promotes high-value manufacturing and trade investments</p>
                 <p class="text-gray-600 text-sm">Contact: +256 417 722 600</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
-                    <a href="https://www.freezones.go.ug/contact-us" target="_blank" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <button onclick="openEmailModal('Free-Zone Management', 'info@freezones.go.ug', 'Free Zone Investment Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.freezones.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                     <a href="https://www.freezones.go.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
                 </div>
@@ -316,11 +377,83 @@
                 <p class="text-gray-600 text-sm">Services: Formulates investment policies, oversees industrial parks and SME finance, manages economic reforms</p>
                 <p class="text-gray-600 text-sm">Contact: +256 414 707 000</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
-                    <a href="https://www.finance.go.ug/contact-us" target="_blank" class="btn-gradient text-white px-4 py-2 rounded-lg text-sm">Email</a>
+                    <button onclick="openEmailModal('Investment Policy & Reforms', 'info@finance.go.ug', 'Policy and Investment Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.finance.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
                     <a href="https://www.finance.go.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
                 </div>
             </div>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Capital Markets Regulation" data-keywords="capital markets, securities, brokers, kampala">
+                <img src="https://via.placeholder.com/50?text=CMA" alt="Capital Markets Authority Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Capital Markets Regulation</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Regulates capital markets, licenses fund managers and brokers, oversees securities issuance</p>
+                <p class="text-gray-600 text-sm">Contact: +256 414 342 788</p>
+                <div class="mt-4 flex space-x-3 flex-wrap gap-2">
+                    <button onclick="openEmailModal('Capital Markets Regulation', 'info@cmauganda.co.ug', 'Capital Markets Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
+                    <a href="https://www.cmauganda.co.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
+                    <a href="https://www.cmauganda.co.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Renewable Energy Finance" data-keywords="renewable energy, finance, guarantees, kampala">
+                <img src="https://via.placeholder.com/50?text=UECCC" alt="Uganda Energy Credit Capitalisation Company Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Renewable Energy Finance</h3>
+                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
+                <p class="text-gray-600 text-sm">Services: Provides liquidity refinance, interest-rate buy-downs, partial risk guarantees for renewable energy</p>
+                <p class="text-gray-600 text-sm">Contact: +256 312 165 200</p>
+                <div class="mt-4 flex space-x-3 flex-wrap gap-2">
+                    <button onclick="openEmailModal('Renewable Energy Finance', 'info@ueccc.or.ug', 'Renewable Energy Financing Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
+                    <a href="https://www.ueccc.or.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
+                    <a href="https://www.ueccc.or.ug/guide.pdf" download class="btn-download text-white px-4 py-2 rounded-lg text-sm">Download Guide</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Email Modal -->
+    <div id="emailModal" class="email-modal fixed inset-0 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="modal-content bg-white rounded-2xl shadow-2xl max-w-md w-full p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-800">Send Email</h3>
+                    <button onclick="closeEmailModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Organization</label>
+                    <input type="text" id="modalOrganization" readonly class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
+                    <input type="text" id="modalSenderName" placeholder="Enter your full name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Your Email</label>
+                    <input type="email" id="modalSenderEmail" placeholder="your.email@example.com" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                    <input type="text" id="modalSubject" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                    <textarea id="modalMessage" rows="4" placeholder="Dear Team,&#10;&#10;I am writing to inquire about..." class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"></textarea>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <button onclick="sendEmail()" class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-blue-800 transition duration-300 font-medium">
+                        Send Email
+                    </button>
+                    <button onclick="closeEmailModal()" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition duration-300">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Capital Markets Regulation" data-keywords="capital markets, securities, brokers, kampala">
                 <img src="https://via.placeholder.com/50?text=CMA" alt="Capital Markets Authority Logo" class="w-12 h-12 mb-4">
                 <h3 class="text-xl font-semibold text-gray-800">Capital Markets Regulation</h3>
@@ -440,7 +573,135 @@
             });
         }
 
-        // Data for suggestions and source links
+        // Email Modal Functions
+        let currentEmailData = {};
+
+        function openEmailModal(organization, email, defaultSubject) {
+            currentEmailData = { organization, email, defaultSubject };
+            
+            document.getElementById('modalOrganization').value = organization;
+            document.getElementById('modalSubject').value = defaultSubject;
+            document.getElementById('modalMessage').value = `Dear ${organization} Team,\n\nI hope this message finds you well. I am writing to inquire about your services and would appreciate more information.\n\nThank you for your time and assistance.\n\nBest regards,`;
+            
+            const modal = document.getElementById('emailModal');
+            const modalContent = modal.querySelector('.modal-content');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.add('active');
+            }, 10);
+            
+            // Clear previous form data
+            document.getElementById('modalSenderName').value = '';
+            document.getElementById('modalSenderEmail').value = '';
+            
+            // Focus on first input
+            document.getElementById('modalSenderName').focus();
+        }
+
+        function closeEmailModal() {
+            const modal = document.getElementById('emailModal');
+            const modalContent = modal.querySelector('.modal-content');
+            
+            modalContent.classList.remove('active');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function sendEmail() {
+            const senderName = document.getElementById('modalSenderName').value.trim();
+            const senderEmail = document.getElementById('modalSenderEmail').value.trim();
+            const subject = document.getElementById('modalSubject').value.trim();
+            const message = document.getElementById('modalMessage').value.trim();
+            
+            // Validation
+            if (!senderName) {
+                showNotification('Please enter your name', 'error');
+                return;
+            }
+            
+            if (!senderEmail || !isValidEmail(senderEmail)) {
+                showNotification('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            if (!subject) {
+                showNotification('Please enter a subject', 'error');
+                return;
+            }
+            
+            if (!message) {
+                showNotification('Please enter a message', 'error');
+                return;
+            }
+            
+            // Create email body with sender information
+            const emailBody = `From: ${senderName} (${senderEmail})\n\n${message}\n\n---\nSent via Ontester Uganda Directory`;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:${currentEmailData.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            showNotification('Email client opened successfully!', 'success');
+            
+            // Close modal after a short delay
+            setTimeout(() => {
+                closeEmailModal();
+            }, 1500);
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg text-white font-medium transform transition-all duration-300 translate-x-full`;
+            
+            if (type === 'success') {
+                notification.classList.add('bg-green-500');
+            } else if (type === 'error') {
+                notification.classList.add('bg-red-500');
+            } else {
+                notification.classList.add('bg-blue-500');
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('emailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEmailModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !document.getElementById('emailModal').classList.contains('hidden')) {
+                closeEmailModal();
+            }
+        });
         const listingsData = [
             { title: 'Government Communication', keywords: ['government communication', 'media', 'public awareness', 'policies', 'kampala'], section: 'services', website: 'https://www.mediacentre.go.ug' },
             { title: 'ICT Policy & Digital Transformation', keywords: ['ict policy', 'digital transformation', 'e-services', 'infrastructure', 'kampala'], section: 'services', website: 'https://www.nita.go.ug' },
