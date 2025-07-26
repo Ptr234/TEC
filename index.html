@@ -126,6 +126,18 @@
             line-height: 1.4;
             color: #4b5563;
         }
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .service-logo {
+            width: 2rem;
+            height: 2rem;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
         /* Responsive adjustments */
         @media (max-width: 640px) {
             .container {
@@ -175,8 +187,10 @@
         <div id="servicesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="ICT Policy & Digital Transformation" data-keywords="ict policy, digital transformation, e-services, infrastructure, kampala, ai integration, cloud-first, cybersecurity, zero-trust">
-                <img src="https://imgs.search.brave.com/DtKCyzWcV1-kTNCivT6agcm00CotnUG50B4kXcJLsxk/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzU0LzEvbmF0aW9u/YWwtaW5mb3JtYXRp/b24tdGVjaG5vbG9n/eS1hdXRob3JpdHkt/bml0YS1sb2dvLXBu/Z19zZWVrbG9nby01/NDg4ODAucG5n" alt="NITA-U Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">ICT Policy & Digital Transformation</h3>
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">ICT Policy & Digital Transformation</h3>
+                    <img src="https://imgs.search.brave.com/DtKCyzWcV1-kTNCivT6agcm00CotnUG50B4kXcJLsxk/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzU0LzEvbmF0aW9u/YWwtaW5mb3JtYXRp/b24tdGVjaG5vbG9n/eS1hdXRob3JpdHkt/bml0YS1sb2dvLXBu/Z19zZWVrbG9nby01/NDg4ODAucG5n" alt="NITA-U Logo" class="service-logo">
+                </div>
                 <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
                 <p class="service-description mb-4">Cloud-first policies and AI integration drive competitive economies in 2025. Zero-trust cybersecurity frameworks with quantum-resistant encryption. E-governance platforms achieve 95% digital service delivery, reducing processing times by 80%. Green computing initiatives focus on carbon-neutral data centers.</p>
                 <p class="text-gray-600 text-sm mb-4">Contact: +256 417 801 038</p>
@@ -188,8 +202,10 @@
             </div>
             
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Telecom & Broadcasting Regulation" data-keywords="telecom, broadcasting, regulation, licenses, bugolobi, 5g, 6g, network slicing, satellite internet, streaming">
-                <img src="https://github.com/Ptr234/TEC/raw/main/UCC%20logo.png" alt="Uganda Communications Commission Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Telecom & Broadcasting Regulation</h3>
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">Telecom & Broadcasting Regulation</h3>
+                    <img src="https://github.com/Ptr234/TEC/raw/main/UCC%20logo.png" alt="Uganda Communications Commission Logo" class="service-logo">
+                </div>
                 <p class="text-gray-600 text-sm mb-2">Location: Bugolobi, Kampala, Uganda</p>
                 <p class="service-description mb-4">5G and emerging 6G technologies dominate with network slicing for customized connectivity. Streaming services disrupt traditional broadcasting, requiring new regulatory frameworks. AI-driven network optimization reduces costs by 45% while improving coverage and service quality.</p>
                 <p class="text-gray-600 text-sm mb-4">Contact: +256 414 339 000</p>
@@ -201,8 +217,10 @@
             </div>
             
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Public Broadcasting" data-keywords="public broadcasting, radio, tv, media, kampala, podcasts, on-demand, interactive, community-driven">
-                <img src="https://ubc.go.ug/wp-content/uploads/2023/10/UBC.png" alt="Uganda Broadcasting Corporation Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Public Broadcasting</h3>
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">Public Broadcasting</h3>
+                    <img src="https://ubc.go.ug/wp-content/uploads/2023/10/UBC.png" alt="Uganda Broadcasting Corporation Logo" class="service-logo">
+                </div>
                 <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
                 <p class="service-description mb-4">Multi-platform content strategies with podcast production and on-demand services constituting 60% of consumption. AI-powered personalization enhances engagement. Interactive technologies enable real-time audience participation. Climate change reporting and digital literacy programming are core missions.</p>
                 <p class="text-gray-600 text-sm mb-4">Contact: +256 414 595 000</p>
@@ -213,11 +231,11 @@
                 </div>
             </div>
             
-     
-            
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Tax Collection" data-keywords="tax collection, corporate tax, vat, customs, kampala, ai fraud detection, blockchain, digital taxation, cryptocurrency">
-                <img src="https://github.com/Ptr234/TEC/raw/main/URA%20logo.png" alt="Uganda Revenue Authority Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Tax Collection</h3>
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">Tax Collection</h3>
+                    <img src="https://github.com/Ptr234/TEC/raw/main/URA%20logo.png" alt="Uganda Revenue Authority Logo" class="service-logo">
+                </div>
                 <p class="text-gray-600 text-sm mb-2">Location: Nakawa, Kampala, Uganda</p>
                 <p class="service-description mb-4">Advanced AI and machine learning enable real-time fraud detection and predictive compliance modeling. Digital-first approaches reduce processing times by 70%. Blockchain ensures transparent transaction records. Mobile payment integration and cryptocurrency tracking capture emerging economy revenue.</p>
                 <p class="text-gray-600 text-sm mb-4">Contact: +256 417 442 054</p>
@@ -229,11 +247,10 @@
             </div>
             
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Standards & Quality Assurance" data-keywords="standards, quality assurance, export compliance, bweyogerere, iot sensors, digital twin, blockchain traceability, sustainability">
-                <div class="flex items-center mb-4">
-            
-                    <img src="https://imgs.search.brave.com/VaNcV3ncVw7-W-bJhOsEJNO3N4fH8QcIOafwC3CDVC8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzU0LzIvdWdhbmRh/LW5hdGlvbmFsLWJ1/cmVhdS1vZi1zdGFu/ZGFyZHMtdW5icy1s/b2dvLXBuZ19zZWVr/bG9nby01NDk3MjMu/cG5n" alt="Uganda National Bureau of Standards Logo" class="w-12 h-12">
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">Standards & Quality Assurance</h3>
+                    <img src="https://imgs.search.brave.com/VaNcV3ncVw7-W-bJhOsEJNO3N4fH8QcIOafwC3CDVC8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzU0LzIvdWdhbmRh/LW5hdGlvbmFsLWJ1/cmVhdS1vZi1zdGFu/ZGFyZHMtdW5icy1s/b2dvLXBuZ19zZWVr/bG9nby01NDk3MjMu/cG5n" alt="Uganda National Bureau of Standards Logo" class="service-logo">
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Standards & Quality Assurance</h3>
                 <p class="text-gray-600 text-sm mb-2">Location: Bweyogerere, Uganda</p>
                 <p class="service-description mb-4">IoT sensors and AI-powered inspection systems enable continuous real-time product monitoring. Digital twin technology allows virtual quality testing, reducing physical testing costs by 50%. Blockchain-based traceability ensures product authenticity from raw materials to consumers.</p>
                 <p class="text-gray-600 text-sm mb-4">Contact: +256 417 333 250</p>
@@ -244,14 +261,11 @@
                 </div>
             </div>
             
-            
-            
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Business Registration" data-keywords="business registration, trademark, patent, kololo, blockchain registries, ai name checks, smart contracts, digital identity">
-                <div class="flex items-center mb-4">
-                    
-                    <img src="https://github.com/Ptr234/TEC/raw/main/URSB%20logo.png" alt="Uganda Registration Services Bureau Logo" class="w-12 h-12">
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">Business Registration</h3>
+                    <img src="https://github.com/Ptr234/TEC/raw/main/URSB%20logo.png" alt="Uganda Registration Services Bureau Logo" class="service-logo">
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Business Registration</h3>
                 <p class="text-gray-600 text-sm mb-2">Location: Kololo, Kampala, Uganda</p>
                 <p class="service-description mb-4">Fully digitized registration with AI-powered name availability checks reduces registration time to under 24 hours. Blockchain-based corporate registries ensure immutable records. Smart contracts automate regulatory filings, reducing administrative burden by 60%.</p>
                 <p class="text-gray-600 text-sm mb-4">Contact: +256 417 338 100</p>
@@ -263,11 +277,10 @@
             </div>
             
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Road Infrastructure" data-keywords="road infrastructure, national roads, transport, kampala, smart technology, embedded sensors, electric vehicle charging, autonomous vehicle">
-                <div class="flex items-center mb-4">
-                    
-                    <img src="https://imgs.search.brave.com/PVYszR_HDaP0Fz1egCh6_I-myHZeWxN00L_G1xXoAoE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzU0LzIvdWdhbmRh/LW5hdGlvbmFsLXJv/YWRzLWF1dGhvcml0/eS11bnJhLWxvZ28t/cG5nX3NlZWtsb2dv/LTU0ODg4Mi5wbmc" alt="Uganda National Roads Authority Logo" class="w-12 h-12">
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">Road Infrastructure</h3>
+                    <img src="https://imgs.search.brave.com/PVYszR_HDaP0Fz1egCh6_I-myHZeWxN00L_G1xXoAoE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzU0LzIvdWdhbmRh/LW5hdGlvbmFsLXJv/YWRzLWF1dGhvcml0/eS11bnJhLWxvZ28t/cG5nX3NlZWtsb2dv/LTU0ODg4Mi5wbmc" alt="Uganda National Roads Authority Logo" class="service-logo">
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Road Infrastructure</h3>
                 <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
                 <p class="service-description mb-4">Smart technology integration with embedded sensors monitoring traffic flow and structural integrity in real-time. Electric vehicle charging stations with solar-powered systems. Autonomous vehicle readiness includes dedicated lanes and AI-optimized traffic management.</p>
                 <p class="text-gray-600 text-sm mb-4">Contact: +256 312 233 100</p>
@@ -279,11 +292,10 @@
             </div>
             
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Social Security" data-keywords="social security, pensions, fund management, kampala, gig economy, portable benefits, digital identity, ai actuarial">
-                <div class="flex items-center mb-4">
-        
-                    <img src="https://github.com/Ptr234/TEC/raw/main/NSSF%20logo.png" alt="National Social Security Fund Logo" class="w-12 h-12">
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">Social Security</h3>
+                    <img src="https://github.com/Ptr234/TEC/raw/main/NSSF%20logo.png" alt="National Social Security Fund Logo" class="service-logo">
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Social Security</h3>
                 <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
                 <p class="service-description mb-4">Adapted to gig economy with portable benefits and flexible contribution schedules. AI-powered actuarial models ensure sustainability. ESG-compliant investment portfolios focus on renewable energy and sustainable infrastructure. Digital identity systems enable seamless cross-border benefit access.</p>
                 <p class="text-gray-600 text-sm mb-4">Contact: +256 417 338 400</p>
@@ -295,11 +307,10 @@
             </div>
             
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Financial Intelligence" data-keywords="financial intelligence, anti-money laundering, terrorism financing, kampala, predictive analytics, risk assessment">
-                <div class="flex items-center mb-4">
-                    
-                    <img src="https://github.com/Ptr234/TEC/raw/main/FIA%20logo.png" alt="Financial Intelligence Authority Logo" class="w-12 h-12">
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">Financial Intelligence</h3>
+                    <img src="https://github.com/Ptr234/TEC/raw/main/FIA%20logo.png" alt="Financial Intelligence Authority Logo" class="service-logo">
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Financial Intelligence</h3>
                 <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
                 <p class="service-description mb-4">Advanced AI systems combat money laundering and terrorism financing through predictive analytics and real-time risk assessment. Machine learning algorithms detect suspicious transaction patterns while ensuring compliance with international financial crime prevention standards.</p>
                 <p class="text-gray-600 text-sm mb-4">Contact: +256 414 342 901</p>
@@ -317,11 +328,10 @@
         <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Investment Services</h2>
         <div id="investmentsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Investment Facilitation" data-keywords="investment facilitation, licensing, sme, kololo, esg compliance, green investments, digital platforms, ai market analysis">
-                <div class="flex items-center mb-4">
-                
-                    <img src="https://github.com/Ptr234/TEC/raw/main/UIA%20logo.png" alt="Uganda Investment Authority Logo" class="w-12 h-12">
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">Investment Facilitation</h3>
+                    <img src="https://github.com/Ptr234/TEC/raw/main/UIA%20logo.png" alt="Uganda Investment Authority Logo" class="service-logo">
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Investment Facilitation</h3>
                 <p class="text-gray-600 text-sm mb-2">Location: Kololo, Kampala, Uganda</p>
                 <p class="service-description mb-4">ESG compliance and sustainable development goals drive investment facilitation. Digital platforms provide one-stop services, reducing investment timelines from months to weeks. AI-powered market analysis helps identify optimal opportunities with predictive risk modeling.</p>
                 <p class="text-gray-600 text-sm mb-4">Contact: +256 414 301 000</p>
@@ -332,13 +342,14 @@
                 </div>
             </div>
            
-            
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Capital Markets Regulation" data-keywords="capital markets, securities, brokers, kampala">
-                <img src="https://cmauganda.co.ug/wp-content/uploads/2024/12/CMA-LOGO-1.png" alt="Capital Markets Authority Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Capital Markets Regulation</h3>
-                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Regulates capital markets, licenses fund managers and brokers, oversees securities issuance</p>
-                <p class="text-gray-600 text-sm">Contact: +256 414 342 788</p>
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">Capital Markets Regulation</h3>
+                    <img src="https://cmauganda.co.ug/wp-content/uploads/2024/12/CMA-LOGO-1.png" alt="Capital Markets Authority Logo" class="service-logo">
+                </div>
+                <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
+                <p class="service-description mb-4">Regulates capital markets, licenses fund managers and brokers, oversees securities issuance with advanced digital platforms and real-time compliance monitoring.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 414 342 788</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Capital Markets Regulation', 'info@cmauganda.co.ug', 'Capital Markets Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.cmauganda.co.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -347,11 +358,13 @@
             </div>
             
             <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Renewable Energy Finance" data-keywords="renewable energy, finance, guarantees, kampala">
-                <img src="https://imgs.search.brave.com/-G8qXckYoaHHE-Hzfsb130CXBsFf5KNK86vhwOhsiwk/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvZjA5YWY2M2Nm/Yzc0N2I2YjJjZTEx/OWVkZTIzZjU2ZGZl/M2MzYzg1NTVkNmE3/MmU1NmI1Nzg5ZWNl/Y2JjYTQ1OC93d3cu/dWVjY2Mub3IudWcv" alt="Uganda Energy Credit Capitalisation Company Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Renewable Energy Finance</h3>
-                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Provides liquidity refinance, interest-rate buy-downs, partial risk guarantees for renewable energy</p>
-                <p class="text-gray-600 text-sm">Contact: +256 312 165 200</p>
+                <div class="service-header">
+                    <h3 class="text-xl font-semibold text-gray-800">Renewable Energy Finance</h3>
+                    <img src="https://imgs.search.brave.com/-G8qXckYoaHHE-Hzfsb130CXBsFf5KNK86vhwOhsiwk/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvZjA5YWY2M2Nm/Yzc0N2I2YjJjZTEx/OWVkZTIzZjU2ZGZl/M2MzYzg1NTVkNmE3/MmU1NmI1Nzg5ZWNl/Y2JjYTQ1OC93d3cu/dWVjY2Mub3IudWcv" alt="Uganda Energy Credit Capitalisation Company Logo" class="service-logo">
+                </div>
+                <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
+                <p class="service-description mb-4">Provides liquidity refinance, interest-rate buy-downs, partial risk guarantees for renewable energy projects with focus on solar, wind, and hydroelectric investments.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 312 165 200</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Renewable Energy Finance', 'info@ueccc.or.ug', 'Renewable Energy Financing Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.ueccc.or.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
