@@ -121,6 +121,11 @@
             border-color: #f97316; /* Orange focus */
             box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
         }
+        .service-description {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #4b5563;
+        }
         /* Responsive adjustments */
         @media (max-width: 640px) {
             .container {
@@ -168,12 +173,11 @@
     <section id="services" class="container mx-auto px-4 py-12">
         <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Key Government Services in Uganda</h2>
         <div id="servicesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Government Communication" data-keywords="government communication, media, public awareness, policies, kampala">
-                <img src="https://via.placeholder.com/50?text=UMC" alt="Uganda Media Center Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Government Communication</h3>
-                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Coordinates government communication, facilitates media dissemination of policies and programs, promotes public awareness</p>
-                <p class="text-gray-600 text-sm">Contact: +256 414 237 141</p>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Government Communication" data-keywords="government communication, media, public awareness, policies, kampala, ai-powered, social media, transparency, blockchain">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Government Communication</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
+                <p class="service-description mb-4">AI-powered content creation and real-time fact-checking systems drive modern government communication. Digital-first strategies with 340% increased social media engagement since 2023. Blockchain technology ensures message authenticity and builds public trust through transparent, multi-platform storytelling.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 414 237 141</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Government Communication', 'info@mediacentre.go.ug', 'Inquiry about Government Communication Services')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.mediacentre.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -181,12 +185,12 @@
                 </div>
             </div>
             
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="ICT Policy & Digital Transformation" data-keywords="ict policy, digital transformation, e-services, infrastructure, kampala">
-                <img src="https://via.placeholder.com/50?text=NITA-U" alt="NITA-U Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">ICT Policy & Digital Transformation</h3>
-                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Implements ICT policies, manages national IT infrastructure, promotes e-services and digital transformation</p>
-                <p class="text-gray-600 text-sm">Contact: +256 417 801 038</p>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="ICT Policy & Digital Transformation" data-keywords="ict policy, digital transformation, e-services, infrastructure, kampala, ai integration, cloud-first, cybersecurity, zero-trust">
+                <img src="https://www.nita.go.ug/themes/gavias_kiamo/nitawebbanner-01.svg" alt="NITA-U Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">ICT Policy & Digital Transformation</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
+                <p class="service-description mb-4">Cloud-first policies and AI integration drive competitive economies in 2025. Zero-trust cybersecurity frameworks with quantum-resistant encryption. E-governance platforms achieve 95% digital service delivery, reducing processing times by 80%. Green computing initiatives focus on carbon-neutral data centers.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 417 801 038</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('ICT Policy & Digital Transformation', 'info@nita.go.ug', 'Inquiry about ICT Policy Services')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.nita.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -194,12 +198,12 @@
                 </div>
             </div>
             
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Telecom & Broadcasting Regulation" data-keywords="telecom, broadcasting, regulation, licenses, bugolobi">
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Telecom & Broadcasting Regulation" data-keywords="telecom, broadcasting, regulation, licenses, bugolobi, 5g, 6g, network slicing, satellite internet, streaming">
                 <img src="https://github.com/Ptr234/TEC/raw/main/UCC%20logo.png" alt="Uganda Communications Commission Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Telecom & Broadcasting Regulation</h3>
-                <p class="text-gray-600 text-sm">Location: Bugolobi, Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Regulates telecom, broadcasting, and postal services, licenses operators, develops communication infrastructure</p>
-                <p class="text-gray-600 text-sm">Contact: +256 414 339 000</p>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Telecom & Broadcasting Regulation</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Bugolobi, Kampala, Uganda</p>
+                <p class="service-description mb-4">5G and emerging 6G technologies dominate with network slicing for customized connectivity. Streaming services disrupt traditional broadcasting, requiring new regulatory frameworks. AI-driven network optimization reduces costs by 45% while improving coverage and service quality.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 414 339 000</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Telecom & Broadcasting Regulation', 'ucc@ucc.co.ug', 'Inquiry about Telecom Services')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.ucc.co.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -207,12 +211,12 @@
                 </div>
             </div>
             
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Public Broadcasting" data-keywords="public broadcasting, radio, tv, media, kampala">
-                <img src="https://via.placeholder.com/50?text=UBC" alt="Uganda Broadcasting Corporation Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Public Broadcasting</h3>
-                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Provides national radio and TV broadcasting, public service content, and media programming</p>
-                <p class="text-gray-600 text-sm">Contact: +256 414 595 000</p>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Public Broadcasting" data-keywords="public broadcasting, radio, tv, media, kampala, podcasts, on-demand, interactive, community-driven">
+                <img src="https://ubc.go.ug/wp-content/uploads/2023/10/UBC.png" alt="Uganda Broadcasting Corporation Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Public Broadcasting</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
+                <p class="service-description mb-4">Multi-platform content strategies with podcast production and on-demand services constituting 60% of consumption. AI-powered personalization enhances engagement. Interactive technologies enable real-time audience participation. Climate change reporting and digital literacy programming are core missions.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 414 595 000</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Public Broadcasting', 'info@ubc.go.ug', 'Inquiry about Broadcasting Services')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.ubc.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -220,12 +224,12 @@
                 </div>
             </div>
             
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="ICT Training" data-keywords="ict training, skill development, innovation, kampala">
-                <img src="https://via.placeholder.com/50?text=UICT" alt="Uganda Institute of ICT Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">ICT Training</h3>
-                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Offers ICT training, hands-on skill development, and innovation programs for students and professionals</p>
-                <p class="text-gray-600 text-sm">Contact: +256 414 220 279</p>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="ICT Training" data-keywords="ict training, skill development, innovation, kampala, vr, ar, cloud computing, cybersecurity, data analytics">
+                <img src="https://media.licdn.com/dms/image/v2/C4D0BAQF9Dm0vbN6idg/company-logo_200_200/company-logo_200_200/0/1630525777907/uict_nakawa_logo?e=2147483647&v=beta&t=HckXV7Yl5P7eImFw-BzGQLcG6BGzcslQ7ugSlOlRxdg" alt="Uganda Institute of ICT Logo" class="w-12 h-12 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">ICT Training</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
+                <p class="service-description mb-4">Immersive VR/AR learning environments with AI-powered personalized curricula. Cloud computing, cybersecurity, and data analytics skills show 35% salary increases. Blockchain-verified micro-credentials provide flexible career pathways. 85% of graduates secure employment within six months.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 414 220 279</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('ICT Training', 'info@uict.ac.ug', 'Inquiry about ICT Training Programs')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.uict.ac.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -233,12 +237,12 @@
                 </div>
             </div>
             
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Tax Collection" data-keywords="tax collection, corporate tax, vat, customs, kampala">
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Tax Collection" data-keywords="tax collection, corporate tax, vat, customs, kampala, ai fraud detection, blockchain, digital taxation, cryptocurrency">
                 <img src="https://github.com/Ptr234/TEC/raw/main/URA%20logo.png" alt="Uganda Revenue Authority Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Tax Collection</h3>
-                <p class="text-gray-600 text-sm">Location: Nakawa, Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Enforces tax laws, collects corporate tax, VAT, and customs duties, supports revenue compliance</p>
-                <p class="text-gray-600 text-sm">Contact: +256 417 442 054</p>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Tax Collection</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Nakawa, Kampala, Uganda</p>
+                <p class="service-description mb-4">Advanced AI and machine learning enable real-time fraud detection and predictive compliance modeling. Digital-first approaches reduce processing times by 70%. Blockchain ensures transparent transaction records. Mobile payment integration and cryptocurrency tracking capture emerging economy revenue.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 417 442 054</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Tax Collection', 'info@ura.go.ug', 'Inquiry about Tax Services')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.ura.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -246,12 +250,15 @@
                 </div>
             </div>
             
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Standards & Quality Assurance" data-keywords="standards, quality assurance, export compliance, bweyogerere">
-                <img src="https://via.placeholder.com/50?text=UNBS" alt="Uganda National Bureau of Standards Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Standards & Quality Assurance</h3>
-                <p class="text-gray-600 text-sm">Location: Bweyogerere, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Sets product standards, enforces quality assurance, supports export compliance and consumer protection</p>
-                <p class="text-gray-600 text-sm">Contact: +256 417 333 250</p>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Standards & Quality Assurance" data-keywords="standards, quality assurance, export compliance, bweyogerere, iot sensors, digital twin, blockchain traceability, sustainability">
+                <div class="flex items-center mb-4">
+            
+                    <img src="https://imgs.search.brave.com/VaNcV3ncVw7-W-bJhOsEJNO3N4fH8QcIOafwC3CDVC8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzU0LzIvdWdhbmRh/LW5hdGlvbmFsLWJ1/cmVhdS1vZi1zdGFu/ZGFyZHMtdW5icy1s/b2dvLXBuZ19zZWVr/bG9nby01NDk3MjMu/cG5n" alt="Uganda National Bureau of Standards Logo" class="w-12 h-12">
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Standards & Quality Assurance</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Bweyogerere, Uganda</p>
+                <p class="service-description mb-4">IoT sensors and AI-powered inspection systems enable continuous real-time product monitoring. Digital twin technology allows virtual quality testing, reducing physical testing costs by 50%. Blockchain-based traceability ensures product authenticity from raw materials to consumers.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 417 333 250</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Standards & Quality Assurance', 'info@unbs.go.ug', 'Inquiry about Quality Standards')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.unbs.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -259,12 +266,15 @@
                 </div>
             </div>
             
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Investment Facilitation" data-keywords="investment facilitation, licensing, sme, kololo">
-                <img src="https://github.com/Ptr234/TEC/raw/main/UIA%20logo.png" alt="Uganda Investment Authority Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Investment Facilitation</h3>
-                <p class="text-gray-600 text-sm">Location: Kololo, Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Promotes investments, facilitates licensing, supports SMEs with advisory and aftercare services</p>
-                <p class="text-gray-600 text-sm">Contact: +256 414 301 000</p>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Investment Facilitation" data-keywords="investment facilitation, licensing, sme, kololo, esg compliance, green investments, digital platforms, ai market analysis">
+                <div class="flex items-center mb-4">
+                
+                    <img src="https://github.com/Ptr234/TEC/raw/main/UIA%20logo.png" alt="Uganda Investment Authority Logo" class="w-12 h-12">
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Investment Facilitation</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Kololo, Kampala, Uganda</p>
+                <p class="service-description mb-4">ESG compliance and sustainable development goals drive investment facilitation. Digital platforms provide one-stop services, reducing investment timelines from months to weeks. AI-powered market analysis helps identify optimal opportunities with predictive risk modeling.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 414 301 000</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Investment Facilitation', 'info@ugandainvest.go.ug', 'Investment Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.ugandainvest.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -272,12 +282,15 @@
                 </div>
             </div>
             
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Business Registration" data-keywords="business registration, trademark, patent, kololo">
-                <img src="https://github.com/Ptr234/TEC/raw/main/URSB%20logo.png" alt="Uganda Registration Services Bureau Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Business Registration</h3>
-                <p class="text-gray-600 text-sm">Location: Kololo, Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Manages business registration, trademarks, patents, and insolvency services</p>
-                <p class="text-gray-600 text-sm">Contact: +256 417 338 100</p>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Business Registration" data-keywords="business registration, trademark, patent, kololo, blockchain registries, ai name checks, smart contracts, digital identity">
+                <div class="flex items-center mb-4">
+                    
+                    <img src="https://github.com/Ptr234/TEC/raw/main/URSB%20logo.png" alt="Uganda Registration Services Bureau Logo" class="w-12 h-12">
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Business Registration</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Kololo, Kampala, Uganda</p>
+                <p class="service-description mb-4">Fully digitized registration with AI-powered name availability checks reduces registration time to under 24 hours. Blockchain-based corporate registries ensure immutable records. Smart contracts automate regulatory filings, reducing administrative burden by 60%.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 417 338 100</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Business Registration', 'ursb@ursb.go.ug', 'Business Registration Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.ursb.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -285,12 +298,15 @@
                 </div>
             </div>
             
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Road Infrastructure" data-keywords="road infrastructure, national roads, transport, kampala">
-                <img src="https://via.placeholder.com/50?text=UNRA" alt="Uganda National Roads Authority Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Road Infrastructure</h3>
-                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Develops and maintains national road network, enhances transport connectivity</p>
-                <p class="text-gray-600 text-sm">Contact: +256 312 233 100</p>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Road Infrastructure" data-keywords="road infrastructure, national roads, transport, kampala, smart technology, embedded sensors, electric vehicle charging, autonomous vehicle">
+                <div class="flex items-center mb-4">
+                    
+                    <img src="https://imgs.search.brave.com/PVYszR_HDaP0Fz1egCh6_I-myHZeWxN00L_G1xXoAoE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzU0LzIvdWdhbmRh/LW5hdGlvbmFsLXJv/YWRzLWF1dGhvcml0/eS11bnJhLWxvZ28t/cG5nX3NlZWtsb2dv/LTU0ODg4Mi5wbmc" alt="Uganda National Roads Authority Logo" class="w-12 h-12">
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Road Infrastructure</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
+                <p class="service-description mb-4">Smart technology integration with embedded sensors monitoring traffic flow and structural integrity in real-time. Electric vehicle charging stations with solar-powered systems. Autonomous vehicle readiness includes dedicated lanes and AI-optimized traffic management.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 312 233 100</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Road Infrastructure', 'info@unra.go.ug', 'Infrastructure Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.unra.go.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -298,12 +314,15 @@
                 </div>
             </div>
             
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Social Security" data-keywords="social security, pensions, fund management, kampala">
-                <img src="https://github.com/Ptr234/TEC/raw/main/NSSF%20logo.png" alt="National Social Security Fund Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Social Security</h3>
-                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Provides social security coverage, manages pensions and retirement funds for workers</p>
-                <p class="text-gray-600 text-sm">Contact: +256 417 338 400</p>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Social Security" data-keywords="social security, pensions, fund management, kampala, gig economy, portable benefits, digital identity, ai actuarial">
+                <div class="flex items-center mb-4">
+        
+                    <img src="https://github.com/Ptr234/TEC/raw/main/NSSF%20logo.png" alt="National Social Security Fund Logo" class="w-12 h-12">
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Social Security</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
+                <p class="service-description mb-4">Adapted to gig economy with portable benefits and flexible contribution schedules. AI-powered actuarial models ensure sustainability. ESG-compliant investment portfolios focus on renewable energy and sustainable infrastructure. Digital identity systems enable seamless cross-border benefit access.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 417 338 400</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Social Security', 'info@nssfug.org', 'Social Security Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.nssfug.org" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -311,12 +330,15 @@
                 </div>
             </div>
             
-            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Financial Intelligence" data-keywords="financial intelligence, anti-money laundering, terrorism financing, kampala">
-                <img src="https://github.com/Ptr234/TEC/raw/main/FIA%20logo.png" alt="Financial Intelligence Authority Logo" class="w-12 h-12 mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Financial Intelligence</h3>
-                <p class="text-gray-600 text-sm">Location: Kampala, Uganda</p>
-                <p class="text-gray-600 text-sm">Services: Combats money laundering, terrorism financing, and other financial crimes</p>
-                <p class="text-gray-600 text-sm">Contact: +256 414 342 901</p>
+            <div class="bg-white p-6 rounded-lg shadow-md card" data-title="Financial Intelligence" data-keywords="financial intelligence, anti-money laundering, terrorism financing, kampala, predictive analytics, risk assessment">
+                <div class="flex items-center mb-4">
+                    
+                    <img src="https://github.com/Ptr234/TEC/raw/main/FIA%20logo.png" alt="Financial Intelligence Authority Logo" class="w-12 h-12">
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Financial Intelligence</h3>
+                <p class="text-gray-600 text-sm mb-2">Location: Kampala, Uganda</p>
+                <p class="service-description mb-4">Advanced AI systems combat money laundering and terrorism financing through predictive analytics and real-time risk assessment. Machine learning algorithms detect suspicious transaction patterns while ensuring compliance with international financial crime prevention standards.</p>
+                <p class="text-gray-600 text-sm mb-4">Contact: +256 414 342 901</p>
                 <div class="mt-4 flex space-x-3 flex-wrap gap-2">
                     <button onclick="openEmailModal('Financial Intelligence', 'info@fiaug.or.ug', 'Financial Compliance Inquiry')" class="btn-email text-white px-4 py-2 rounded-lg text-sm">Email</button>
                     <a href="https://www.fiaug.or.ug" target="_blank" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Website</a>
@@ -653,18 +675,18 @@
         });
 
         const listingsData = [
-            { title: 'Government Communication', keywords: ['government communication', 'media', 'public awareness', 'policies', 'kampala'], section: 'services', website: 'https://www.mediacentre.go.ug' },
-            { title: 'ICT Policy & Digital Transformation', keywords: ['ict policy', 'digital transformation', 'e-services', 'infrastructure', 'kampala'], section: 'services', website: 'https://www.nita.go.ug' },
-            { title: 'Telecom & Broadcasting Regulation', keywords: ['telecom', 'broadcasting', 'regulation', 'licenses', 'bugolobi'], section: 'services', website: 'https://www.ucc.co.ug' },
-            { title: 'Public Broadcasting', keywords: ['public broadcasting', 'radio', 'tv', 'media', 'kampala'], section: 'services', website: 'https://www.ubc.go.ug' },
-            { title: 'ICT Training', keywords: ['ict training', 'skill development', 'innovation', 'kampala'], section: 'services', website: 'https://www.uict.ac.ug' },
-            { title: 'Tax Collection', keywords: ['tax collection', 'corporate tax', 'vat', 'customs', 'kampala'], section: 'services', website: 'https://www.ura.go.ug' },
-            { title: 'Standards & Quality Assurance', keywords: ['standards', 'quality assurance', 'export compliance', 'bweyogerere'], section: 'services', website: 'https://www.unbs.go.ug' },
-            { title: 'Investment Facilitation', keywords: ['investment facilitation', 'licensing', 'sme', 'kololo'], section: 'services', website: 'https://www.ugandainvest.go.ug' },
-            { title: 'Business Registration', keywords: ['business registration', 'trademark', 'patent', 'kololo'], section: 'services', website: 'https://www.ursb.go.ug' },
-            { title: 'Road Infrastructure', keywords: ['road infrastructure', 'national roads', 'transport', 'kampala'], section: 'services', website: 'https://www.unra.go.ug' },
-            { title: 'Social Security', keywords: ['social security', 'pensions', 'fund management', 'kampala'], section: 'services', website: 'https://www.nssfug.org' },
-            { title: 'Financial Intelligence', keywords: ['financial intelligence', 'anti-money laundering', 'terrorism financing', 'kampala'], section: 'services', website: 'https://www.fiaug.or.ug' },
+            { title: 'Government Communication', keywords: ['government communication', 'media', 'public awareness', 'policies', 'kampala', 'ai-powered', 'social media', 'transparency', 'blockchain'], section: 'services', website: 'https://www.mediacentre.go.ug' },
+            { title: 'ICT Policy & Digital Transformation', keywords: ['ict policy', 'digital transformation', 'e-services', 'infrastructure', 'kampala', 'ai integration', 'cloud-first', 'cybersecurity', 'zero-trust'], section: 'services', website: 'https://www.nita.go.ug' },
+            { title: 'Telecom & Broadcasting Regulation', keywords: ['telecom', 'broadcasting', 'regulation', 'licenses', 'bugolobi', '5g', '6g', 'network slicing', 'satellite internet', 'streaming'], section: 'services', website: 'https://www.ucc.co.ug' },
+            { title: 'Public Broadcasting', keywords: ['public broadcasting', 'radio', 'tv', 'media', 'kampala', 'podcasts', 'on-demand', 'interactive', 'community-driven'], section: 'services', website: 'https://www.ubc.go.ug' },
+            { title: 'ICT Training', keywords: ['ict training', 'skill development', 'innovation', 'kampala', 'vr', 'ar', 'cloud computing', 'cybersecurity', 'data analytics'], section: 'services', website: 'https://www.uict.ac.ug' },
+            { title: 'Tax Collection', keywords: ['tax collection', 'corporate tax', 'vat', 'customs', 'kampala', 'ai fraud detection', 'blockchain', 'digital taxation', 'cryptocurrency'], section: 'services', website: 'https://www.ura.go.ug' },
+            { title: 'Standards & Quality Assurance', keywords: ['standards', 'quality assurance', 'export compliance', 'bweyogerere', 'iot sensors', 'digital twin', 'blockchain traceability', 'sustainability'], section: 'services', website: 'https://www.unbs.go.ug' },
+            { title: 'Investment Facilitation', keywords: ['investment facilitation', 'licensing', 'sme', 'kololo', 'esg compliance', 'green investments', 'digital platforms', 'ai market analysis'], section: 'services', website: 'https://www.ugandainvest.go.ug' },
+            { title: 'Business Registration', keywords: ['business registration', 'trademark', 'patent', 'kololo', 'blockchain registries', 'ai name checks', 'smart contracts', 'digital identity'], section: 'services', website: 'https://www.ursb.go.ug' },
+            { title: 'Road Infrastructure', keywords: ['road infrastructure', 'national roads', 'transport', 'kampala', 'smart technology', 'embedded sensors', 'electric vehicle charging', 'autonomous vehicle'], section: 'services', website: 'https://www.unra.go.ug' },
+            { title: 'Social Security', keywords: ['social security', 'pensions', 'fund management', 'kampala', 'gig economy', 'portable benefits', 'digital identity', 'ai actuarial'], section: 'services', website: 'https://www.nssfug.org' },
+            { title: 'Financial Intelligence', keywords: ['financial intelligence', 'anti-money laundering', 'terrorism financing', 'kampala', 'predictive analytics', 'risk assessment'], section: 'services', website: 'https://www.fiaug.or.ug' },
             { title: 'Free-Zone Management', keywords: ['free zones', 'manufacturing', 'trade', 'kampala'], section: 'investments', website: 'https://www.freezones.go.ug' },
             { title: 'Investment Policy & Reforms', keywords: ['investment policy', 'reforms', 'industrial parks', 'kampala'], section: 'investments', website: 'https://www.finance.go.ug' },
             { title: 'Capital Markets Regulation', keywords: ['capital markets', 'securities', 'brokers', 'kampala'], section: 'investments', website: 'https://www.cmauganda.co.ug' },
@@ -744,7 +766,7 @@
             for (let listing of servicesList) {
                 const title = listing.dataset.title.toLowerCase();
                 const keywords = listing.dataset.keywords.toLowerCase();
-                const description = listing.querySelector('p:nth-child(3)').textContent.toLowerCase();
+                const description = listing.querySelector('.service-description').textContent.toLowerCase();
                 listing.style.display = (title.includes(searchInput) || keywords.includes(searchInput) || description.includes(searchInput)) ? 'block' : 'none';
                 if ((title.includes(searchInput) || keywords.includes(searchInput) || description.includes(searchInput))) {
                     listing.classList.add('card-highlight');
