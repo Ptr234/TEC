@@ -9,7 +9,6 @@
     <style>
         body { font-family: 'Roboto', sans-serif; }
         
-        /* Hero Background */
         .hero-bg {
             background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), 
                         url('https://www.shutterstock.com/image-photo/crowned-crane-600nw-472226197.jpg');
@@ -18,30 +17,28 @@
             min-height: 100vh;
         }
         
-        /* Professional Rectangular Search Container */
         .search-container {
             background: white;
-            border-radius: 8px; /* Sharp rectangular corners */
-            box-shadow: 0 4px 12px rgba(32,33,36,0.2); /* Subtle shadow for depth */
-            padding: 24px; /* Increased padding for spacious look */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(32,33,36,0.2);
+            padding: 24px;
             margin: 80px auto;
-            max-width: 600px; /* Slightly wider for balance */
+            max-width: 600px;
             position: relative;
             transition: box-shadow 0.2s ease;
         }
         
         .search-container:hover {
-            box-shadow: 0 6px 16px rgba(32,33,36,0.3); /* Enhanced shadow on hover */
+            box-shadow: 0 6px 16px rgba(32,33,36,0.3);
         }
         
-        /* Search Suggestions */
         .suggestions {
             position: absolute;
             top: 100%;
             left: 0;
             right: 0;
             background: white;
-            border-radius: 0 0 8px 8px; /* Match container's bottom corners */
+            border-radius: 0 0 8px 8px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
             max-height: 300px;
             overflow-y: auto;
@@ -61,12 +58,11 @@
             background: #f8f9fa;
         }
         
-        /* Quick Search Buttons */
         .quick-search-btn {
             background: linear-gradient(135deg, #ffd700, #ffa500);
             color: black;
             padding: 8px 16px;
-            border-radius: 9999px; /* Keep buttons rounded for contrast */
+            border-radius: 9999px;
             font-size: 14px;
             font-weight: 500;
             transition: all 0.3s ease;
@@ -81,12 +77,11 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         
-        /* Professional Rectangular Search Input */
         .search-input {
             width: 100%;
             padding: 12px 20px 12px 48px;
-            border: 1px solid #dfe1e5; /* Subtle border for definition */
-            border-radius: 6px; /* Slightly rounded input for contrast */
+            border: 1px solid #dfe1e5;
+            border-radius: 6px;
             font-size: 16px;
             font-family: 'Roboto', sans-serif;
             color: #202124;
@@ -96,11 +91,10 @@
         
         .search-input:focus {
             outline: none;
-            border-color: #ffd700; /* Highlight border on focus */
-            box-shadow: 0 0 0 2px rgba(255,215,0,0.2); /* Subtle focus ring */
+            border-color: #ffd700;
+            box-shadow: 0 0 0 2px rgba(255,215,0,0.2);
         }
         
-        /* Search Icon */
         .search-icon {
             position: absolute;
             left: 16px;
@@ -111,11 +105,10 @@
             height: 20px;
         }
         
-        /* Filter Selects */
         .filter-select {
             padding: 12px 20px;
             border: 1px solid #dfe1e5;
-            border-radius: 6px; /* Match input style */
+            border-radius: 6px;
             background: white;
             font-size: 16px;
             transition: all 0.3s ease;
@@ -127,7 +120,6 @@
             border-color: #ffd700;
         }
         
-        /* Service Cards */
         .service-card {
             background: white;
             border-radius: 20px;
@@ -142,7 +134,6 @@
             border-color: #ffd700;
         }
         
-        /* Buttons */
         .btn {
             padding: 12px 24px;
             border-radius: 9999px;
@@ -191,7 +182,6 @@
             transform: translateY(-2px);
         }
         
-        /* Tags */
         .tag {
             background: linear-gradient(135deg, #ffd700, #ffc107);
             color: black;
@@ -208,7 +198,6 @@
             color: white;
         }
         
-        /* Section Titles */
         .section-title {
             font-size: 3rem;
             font-weight: 700;
@@ -220,7 +209,6 @@
             margin-bottom: 24px;
         }
         
-        /* Contact Info */
         .contact-info {
             display: flex;
             align-items: center;
@@ -236,7 +224,6 @@
             color: #3b82f6;
         }
         
-        /* Logo */
         .service-logo {
             width: 48px;
             height: 48px;
@@ -248,7 +235,6 @@
             border: 2px solid #e5e7eb;
         }
         
-        /* Timeline/Fees Grid */
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -263,7 +249,6 @@
             border-left: 4px solid #ffd700;
         }
         
-        /* Chat Button */
         .chat-btn {
             position: fixed;
             bottom: 24px;
@@ -288,7 +273,6 @@
             box-shadow: 0 12px 40px rgba(255,215,0,0.5);
         }
         
-        /* Back to Top */
         .back-to-top {
             position: fixed;
             bottom: 24px;
@@ -313,7 +297,6 @@
             visibility: visible;
         }
         
-        /* Modal */
         .modal {
             position: fixed;
             inset: 0;
@@ -335,7 +318,6 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
         
-        /* Checklist Modal */
         .checklist-modal {
             max-width: 600px;
         }
@@ -352,7 +334,6 @@
             border-bottom: none;
         }
         
-        /* Responsive */
         @media (max-width: 768px) {
             .section-title { font-size: 2.5rem; }
             .search-container { padding: 16px; margin: 40px auto; max-width: 100%; }
@@ -498,11 +479,11 @@
                     <div class="info-grid">
                         <div class="info-box">
                             <div class="font-semibold text-sm">Timeline</div>
-                            <div class="text-gray-700">1-2 weeks</div>
+                            <div class="text-gray-700">7 working days</div>
                         </div>
                         <div class="info-box">
                             <div class="font-semibold text-sm">Fees</div>
-                            <div class="text-gray-700">UGX 150K+</div>
+                            <div class="text-gray-700">From UGX 105,000</div>
                         </div>
                     </div>
 
@@ -610,7 +591,7 @@
                         </div>
                         <div class="info-box">
                             <div class="font-semibold text-sm">Contribution</div>
-                            <div class="text-gray-700">15% salary</div>
+                            <div class="text-gray-700">15% of salary (5% employee, 10% employer)</div>
                         </div>
                     </div>
 
@@ -664,7 +645,7 @@
                         </div>
                         <div class="info-box">
                             <div class="font-semibold text-sm">Fees</div>
-                            <div class="text-gray-700">Variable</div>
+                            <div class="text-gray-700">Variable (UGX 75,000 to millions)</div>
                         </div>
                     </div>
 
@@ -714,7 +695,7 @@
                     <div class="info-grid">
                         <div class="info-box">
                             <div class="font-semibold text-sm">Min Investment</div>
-                            <div class="text-gray-700">USD 100K</div>
+                            <div class="text-gray-700">USD 250,000 (foreign), USD 50,000 (domestic)</div>
                         </div>
                         <div class="info-box">
                             <div class="font-semibold text-sm">Tax Holiday</div>
@@ -832,7 +813,7 @@
                         <div class="info-grid">
                             <div class="info-box">
                                 <div class="font-semibold text-sm">Interest Rate</div>
-                                <div class="text-gray-700">8-12% annually</div>
+                                <div class="text-gray-700">Up to 10% per annum</div>
                             </div>
                             <div class="info-box">
                                 <div class="font-semibold text-sm">Loan Range</div>
@@ -886,7 +867,7 @@
                         <div class="info-grid">
                             <div class="info-box">
                                 <div class="font-semibold text-sm">Min Investment</div>
-                                <div class="text-gray-700">USD 500K</div>
+                                <div class="text-gray-700">From USD 250,000 (foreign)</div>
                             </div>
                             <div class="info-box">
                                 <div class="font-semibold text-sm">Tax Incentives</div>
@@ -940,7 +921,7 @@
                         <div class="info-grid">
                             <div class="info-box">
                                 <div class="font-semibold text-sm">Funding Range</div>
-                                <div class="text-gray-700">USD 50K-10M</div>
+                                <div class="text-gray-700">USD 50,000-10M</div>
                             </div>
                             <div class="info-box">
                                 <div class="font-semibold text-sm">Support</div>
@@ -1134,6 +1115,11 @@
                 
                 <div class="border-t border-gray-700 mt-12 pt-8 text-center">
                     <p class="text-gray-300">&copy; 2025 OneStopCentre Uganda. All rights reserved.</p>
+                    <p class="text-gray-300 mt-2">
+                        <a href="https://mybusiness.go.ug/" class="text-yellow-400 hover:text-yellow-200">MyBusiness</a> | 
+                        <a href="https://ebiz.go.ug/" class="text-yellow-400 hover:text-yellow-200">eBiz Portal</a> | 
+                        <a href="https://ugandainvest.go.ug/" class="text-yellow-400 hover:text-yellow-200">Uganda Investment Authority</a>
+                    </p>
                 </div>
             </div>
         </footer>
@@ -1168,7 +1154,7 @@
                 ],
                 investments: [
                     { step: "Identify Investment Sector", description: "Choose an ATMS sector (Agriculture, Tourism, Minerals, ICT)" },
-                    { step: "Meet Minimum Investment", description: "Ensure investment meets minimum thresholds (e.g., USD 100K for general, USD 500K for tourism)" },
+                    { step: "Meet Minimum Investment", description: "Ensure investment meets minimum thresholds (e.g., USD 250,000 for foreign investors)" },
                     { step: "Contact UIA", description: "Engage Uganda Investment Authority for facilitation and incentives" },
                     { step: "Prepare Business Plan", description: "Develop a detailed business plan for investment approval" },
                     { step: "Apply for Incentives", description: "Request tax holidays and other investment incentives" },
@@ -1365,191 +1351,182 @@
             
             function closeEmail() {
                 document.getElementById('emailModal').classList.add('hidden');
-                document.body.style.overflow = '';
                 document.getElementById('modalName').value = '';
                 document.getElementById('modalEmail').value = '';
+                document.getElementById('modalMessage').value = '';
+                document.body.style.overflow = 'auto';
+                currentEmailData = {};
             }
             
             function sendEmail() {
-                const name = document.getElementById('modalName').value.trim();
-                const email = document.getElementById('modalEmail').value.trim();
-                const message = document.getElementById('modalMessage').value.trim();
+                const name = document.getElementById('modalName').value;
+                const email = document.getElementById('modalEmail').value;
+                const message = document.getElementById('modalMessage').value;
                 
                 if (!name || !email || !message) {
                     showNotification('Please fill in all fields', 'error');
                     return;
                 }
                 
-                const emailBody = `From: ${name} (${email})\n\n${message}`;
-                const subject = `ATMS Inquiry: ${currentEmailData.service}`;
-                const mailtoLink = `mailto:${currentEmailData.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-                
-                window.location.href = mailtoLink;
-                showNotification('Email opened successfully!', 'success');
-                setTimeout(() => closeEmail(), 1500);
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    showNotification('Please enter a valid email address', 'error');
+                    return;
+                }
+                // Simulate sending email
+            console.log(`Sending email to ${currentEmailData.email}:`, { name, email, message });
+            showNotification('Email sent successfully!', 'success');
+            closeEmail();
+        }
+
+        // Call functionality
+        function makeCall(phone) {
+            window.location.href = `tel:${phone}`;
+        }
+
+        // Chat functionality
+        function openChat() {
+            window.open('https://wa.me/+256775692692335', '_blank');
+        }
+
+        // Notification system
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg text-white z-[1000] max-w-sm`;
+
+            switch (type) {
+                case 'success':
+                    notification.className += ' bg-green-500';
+                    break;
+                case 'error':
+                    notification.className += ' bg-red-500';
+                    break;
+                case 'warning':
+                    notification.className += ' bg-yellow-500';
+                    break;
+                default:
+                    notification.className += ' bg-blue-500';
             }
-            
-           // Phone call functionality
-function makeCall(number) {
-    if (confirm(`Call ${number}?`)) {
-        showNotification(`Calling ${number}...`, 'info');
-        window.location.href = `tel:${number}`;
-    }
-}
 
-// Chat functionality
-function openChat() {
-    showNotification('Opening live chat...', 'info');
-    setTimeout(() => {
-        alert('Live chat feature is under development. Please use the email or phone options to contact us.');
-    }, 1000);
-}
+            notification.textContent = message;
+            document.body.appendChild(notification);
 
-// Tax calculator
-function calculateTax() {
-    const amount = parseFloat(document.getElementById('investmentAmount').value);
-    const sector = document.getElementById('sector').value;
-    const investmentType = document.getElementById('investmentType').value;
-    const resultDiv = document.getElementById('result');
-    
-    if (!amount || amount <= 0) {
-        showNotification('Please enter a valid investment amount', 'error');
-        return;
-    }
-    
-    let taxRate = 0.3; // Default corporate tax rate (30%)
-    let taxHoliday = 0;
-    let incentives = [];
-    
-    // Adjust tax rate and incentives based on sector
-    switch (sector) {
-        case 'agriculture':
-            taxHoliday = amount >= 500000 ? 10 : 5;
-            incentives.push(`Tax holiday: ${taxHoliday} years`, 'Duty-free import of agricultural equipment');
-            break;
-        case 'tourism':
-            taxHoliday = amount >= 500000 ? 10 : 7;
-            incentives.push(`Tax holiday: ${taxHoliday} years`, 'VAT exemption on hotel development');
-            break;
-        case 'minerals':
-            taxHoliday = amount >= 1000000 ? 10 : 5;
-            incentives.push(`Tax holiday: ${taxHoliday} years`, 'Reduced royalty rates');
-            break;
-        case 'ict':
-            taxHoliday = amount >= 100000 ? 7 : 3;
-            incentives.push(`Tax holiday: ${taxHoliday} years`, 'R&D tax credits');
-            break;
-    }
-    
-    // Adjust based on investment type
-    if (investmentType === 'expansion') {
-        taxRate *= 0.8; // 20% tax reduction for expansions
-        incentives.push('20% tax reduction for business expansion');
-    } else if (investmentType === 'acquisition') {
-        taxRate *= 0.9; // 10% tax reduction for acquisitions
-        incentives.push('10% tax reduction for acquisitions');
-    }
-    
-    const taxAmount = amount * taxRate;
-    const netTax = taxHoliday > 0 ? 0 : taxAmount;
-    
-    resultDiv.innerHTML = `
-        <h3 class="text-lg font-bold mb-4">Tax Calculation Results</h3>
-        <div class="space-y-2">
-            <p><strong>Investment Amount:</strong> USD ${amount.toLocaleString()}</p>
-            <p><strong>Sector:</strong> ${sector.charAt(0).toUpperCase() + sector.slice(1)}</p>
-            <p><strong>Investment Type:</strong> ${investmentType.charAt(0).toUpperCase() + investmentType.slice(1)}</p>
-            <p><strong>Base Tax Rate:</strong> ${(taxRate * 100).toFixed(1)}%</p>
-            <p><strong>Tax Amount:</strong> USD ${taxAmount.toLocaleString()}</p>
-            <p><strong>Effective Tax (after incentives):</strong> USD ${netTax.toLocaleString()}</p>
-            <p><strong>Incentives Applied:</strong></p>
-            <ul class="list-disc pl-5">
-                ${incentives.map(incentive => `<li>${incentive}</li>`).join('')}
-            </ul>
-        </div>
-    `;
-    resultDiv.classList.remove('hidden');
-    
-    showNotification('Tax calculation completed!', 'success');
-    resultDiv.scrollIntoView({ behavior: 'smooth' });
-}
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
 
-// Notification system
-function showNotification(message, type) {
-    const notification = document.createElement('div');
-    notification.className = `fixed bottom-5 right-5 p-4 rounded-xl shadow-lg text-white z-[1001] transition-all duration-300 transform translate-y-0`;
-    
-    switch (type) {
-        case 'success':
-            notification.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-            break;
-        case 'error':
-            notification.style.background = 'linear-gradient(135deg, #dc2626, #b91c1c)';
-            break;
-        case 'warning':
-            notification.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
-            break;
-        case 'info':
-        default:
-            notification.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
-    }
-    
-    notification.textContent = message;
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        notification.style.transform = 'translateY(20px)';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
+        // Tax calculator
+        function calculateTax() {
+            const amount = parseFloat(document.getElementById('investmentAmount').value);
+            const sector = document.getElementById('sector').value;
+            const investmentType = document.getElementById('investmentType').value;
+            const resultDiv = document.getElementById('result');
 
-// Checklist functionality
-function openChecklistModal() {
-    document.getElementById('checklistSelectionModal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
+            if (isNaN(amount) || amount <= 0) {
+                showNotification('Please enter a valid investment amount', 'error');
+                return;
+            }
 
-function closeChecklistSelection() {
-    document.getElementById('checklistSelectionModal').classList.add('hidden');
-    document.body.style.overflow = '';
-}
+            let baseTaxRate = 0.3; // Default corporate tax rate
+            let taxHoliday = 0;
+            let incentives = [];
 
-function openChecklist(type) {
-    closeChecklistSelection();
-    const checklistModal = document.getElementById('checklistModal');
-    const checklistTitle = document.getElementById('checklistTitle');
-    const checklistContent = document.getElementById('checklistContent');
-    
-    checklistTitle.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Checklist`;
-    
-    checklistContent.innerHTML = checklists[type].map(item => `
-        <div class="checklist-item">
-            <svg width="24" height="24" fill="none" stroke="#10b981" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-            <div>
-                <h4 class="font-semibold">${item.step}</h4>
-                <p class="text-gray-600">${item.description}</p>
-            </div>
-        </div>
-    `).join('');
-    
-    checklistModal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} checklist opened`, 'success');
-}
+            // Adjust tax rate and incentives based on sector
+            switch (sector) {
+                case 'agriculture':
+                    taxHoliday = amount >= 50000 ? 10 : 5;
+                    incentives = ['Duty-free import of agricultural equipment', 'VAT exemption on inputs'];
+                    break;
+                case 'tourism':
+                    taxHoliday = amount >= 250000 ? 10 : 7;
+                    incentives = ['Tax holiday on hotel development', 'Exemption on tourism equipment'];
+                    break;
+                case 'minerals':
+                    taxHoliday = amount >= 1000000 ? 10 : 5;
+                    incentives = ['Royalty tax exemptions', 'Capital expenditure deductions'];
+                    break;
+                case 'ict':
+                    taxHoliday = amount >= 50000 ? 7 : 3;
+                    incentives = ['Tax holiday for tech startups', 'R&D tax credits'];
+                    break;
+            }
 
-function closeChecklist() {
-    document.getElementById('checklistModal').classList.add('hidden');
-    document.body.style.overflow = '';
-}
+            // Adjust based on investment type
+            if (investmentType === 'expansion') {
+                taxHoliday = Math.max(taxHoliday - 2, 0);
+                incentives.push('Expansion allowance');
+            } else if (investmentType === 'acquisition') {
+                taxHoliday = Math.max(taxHoliday - 3, 0);
+                incentives.push('Acquisition restructuring benefits');
+            }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    filterServices();
-    document.getElementById('searchInput').addEventListener('input', debouncedSearch);
-});
-</script>
+            const annualTax = amount * baseTaxRate;
+            const taxSavings = annualTax * (taxHoliday / 10);
+
+            resultDiv.innerHTML = `
+                <h4 class="text-lg font-bold mb-4">Tax Calculation Results</h4>
+                <div class="space-y-3">
+                    <p><strong>Investment Amount:</strong> $${amount.toLocaleString()}</p>
+                    <p><strong>Sector:</strong> ${sector.charAt(0).toUpperCase() + sector.slice(1)}</p>
+                    <p><strong>Investment Type:</strong> ${investmentType.charAt(0).toUpperCase() + investmentType.slice(1)}</p>
+                    <p><strong>Base Tax Rate:</strong> ${(baseTaxRate * 100).toFixed(0)}%</p>
+                    <p><strong>Estimated Annual Tax:</strong> UGX ${(annualTax * 3800).toLocaleString()}</p>
+                    <p><strong>Tax Holiday:</strong> ${taxHoliday} years</p>
+                    <p><strong>Estimated Tax Savings:</strong> UGX ${(taxSavings * 3800).toLocaleString()}</p>
+                    <p><strong>Incentives:</strong></p>
+                    <ul class="list-disc list-inside">
+                        ${incentives.map(i => `<li>${i}</li>`).join('')}
+                    </ul>
+                </div>
+                <p class="text-sm text-gray-600 mt-4">Note: These are estimates. Contact URA for official calculations.</p>
+            `;
+
+            resultDiv.classList.remove('hidden');
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+            showNotification('Tax calculation completed', 'success');
+        }
+
+        // Checklist functionality
+        function openChecklistModal() {
+            document.getElementById('checklistSelectionModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeChecklistSelection() {
+            document.getElementById('checklistSelectionModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function openChecklist(type) {
+            closeChecklistSelection();
+            const checklistModal = document.getElementById('checklistModal');
+            const checklistTitle = document.getElementById('checklistTitle');
+            const checklistContent = document.getElementById('checklistContent');
+
+            checklistTitle.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Checklist`;
+
+            checklistContent.innerHTML = checklists[type].map(item => `
+                <div class="checklist-item">
+                    <input type="checkbox" class="mt-1">
+                    <div>
+                        <h4 class="font-semibold">${item.step}</h4>
+                        <p class="text-gray-600">${item.description}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            checklistModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeChecklist() {
+            document.getElementById('checklistModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
 </body>
 </html>
