@@ -1,486 +1,684 @@
-// Search functionality
-const services = [
-    { name: "Business Registration", sector: "all", location: "kampala", type: "registration", description: "Company incorporation, business names, and certificate services", tags: ["Company registration", "Business names", "Certificates"], url: "https://www.ursb.go.ug", section: "#services" },
-    { name: "Tax Registration", sector: "all", location: "kampala", type: "registration", description: "VAT, PAYE registration and customs clearance services", tags: ["VAT registration", "PAYE", "Customs"], url: "https://www.ura.go.ug", section: "#services" },
-    { name: "Social Security", sector: "all", location: "kampala", type: "registration", description: "Employee social security and pension services", tags: ["Employee registration", "Pension", "Benefits"], url: "https://www.nssfug.org", section: "#services" },
-    { name: "Communications License", sector: "ict", location: "kampala", type: "licensing", description: "Telecommunications and broadcasting licensing services", tags: ["Telecom license", "Broadcasting", "ISP license"], url: "https://www.ucc.co.ug", section: "#services" },
-    { name: "Investment Facilitation", sector: "all", location: "kampala", type: "investment", description: "One-stop investment services and incentives", tags: ["Investment license", "Tax incentives", "Facilitation"], url: "https://www.ugandainvest.go.ug", section: "#services" },
-    { name: "Capital Markets", sector: "all", location: "kampala", type: "licensing", description: "Securities licensing and market regulation services", tags: ["Securities license", "Investment advisory", "Market surveillance"], url: "https://www.cmauganda.co.ug", section: "#services" },
-    { name: "Agricultural Credit", sector: "agriculture", location: "kampala", type: "investment", description: "Low-interest credit for agricultural investments and value chains", tags: ["Agricultural loans", "Value chains", "Farm financing"], url: "https://www.bou.or.ug", section: "#investments" },
-    { name: "Tourism Development", sector: "tourism", location: "kampala", type: "investment", description: "Hotel development and eco-tourism investment opportunities", tags: ["Hotel development", "Eco-tourism", "Tourism incentives"], url: "https://www.visituganda.com", section: "#investments" },
-    { name: "Tech Innovation", sector: "ict", location: "kampala", type: "investment", description: "Startup funding and digital infrastructure investments", tags: ["Startup funding", "Digital infrastructure", "Innovation grants"], url: "https://www.nita.go.ug", section: "#investments" },
-    { name: "Tax Calculator", sector: "all", location: "all", type: "calculator", description: "Calculate potential tax obligations and incentives", tags: ["Tax", "Calculator", "Incentives"], url: "", section: "#calculator" }
-];
-
-let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-let currentSuggestionIndex = -1;
-
-function updateSearchHistory() {
-    const historyContainer = document.getElementById('searchHistory');
-    historyContainer.innerHTML = '<p class="text-sm text-gray-600 mr-2">Recent searches:</p>';
-    searchHistory.forEach(term => {
-        const button = document.createElement('button');
-        button.textContent = term;
-        button.className = 'quick-search-btn';
-        button.onclick = () => quickSearch(term);
-        historyContainer.appendChild(button);
-    });
-    historyContainer.classList.toggle('hidden', searchHistory.length === 0);
+body { 
+    font-family: 'Roboto', sans-serif; 
 }
 
-function highlightElement(serviceName, section) {
-    document.querySelectorAll('.highlight-card').forEach(el => el.classList.remove('highlight-card'));
-    
-    if (section === '#calculator') {
-        const calculatorCard = document.querySelector('#calculator .service-card');
-        if (calculatorCard) {
-            calculatorCard.classList.add('highlight-card');
-            setTimeout(() => calculatorCard.classList.remove('highlight-card'), 3000);
-        }
-    } else {
-        const cards = document.querySelectorAll(`${section} .service-card`);
-        cards.forEach(card => {
-            const title = card.querySelector('h3').textContent;
-            if (title.toLowerCase() === serviceName.toLowerCase()) {
-                card.classList.add('highlight-card');
-                setTimeout(() => card.classList.remove('highlight-card'), 3000);
-            }
-        });
+.hero-bg {
+    background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), 
+                url('https://www.shutterstock.com/image-photo/crowned-crane-600nw-472226197.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+
+.search-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(32,33,36,0.2);
+    padding: 16px;
+    margin: 20px auto;
+    max-width: 95%;
+    position: relative;
+    transition: box-shadow 0.2s ease;
+}
+
+.search-container:hover {
+    box-shadow: 0 6px 16px rgba(32,33,36,0.3);
+}
+
+.suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 10;
+    display: none;
+}
+
+.suggestion-item {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #202124;
+    transition: background 0.2s ease;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.suggestion-item:hover, .suggestion-item.selected {
+    background: #f8f9fa;
+}
+
+.highlight {
+    background: #ffd700;
+    padding: 0 2px;
+}
+
+.match-location {
+    font-size: 12px;
+    color: #6b7280;
+    margin-left: 8px;
+}
+
+.quick-search-btn {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    color: black;
+    padding: 10px 16px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin: 4px;
+    display: inline-block;
+}
+
+.quick-search-btn:hover {
+    background: linear-gradient(135deg, #ffca28, #f59e0b);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 20px 14px 48px;
+    border: 1px solid #dfe1e5;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    color: #202124;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #ffd700;
+    box-shadow: 0 0 0 2px rgba(255,215,0,0.2);
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #5f6368;
+    width: 20px;
+    height: 20px;
+}
+
+.filter-select {
+    padding: 14px 16px;
+    border: 1px solid #dfe1e5;
+    border-radius: 6px;
+    background: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #ffd700;
+}
+
+.service-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255,215,0,0.1);
+    margin-bottom: 16px;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    border-color: #ffd700;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 9999px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    color: black;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255,215,0,0.4);
+}
+
+.btn-black {
+    background: #1f2937;
+    color: white;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.btn-black:hover {
+    background: #374151;
+    transform: translateY(-2px);
+}
+
+.btn-red {
+    background: #dc2626;
+    color: white;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.btn-red:hover {
+    background: #b91c1c;
+    transform: translateY(-2px);
+}
+
+.tag {
+    background: linear-gradient(135deg, #ffd700, #ffc107);
+    color: black;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 500;
+    display: inline-block;
+    margin: 2px;
+}
+
+.tag-mandatory {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: white;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffd700, #dc2626, #000);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280;
+    font-size: 13px;
+    margin: 6px 0;
+}
+
+.contact-info svg {
+    width: 16px;
+    height: 16px;
+    color: #3b82f6;
+    flex-shrink: 0;
+}
+
+.service-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-right: 12px;
+    border-radius: 6px;
+    background: white;
+    padding: 4px;
+    border: 2px solid #e5e7eb;
+    flex-shrink: 0;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.info-box {
+    background: #fef3c7;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #ffd700;
+}
+
+.chat-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: linear-gradient(135deg, #ffd700, #ffc107);
+    color: black;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-weight: 600;
+    box-shadow: 0 8px 32px rgba(255,215,0,0.4);
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.chat-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(255,215,0,0.5);
+}
+
+.download-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb, #1d4ed8);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-weight: 600;
+    box-shadow: 0 8px 32px rgba(59,130,246,0.4);
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    animation: pulse-download 2s infinite;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    font-size: 13px;
+}
+
+.download-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 16px 48px rgba(59,130,246,0.6);
+    background: linear-gradient(135deg, #2563eb, #1d4ed8, #1e40af);
+    animation: none;
+}
+
+.download-btn:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+@keyframes pulse-download {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 8px 32px rgba(59,130,246,0.4);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 12px 40px rgba(59,130,246,0.6);
     }
 }
 
-function performSearch(query) {
-    const suggestions = document.getElementById('suggestions');
-    suggestions.innerHTML = '';
-    
-    if (query.trim() === '') {
-        suggestions.style.display = 'none';
-        return;
+.download-btn .download-icon {
+    animation: bounce-icon 1.5s ease-in-out infinite;
+}
+
+@keyframes bounce-icon {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
     }
-
-    const filteredServices = services.filter(service => 
-        service.name.toLowerCase().includes(query.toLowerCase()) ||
-        service.description.toLowerCase().includes(query.toLowerCase()) ||
-        service.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
-    );
-
-    filteredServices.forEach((service, index) => {
-        const div = document.createElement('div');
-        div.className = 'suggestion-item';
-        div.innerHTML = `
-            ${highlightMatch(service.name, query)}
-            <span class="match-location">${service.location.charAt(0).toUpperCase() + service.location.slice(1)}</span>
-        `;
-        div.onclick = () => {
-            const section = document.querySelector(service.section);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-            }
-            highlightElement(service.name, service.section);
-            if (service.url) {
-                window.open(service.url, '_blank');
-                showNotification(`Navigating to ${service.name} website`, 'info');
-            }
-            addToSearchHistory(query);
-            suggestions.style.display = 'none';
-        };
-        div.dataset.index = index;
-        suggestions.appendChild(div);
-    });
-
-    suggestions.style.display = filteredServices.length > 0 ? 'block' : 'none';
-    currentSuggestionIndex = -1;
-}
-
-function highlightMatch(text, query) {
-    const regex = new RegExp(`(${query})`, 'gi');
-    return text.replace(regex, '<span class="highlight">$1</span>');
-}
-
-function addToSearchHistory(term) {
-    if (!searchHistory.includes(term)) {
-        searchHistory.unshift(term);
-        if (searchHistory.length > 5) searchHistory.pop();
-        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-        updateSearchHistory();
-        showNotification(`Added "${term}" to search history`, 'success');
+    40% {
+        transform: translateY(-3px);
+    }
+    60% {
+        transform: translateY(-1px);
     }
 }
 
-function handleKeyNavigation(event) {
-    const suggestions = document.getElementById('suggestions');
-    const suggestionItems = suggestions.getElementsByClassName('suggestion-item');
-    
-    if (suggestionItems.length === 0) return;
+.back-to-top {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #ffd700, #ffc107);
+    color: black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
 
-    if (event.key === 'ArrowDown') {
-        event.preventDefault();
-        currentSuggestionIndex = Math.min(currentSuggestionIndex + 1, suggestionItems.length - 1);
-        updateSuggestionSelection(suggestionItems);
-    } else if (event.key === 'ArrowUp') {
-        event.preventDefault();
-        currentSuggestionIndex = Math.max(currentSuggestionIndex - 1, -1);
-        updateSuggestionSelection(suggestionItems);
-    } else if (event.key === 'Enter' && currentSuggestionIndex >= 0) {
-        event.preventDefault();
-        const selectedService = services.find((_, index) => index === parseInt(suggestionItems[currentSuggestionIndex].dataset.index));
-        if (selectedService) {
-            const section = document.querySelector(selectedService.section);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-            }
-            highlightElement(selectedService.name, selectedService.section);
-            if (selectedService.url) {
-                window.open(selectedService.url, '_blank');
-                showNotification(`Navigating to ${selectedService.name} website`, 'info');
-            }
-            addToSearchHistory(document.getElementById('searchInput').value);
-            suggestions.style.display = 'none';
-        }
+.back-to-top.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 90vw;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.checklist-modal {
+    max-width: 90vw;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.checklist-item:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .section-title { 
+        font-size: 2rem; 
+        margin-bottom: 16px;
+    }
+    
+    .hero-bg {
+        min-height: 100vh;
+    }
+    
+    .search-container { 
+        padding: 16px; 
+        margin: 16px auto; 
+        max-width: 95%; 
+        border-radius: 12px;
+    }
+    
+    .search-input {
+        padding: 16px 20px 16px 48px;
+        font-size: 16px;
+    }
+    
+    .filter-select {
+        padding: 16px 12px;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+    
+    .service-card {
+        padding: 16px;
+        border-radius: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .service-logo {
+        width: 36px;
+        height: 36px;
+        margin-right: 8px;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin: 12px 0;
+    }
+    
+    .info-box {
+        padding: 10px;
+        font-size: 13px;
+    }
+    
+    .btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .contact-info {
+        font-size: 12px;
+        margin: 4px 0;
+        flex-wrap: wrap;
+    }
+    
+    .contact-info svg {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .tag {
+        font-size: 10px;
+        padding: 3px 8px;
+        margin: 1px;
+    }
+    
+    .quick-search-btn {
+        font-size: 13px;
+        padding: 8px 12px;
+        margin: 2px;
+    }
+    
+    .chat-btn { 
+        bottom: 16px; 
+        left: 16px; 
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .download-btn { 
+        bottom: 16px; 
+        right: 16px; 
+        font-size: 12px; 
+        padding: 10px 16px;
+    }
+    
+    .back-to-top { 
+        bottom: 80px; 
+        right: 16px; 
+        width: 44px;
+        height: 44px;
+    }
+    
+    .suggestions { 
+        max-height: 200px; 
+    }
+    
+    .suggestion-item {
+        padding: 12px 16px;
+        font-size: 15px;
+    }
+    
+    .modal-content {
+        padding: 20px;
+        max-width: 95vw;
+        border-radius: 12px;
+    }
+    
+    header .flex {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    header p {
+        font-size: 0.875rem;
+    }
+    
+    header nav {
+        display: none;
+    }
+    
+    .mobile-nav {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: white;
+        z-index: 2000;
+        transition: left 0.3s ease;
+        padding: 20px;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .mobile-nav.active {
+        left: 0;
+    }
+    
+    .mobile-nav a {
+        display: block;
+        padding: 15px 0;
+        color: #333;
+        text-decoration: none;
+        border-bottom: 1px solid #eee;
+        font-weight: 500;
+    }
+    
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        padding: 5px;
+    }
+    
+    .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 5px 0;
+        transition: 0.3s;
+    }
+    
+    .grid {
+        gap: 12px;
+    }
+    
+    .md\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .lg\:grid-cols-3 {
+        grid-template-columns: 1fr;
+    }
+    
+    .md\:grid-cols-4 {
+        grid-template-columns: 1fr;
+    }
+    
+    .flex.gap-2 {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .text-xl {
+        font-size: 1.125rem;
+    }
+    
+    .text-lg {
+        font-size: 1rem;
+    }
+    
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    footer .grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        text-align: center;
     }
 }
 
-function updateSuggestionSelection(suggestionItems) {
-    Array.from(suggestionItems).forEach((item, index) => {
-        item.classList.toggle('selected', index === currentSuggestionIndex);
-        if (index === currentSuggestionIndex) {
-            item.scrollIntoView({ block: 'nearest' });
-        }
-    });
-}
-
-function quickSearch(term) {
-    document.getElementById('searchInput').value = term;
-    performSearch(term);
-    addToSearchHistory(term);
-    const service = services.find(s => s.name.toLowerCase() === term.toLowerCase());
-    if (service && service.section) {
-        const section = document.querySelector(service.section);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-            highlightElement(service.name, service.section);
-            showNotification(`Viewing ${service.name} in ${service.section}`, 'info');
-        }
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .search-container {
+        margin: 12px auto;
+        padding: 12px;
+    }
+    
+    .service-card {
+        padding: 12px;
+    }
+    
+    .btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .modal-content {
+        padding: 16px;
+        max-width: 98vw;
+    }
+    
+    .info-box {
+        padding: 8px;
+    }
+    
+    .contact-info {
+        font-size: 11px;
     }
 }
 
-const debounce = (func, delay) => {
-    let timeoutId;
-    return (...args) => {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => func(...args), delay);
-    };
-};
-
-const debouncedSearch = debounce(performSearch, 300);
-
-// Enhanced reset functionality
-function resetSearch() {
-    // Clear search input
-    const searchInput = document.getElementById('searchInput');
-    searchInput.value = '';
-    
-    // Clear suggestions
-    const suggestions = document.getElementById('suggestions');
-    suggestions.innerHTML = '';
-    suggestions.style.display = 'none';
-    currentSuggestionIndex = -1;
-    
-    // Clear search history
-    searchHistory = [];
-    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-    updateSearchHistory();
-    
-    // Clear filters
-    document.getElementById('sectorFilter').value = 'all';
-    document.getElementById('locationFilter').value = 'all';
-    document.getElementById('serviceTypeFilter').value = 'all';
-    filterServices();
-    
-    // Show notification
-    showNotification('Search and filters have been reset', 'success');
-}
-
-// Filter functionality
-function filterServices() {
-    const sector = document.getElementById('sectorFilter').value;
-    const location = document.getElementById('locationFilter').value;
-    const serviceType = document.getElementById('serviceTypeFilter').value;
-    const servicesList = document.getElementById('servicesList');
-    const cards = servicesList.getElementsByClassName('service-card');
-
-    Array.from(cards).forEach(card => {
-        const cardSector = card.dataset.sector;
-        const cardLocation = card.dataset.location;
-        const cardType = card.dataset.type;
-
-        const matchesSector = sector === 'all' || cardSector === sector;
-        const matchesLocation = location === 'all' || cardLocation === location;
-        const matchesType = serviceType === 'all' || cardType === serviceType;
-
-        card.style.display = matchesSector && matchesLocation && matchesType ? 'block' : 'none';
-    });
-    showNotification('Filters applied successfully', 'success');
-}
-
-function clearFilters() {
-    document.getElementById('sectorFilter').value = 'all';
-    document.getElementById('locationFilter').value = 'all';
-    document.getElementById('serviceTypeFilter').value = 'all';
-    filterServices();
-    showNotification('Filters cleared', 'success');
-}
-
-// Tax Calculator
-function calculateTax() {
-    const amount = parseFloat(document.getElementById('investmentAmount').value);
-    const sector = document.getElementById('sector').value;
-    const type = document.getElementById('investmentType').value;
-    const resultDiv = document.getElementById('result');
-
-    if (isNaN(amount) || amount <= 0) {
-        resultDiv.innerHTML = '<p class="text-red-600">Please enter a valid investment amount.</p>';
-        resultDiv.classList.remove('hidden');
-        showNotification('Invalid investment amount entered', 'error');
-        return;
+@media (hover: none) and (pointer: coarse) {
+    .btn:hover,
+    .service-card:hover,
+    .quick-search-btn:hover {
+        transform: none;
     }
-
-    let taxRate, taxHoliday, vatRate;
-    switch (sector) {
-        case 'agriculture':
-            taxRate = type === 'new' ? 0.1 : 0.15;
-            taxHoliday = type === 'new' ? 10 : 5;
-            vatRate = 0.18;
-            break;
-        case 'tourism':
-            taxRate = type === 'new' ? 0.12 : 0.18;
-            taxHoliday = type === 'new' ? 8 : 4;
-            vatRate = 0.18;
-            break;
-        case 'minerals':
-            taxRate = type === 'new' ? 0.15 : 0.2;
-            taxHoliday = type === 'new' ? 7 : 3;
-            vatRate = 0.18;
-            break;
-        case 'ict':
-            taxRate = type === 'new' ? 0.08 : 0.12;
-            taxHoliday = type === 'new' ? 10 : 5;
-            vatRate = 0.16;
-            break;
-        default:
-            taxRate = 0.3;
-            taxHoliday = 0;
-            vatRate = 0.18;
-    }
-
-    const corporateTax = amount * taxRate;
-    const vat = amount * vatRate;
-    const totalTax = corporateTax + vat;
-
-    resultDiv.innerHTML = `
-        <h3 class="text-lg md:text-xl font-bold mb-4">Tax Calculation Results</h3>
-        <p><strong>Sector:</strong> ${sector.charAt(0).toUpperCase() + sector.slice(1)}</p>
-        <p><strong>Investment Type:</strong> ${type.charAt(0).toUpperCase() + type.slice(1)}</p>
-        <p><strong>Investment Amount:</strong> USD ${amount.toLocaleString()}</p>
-        <p><strong>Corporate Tax Rate:</strong> ${(taxRate * 100).toFixed(2)}%</p>
-        <p><strong>VAT Rate:</strong> ${(vatRate * 100).toFixed(2)}%</p>
-        <p><strong>Estimated Corporate Tax:</strong> USD ${corporateTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-        <p><strong>Estimated VAT:</strong> USD ${vat.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-        <p><strong>Total Estimated Tax:</strong> USD ${totalTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-        <p><strong>Tax Holiday:</strong> ${taxHoliday} years</p>
-        <p class="text-sm text-gray-600 mt-4">Note: These are estimated figures. Consult with URA for precise calculations.</p>
-    `;
-    resultDiv.classList.remove('hidden');
-    showNotification('Tax calculation completed', 'success');
-}
-
-// Modal handling
-function openEmail(service, email) {
-    document.getElementById('modalService').value = service;
-    document.getElementById('modalEmail').dataset.email = email;
-    document.getElementById('emailModal').classList.remove('hidden');
-    showNotification(`Opening email form for ${service}`, 'info');
-}
-
-function closeEmail() {
-    document.getElementById('emailModal').classList.add('hidden');
-    document.getElementById('modalName').value = '';
-    document.getElementById('modalEmail').value = '';
-    document.getElementById('modalMessage').value = '';
-    showNotification('Email form closed', 'info');
-}
-
-function sendEmail() {
-    const service = document.getElementById('modalService').value;
-    const name = document.getElementById('modalName').value;
-    const email = document.getElementById('modalEmail').value;
-    const message = document.getElementById('modalMessage').value;
-    const recipient = document.getElementById('modalEmail').dataset.email;
-
-    if (!name || !email || !message) {
-        showNotification('Please fill in all email fields', 'error');
-        return;
-    }
-
-    const subject = encodeURIComponent(`Inquiry about ${service}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
-    closeEmail();
-    showNotification('Email sent successfully', 'success');
-}
-
-function openChecklistModal() {
-    document.getElementById('checklistSelectionModal').classList.remove('hidden');
-    showNotification('Opening checklist selection', 'info');
-}
-
-function closeChecklistSelection() {
-    document.getElementById('checklistSelectionModal').classList.add('hidden');
-    showNotification('Checklist selection closed', 'info');
-}
-
-function openChecklist(type) {
-    const modal = document.getElementById('checklistModal');
-    const title = document.getElementById('checklistTitle');
-    const content = document.getElementById('checklistContent');
     
-    let checklistItems = [];
-    
-    switch (type) {
-        case 'services':
-            title.textContent = 'Services Checklist';
-            checklistItems = [
-                { name: 'Business Registration', description: 'Register your company with URSB', mandatory: true },
-                { name: 'Tax Registration', description: 'Obtain TIN and register for VAT/PAYE with URA', mandatory: true },
-                { name: 'Social Security', description: 'Register employees with NSSF', mandatory: true },
-                { name: 'Communications License', description: 'Obtain telecom/broadcasting license from UCC (if applicable)', mandatory: false },
-                { name: 'Investment Facilitation', description: 'Apply for investment license with UIA', mandatory: false },
-                { name: 'Capital Markets', description: 'Obtain securities license from CMA (if applicable)', mandatory: false }
-            ];
-            break;
-        case 'investments':
-            title.textContent = 'Investments Checklist';
-            checklistItems = [
-                { name: 'Agricultural Credit', description: 'Apply for low-interest loans with BOU', mandatory: false },
-                { name: 'Tourism Development', description: 'Explore hotel/eco-tourism incentives with UTB', mandatory: false },
-                { name: 'Tech Innovation', description: 'Apply for startup funding with NITA', mandatory: false },
-                { name: 'Investment License', description: 'Secure investment license from UIA', mandatory: true }
-            ];
-            break;
-        case 'calculator':
-            title.textContent = 'Tax Checklist';
-            checklistItems = [
-                { name: 'Verify Investment Amount', description: 'Ensure accurate investment figures', mandatory: true },
-                { name: 'Select ATMS Sector', description: 'Choose appropriate sector for tax rates', mandatory: true },
-                { name: 'Confirm Investment Type', description: 'Specify new, expansion, or acquisition', mandatory: true },
-                { name: 'Consult URA', description: 'Validate calculations with URA for accuracy', mandatory: false }
-            ];
-            break;
-    }
-
-    content.innerHTML = checklistItems.map(item => `
-        <div class="checklist-item">
-            <input type="checkbox" class="mt-1" ${item.mandatory ? 'checked disabled' : ''}>
-            <div>
-                <p class="font-semibold">${item.name}</p>
-                <p class="text-sm text-gray-600">${item.description}</p>
-                ${item.mandatory ? '<span class="tag tag-mandatory mt-2">Required</span>' : ''}
-            </div>
-        </div>
-    `).join('');
-
-    closeChecklistSelection();
-    modal.classList.remove('hidden');
-    showNotification(`Opened ${type} checklist`, 'success');
-}
-
-function closeChecklist() {
-    document.getElementById('checklistModal').classList.add('hidden');
-    showNotification('Checklist closed', 'info');
-}
-
-// Navigation and utility functions
-function toggleMobileNav() {
-    document.getElementById('mobileNav').classList.toggle('active');
-    showNotification('Mobile navigation toggled', 'info');
-}
-
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    showNotification('Scrolling to top', 'info');
-}
-
-function makeCall(phone) {
-    window.location.href = `tel:${phone}`;
-    showNotification(`Initiating call to ${phone}`, 'info');
-}
-
-function downloadBankableProjects() {
-    const downloadUrl = 'https://github.com/Ptr234/TEC/raw/main/Bankable%20Projects%20-%202025.3%20comp.pdf';
-    
-    try {
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = 'Bankable Projects - 2025.3 comp.pdf';
-        link.target = '_blank';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        showNotification('Downloading Bankable Projects PDF...', 'success');
-    } catch (error) {
-        console.error('Download error:', error);
-        window.open(downloadUrl, '_blank');
-        showNotification('Unable to download directly. Opening PDF in new tab...', 'error');
+    .btn:active,
+    .service-card:active,
+    .quick-search-btn:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
     }
 }
-
-// Notification function for user feedback
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transition-opacity duration-300 ${
-        type === 'success' ? 'bg-green-500 text-white' : 
-        type === 'error' ? 'bg-red-500 text-white' : 
-        'bg-blue-500 text-white'
-    }`;
-    notification.textContent = message;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        setTimeout(() => {
-            if (document.body.contains(notification)) {
-                document.body.removeChild(notification);
-            }
-        }, 300);
-    }, 3000);
+.highlight-card {
+    border: 3px solid #ffd700 !important;
+    background: rgba(255, 215, 0, 0.1);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    transition: all 0.3s ease;
 }
-
-function openChat() {
-    window.location.href = 'https://wa.me/+256775692335';
-    showNotification('Opening WhatsApp chat', 'info');
-}
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    updateSearchHistory();
-    
-    window.addEventListener('scroll', () => {
-        const backToTop = document.getElementById('backToTop');
-        backToTop.classList.toggle('active', window.scrollY > 300);
-    });
-
-    document.addEventListener('click', (e) => {
-        const suggestions = document.getElementById('suggestions');
-        if (!e.target.closest('#searchInput') && !e.target.closest('.suggestions')) {
-            suggestions.style.display = 'none';
-            currentSuggestionIndex = -1;
-        }
-    });
-
-    // Add event listener for reset button
-    const resetButton = document.getElementById('resetButton');
-    if (resetButton) {
-        resetButton.addEventListener('click', resetSearch);
-    }
-});
