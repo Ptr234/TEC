@@ -273,6 +273,30 @@
             box-shadow: 0 12px 40px rgba(255,215,0,0.5);
         }
         
+        .download-btn {
+            position: fixed;
+            bottom: 24px;
+            left: 170px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 24px;
+            font-weight: 600;
+            box-shadow: 0 8px 32px rgba(59,130,246,0.4);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(59,130,246,0.5);
+        }
+        
         .back-to-top {
             position: fixed;
             bottom: 24px;
@@ -338,6 +362,8 @@
             .section-title { font-size: 2.5rem; }
             .search-container { padding: 16px; margin: 40px auto; max-width: 100%; }
             .chat-btn { bottom: 16px; left: 16px; }
+            .download-btn { bottom: 16px; left: 16px; font-size: 14px; padding: 14px 20px; }
+            .chat-btn { bottom: 80px; }
             .back-to-top { bottom: 16px; right: 16px; }
             .suggestions { max-height: 200px; }
         }
@@ -348,6 +374,12 @@
     <button class="chat-btn" onclick="openChat()">
         <span>🎧</span>
         Talk to Us
+    </button>
+
+    <!-- Download Button -->
+    <button class="download-btn" onclick="downloadBankableProjects()">
+        <span>📄</span>
+        Download Bankable Projects
     </button>
 
     <!-- Back to Top -->
@@ -1202,6 +1234,24 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
             
+            // Download Bankable Projects functionality
+            function downloadBankableProjects() {
+                showNotification('PDF is loading...', 'info');
+                
+                // Create a temporary link element for download
+                const link = document.createElement('a');
+                link.href = 'https://github.com/Ptr234/TEC/raw/main/Bankable%20Projects%20-%202025.3%20comp.pdf';
+                link.download = 'Bankable Projects - 2025.3 comp.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Show success notification after a delay
+                setTimeout(() => {
+                    showNotification('Download started successfully!', 'success');
+                }, 1500);
+            }
+            
             // Search functionality with suggestions
             function searchServices() {
                 const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
@@ -1373,160 +1423,160 @@
                     return;
                 }
                 // Simulate sending email
-            console.log(`Sending email to ${currentEmailData.email}:`, { name, email, message });
-            showNotification('Email sent successfully!', 'success');
-            closeEmail();
-        }
-
-        // Call functionality
-        function makeCall(phone) {
-            window.location.href = `tel:${phone}`;
-        }
-
-        // Chat functionality
-        function openChat() {
-            window.open('https://wa.me/+256775692692335', '_blank');
-        }
-
-        // Notification system
-        function showNotification(message, type) {
-            const notification = document.createElement('div');
-            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg text-white z-[1000] max-w-sm`;
-
-            switch (type) {
-                case 'success':
-                    notification.className += ' bg-green-500';
-                    break;
-                case 'error':
-                    notification.className += ' bg-red-500';
-                    break;
-                case 'warning':
-                    notification.className += ' bg-yellow-500';
-                    break;
-                default:
-                    notification.className += ' bg-blue-500';
+                console.log(`Sending email to ${currentEmailData.email}:`, { name, email, message });
+                showNotification('Email sent successfully!', 'success');
+                closeEmail();
             }
 
-            notification.textContent = message;
-            document.body.appendChild(notification);
+            // Call functionality
+            function makeCall(phone) {
+                window.location.href = `tel:${phone}`;
+            }
 
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                notification.style.transition = 'opacity 0.3s ease';
+            // Chat functionality
+            function openChat() {
+                window.open('https://wa.me/+256775692692335', '_blank');
+            }
+
+            // Notification system
+            function showNotification(message, type) {
+                const notification = document.createElement('div');
+                notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg text-white z-[1000] max-w-sm`;
+
+                switch (type) {
+                    case 'success':
+                        notification.className += ' bg-green-500';
+                        break;
+                    case 'error':
+                        notification.className += ' bg-red-500';
+                        break;
+                    case 'warning':
+                        notification.className += ' bg-yellow-500';
+                        break;
+                    default:
+                        notification.className += ' bg-blue-500';
+                }
+
+                notification.textContent = message;
+                document.body.appendChild(notification);
+
                 setTimeout(() => {
-                    notification.remove();
-                }, 300);
-            }, 3000);
-        }
-
-        // Tax calculator
-        function calculateTax() {
-            const amount = parseFloat(document.getElementById('investmentAmount').value);
-            const sector = document.getElementById('sector').value;
-            const investmentType = document.getElementById('investmentType').value;
-            const resultDiv = document.getElementById('result');
-
-            if (isNaN(amount) || amount <= 0) {
-                showNotification('Please enter a valid investment amount', 'error');
-                return;
+                    notification.style.opacity = '0';
+                    notification.style.transition = 'opacity 0.3s ease';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
             }
 
-            let baseTaxRate = 0.3; // Default corporate tax rate
-            let taxHoliday = 0;
-            let incentives = [];
+            // Tax calculator
+            function calculateTax() {
+                const amount = parseFloat(document.getElementById('investmentAmount').value);
+                const sector = document.getElementById('sector').value;
+                const investmentType = document.getElementById('investmentType').value;
+                const resultDiv = document.getElementById('result');
 
-            // Adjust tax rate and incentives based on sector
-            switch (sector) {
-                case 'agriculture':
-                    taxHoliday = amount >= 50000 ? 10 : 5;
-                    incentives = ['Duty-free import of agricultural equipment', 'VAT exemption on inputs'];
-                    break;
-                case 'tourism':
-                    taxHoliday = amount >= 250000 ? 10 : 7;
-                    incentives = ['Tax holiday on hotel development', 'Exemption on tourism equipment'];
-                    break;
-                case 'minerals':
-                    taxHoliday = amount >= 1000000 ? 10 : 5;
-                    incentives = ['Royalty tax exemptions', 'Capital expenditure deductions'];
-                    break;
-                case 'ict':
-                    taxHoliday = amount >= 50000 ? 7 : 3;
-                    incentives = ['Tax holiday for tech startups', 'R&D tax credits'];
-                    break;
-            }
+                if (isNaN(amount) || amount <= 0) {
+                    showNotification('Please enter a valid investment amount', 'error');
+                    return;
+                }
 
-            // Adjust based on investment type
-            if (investmentType === 'expansion') {
-                taxHoliday = Math.max(taxHoliday - 2, 0);
-                incentives.push('Expansion allowance');
-            } else if (investmentType === 'acquisition') {
-                taxHoliday = Math.max(taxHoliday - 3, 0);
-                incentives.push('Acquisition restructuring benefits');
-            }
+                let baseTaxRate = 0.3; // Default corporate tax rate
+                let taxHoliday = 0;
+                let incentives = [];
 
-            const annualTax = amount * baseTaxRate;
-            const taxSavings = annualTax * (taxHoliday / 10);
+                // Adjust tax rate and incentives based on sector
+                switch (sector) {
+                    case 'agriculture':
+                        taxHoliday = amount >= 50000 ? 10 : 5;
+                        incentives = ['Duty-free import of agricultural equipment', 'VAT exemption on inputs'];
+                        break;
+                    case 'tourism':
+                        taxHoliday = amount >= 250000 ? 10 : 7;
+                        incentives = ['Tax holiday on hotel development', 'Exemption on tourism equipment'];
+                        break;
+                    case 'minerals':
+                        taxHoliday = amount >= 1000000 ? 10 : 5;
+                        incentives = ['Royalty tax exemptions', 'Capital expenditure deductions'];
+                        break;
+                    case 'ict':
+                        taxHoliday = amount >= 50000 ? 7 : 3;
+                        incentives = ['Tax holiday for tech startups', 'R&D tax credits'];
+                        break;
+                }
 
-            resultDiv.innerHTML = `
-                <h4 class="text-lg font-bold mb-4">Tax Calculation Results</h4>
-                <div class="space-y-3">
-                    <p><strong>Investment Amount:</strong> $${amount.toLocaleString()}</p>
-                    <p><strong>Sector:</strong> ${sector.charAt(0).toUpperCase() + sector.slice(1)}</p>
-                    <p><strong>Investment Type:</strong> ${investmentType.charAt(0).toUpperCase() + investmentType.slice(1)}</p>
-                    <p><strong>Base Tax Rate:</strong> ${(baseTaxRate * 100).toFixed(0)}%</p>
-                    <p><strong>Estimated Annual Tax:</strong> UGX ${(annualTax * 3800).toLocaleString()}</p>
-                    <p><strong>Tax Holiday:</strong> ${taxHoliday} years</p>
-                    <p><strong>Estimated Tax Savings:</strong> UGX ${(taxSavings * 3800).toLocaleString()}</p>
-                    <p><strong>Incentives:</strong></p>
-                    <ul class="list-disc list-inside">
-                        ${incentives.map(i => `<li>${i}</li>`).join('')}
-                    </ul>
-                </div>
-                <p class="text-sm text-gray-600 mt-4">Note: These are estimates. Contact URA for official calculations.</p>
-            `;
+                // Adjust based on investment type
+                if (investmentType === 'expansion') {
+                    taxHoliday = Math.max(taxHoliday - 2, 0);
+                    incentives.push('Expansion allowance');
+                } else if (investmentType === 'acquisition') {
+                    taxHoliday = Math.max(taxHoliday - 3, 0);
+                    incentives.push('Acquisition restructuring benefits');
+                }
 
-            resultDiv.classList.remove('hidden');
-            resultDiv.scrollIntoView({ behavior: 'smooth' });
-            showNotification('Tax calculation completed', 'success');
-        }
+                const annualTax = amount * baseTaxRate;
+                const taxSavings = annualTax * (taxHoliday / 10);
 
-        // Checklist functionality
-        function openChecklistModal() {
-            document.getElementById('checklistSelectionModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeChecklistSelection() {
-            document.getElementById('checklistSelectionModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        function openChecklist(type) {
-            closeChecklistSelection();
-            const checklistModal = document.getElementById('checklistModal');
-            const checklistTitle = document.getElementById('checklistTitle');
-            const checklistContent = document.getElementById('checklistContent');
-
-            checklistTitle.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Checklist`;
-
-            checklistContent.innerHTML = checklists[type].map(item => `
-                <div class="checklist-item">
-                    <input type="checkbox" class="mt-1">
-                    <div>
-                        <h4 class="font-semibold">${item.step}</h4>
-                        <p class="text-gray-600">${item.description}</p>
+                resultDiv.innerHTML = `
+                    <h4 class="text-lg font-bold mb-4">Tax Calculation Results</h4>
+                    <div class="space-y-3">
+                        <p><strong>Investment Amount:</strong> ${amount.toLocaleString()}</p>
+                        <p><strong>Sector:</strong> ${sector.charAt(0).toUpperCase() + sector.slice(1)}</p>
+                        <p><strong>Investment Type:</strong> ${investmentType.charAt(0).toUpperCase() + investmentType.slice(1)}</p>
+                        <p><strong>Base Tax Rate:</strong> ${(baseTaxRate * 100).toFixed(0)}%</p>
+                        <p><strong>Estimated Annual Tax:</strong> UGX ${(annualTax * 3800).toLocaleString()}</p>
+                        <p><strong>Tax Holiday:</strong> ${taxHoliday} years</p>
+                        <p><strong>Estimated Tax Savings:</strong> UGX ${(taxSavings * 3800).toLocaleString()}</p>
+                        <p><strong>Incentives:</strong></p>
+                        <ul class="list-disc list-inside">
+                            ${incentives.map(i => `<li>${i}</li>`).join('')}
+                        </ul>
                     </div>
-                </div>
-            `).join('');
+                    <p class="text-sm text-gray-600 mt-4">Note: These are estimates. Contact URA for official calculations.</p>
+                `;
 
-            checklistModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
+                resultDiv.classList.remove('hidden');
+                resultDiv.scrollIntoView({ behavior: 'smooth' });
+                showNotification('Tax calculation completed', 'success');
+            }
 
-        function closeChecklist() {
-            document.getElementById('checklistModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-    </script>
-</body>
-</html>
+            // Checklist functionality
+            function openChecklistModal() {
+                document.getElementById('checklistSelectionModal').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeChecklistSelection() {
+                document.getElementById('checklistSelectionModal').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+
+            function openChecklist(type) {
+                closeChecklistSelection();
+                const checklistModal = document.getElementById('checklistModal');
+                const checklistTitle = document.getElementById('checklistTitle');
+                const checklistContent = document.getElementById('checklistContent');
+
+                checklistTitle.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Checklist`;
+
+                checklistContent.innerHTML = checklists[type].map(item => `
+                    <div class="checklist-item">
+                        <input type="checkbox" class="mt-1">
+                        <div>
+                            <h4 class="font-semibold">${item.step}</h4>
+                            <p class="text-gray-600">${item.description}</p>
+                        </div>
+                    </div>
+                `).join('');
+
+                checklistModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeChecklist() {
+                document.getElementById('checklistModal').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        </script>
+    </body>
+    </html>
