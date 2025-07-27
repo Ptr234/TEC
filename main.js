@@ -1,4 +1,4 @@
-// Enhanced Search functionality with fuzzy matching and intelligent suggestions
+// Search functionality
 const services = [
     { name: "Business Registration", sector: "all", location: "kampala", type: "registration", description: "Company incorporation, business names, and certificate services", tags: ["Company registration", "Business names", "Certificates"], url: "https://www.ursb.go.ug", section: "#services" },
     { name: "Tax Registration", sector: "all", location: "kampala", type: "registration", description: "VAT, PAYE registration and customs clearance services", tags: ["VAT registration", "PAYE", "Customs"], url: "https://www.ura.go.ug", section: "#services" },
@@ -12,471 +12,101 @@ const services = [
     { name: "Tax Calculator", sector: "all", location: "all", type: "calculator", description: "Calculate potential tax obligations and incentives", tags: ["Tax", "Calculator", "Incentives"], url: "", section: "#calculator" }
 ];
 
-// Enhanced search history with localStorage fallback
-let searchHistory = [];
-try {
-    searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-} catch (e) {
-    searchHistory = [];
-}
-
+let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 let currentSuggestionIndex = -1;
 
-// Fuzzy search algorithm - calculates similarity between strings
-function calculateSimilarity(str1, str2) {
-    const longer = str1.length > str2.length ? str1 : str2;
-    const shorter = str1.length > str2.length ? str2 : str1;
-    
-    if (longer.length === 0) return 1.0;
-    
-    return (longer.length - editDistance(longer, shorter)) / parseFloat(longer.length);
-}
-
-// Levenshtein distance algorithm for fuzzy matching
-function editDistance(s1, s2) {
-    s1 = s1.toLowerCase();
-    s2 = s2.toLowerCase();
-    
-    const costs = [];
-    for (let i = 0; i <= s2.length; i++) {
-        let lastValue = i;
-        for (let j = 0; j <= s1.length; j++) {
-            if (i === 0) {
-                costs[j] = j;
-            } else {
-                if (j > 0) {
-                    let newValue = costs[j - 1];
-                    if (s1.charAt(j - 1) !== s2.charAt(i - 1)) {
-                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-                    }
-                    costs[j - 1] = lastValue;
-                    lastValue = newValue;
-                }
-            }
-        }
-        if (i > 0) costs[s1.length] = lastValue;
-    }
-    return costs[s1.length];
-}
-
-// Enhanced search with multiple matching strategies
-function searchServices(query) {
-    if (!query || query.trim() === '') return [];
-    
-    const searchTerm = query.toLowerCase().trim();
-    const results = [];
-    
-    services.forEach(service => {
-        let score = 0;
-        let matchType = '';
-        let matchedField = '';
-        
-        // 1. Exact matches (highest priority)
-        if (service.name.toLowerCase() === searchTerm) {
-            score = 100;
-            matchType = 'exact';
-            matchedField = 'name';
-        } else if (service.tags.some(tag => tag.toLowerCase() === searchTerm)) {
-            score = 95;
-            matchType = 'exact';
-            matchedField = 'tag';
-        }
-        
-        // 2. Starts with matches
-        else if (service.name.toLowerCase().startsWith(searchTerm)) {
-            score = 90;
-            matchType = 'starts_with';
-            matchedField = 'name';
-        } else if (service.tags.some(tag => tag.toLowerCase().startsWith(searchTerm))) {
-            score = 85;
-            matchType = 'starts_with';
-            matchedField = 'tag';
-        }
-        
-        // 3. Contains matches
-        else if (service.name.toLowerCase().includes(searchTerm)) {
-            score = 80;
-            matchType = 'contains';
-            matchedField = 'name';
-        } else if (service.description.toLowerCase().includes(searchTerm)) {
-            score = 75;
-            matchType = 'contains';
-            matchedField = 'description';
-        } else if (service.tags.some(tag => tag.toLowerCase().includes(searchTerm))) {
-            score = 70;
-            matchType = 'contains';
-            matchedField = 'tag';
-        }
-        
-        // 4. Fuzzy matches for typos and similar words
-        else {
-            const nameSimilarity = calculateSimilarity(service.name.toLowerCase(), searchTerm);
-            const descSimilarity = calculateSimilarity(service.description.toLowerCase(), searchTerm);
-            const tagSimilarity = Math.max(...service.tags.map(tag => 
-                calculateSimilarity(tag.toLowerCase(), searchTerm)
-            ));
-            
-            const maxSimilarity = Math.max(nameSimilarity, descSimilarity, tagSimilarity);
-            
-            if (maxSimilarity >= 0.6) { // 60% similarity threshold
-                score = Math.round(maxSimilarity * 65); // Scale to 0-65 points
-                matchType = 'fuzzy';
-                matchedField = nameSimilarity === maxSimilarity ? 'name' : 
-                              descSimilarity === maxSimilarity ? 'description' : 'tag';
-            }
-        }
-        
-        // 5. Keyword extraction and matching
-        if (score === 0) {
-            const keywords = extractKeywords(searchTerm);
-            const serviceKeywords = extractKeywords(
-                `${service.name} ${service.description} ${service.tags.join(' ')}`
-            );
-            
-            const keywordMatches = keywords.filter(keyword => 
-                serviceKeywords.some(serviceKeyword => 
-                    serviceKeyword.includes(keyword) || calculateSimilarity(serviceKeyword, keyword) >= 0.7
-                )
-            );
-            
-            if (keywordMatches.length > 0) {
-                score = Math.min(60, keywordMatches.length * 20);
-                matchType = 'keyword';
-                matchedField = 'keywords';
-            }
-        }
-        
-        if (score > 0) {
-            results.push({
-                ...service,
-                score,
-                matchType,
-                matchedField,
-                matchedText: getMatchedText(service, searchTerm, matchedField)
-            });
-        }
-    });
-    
-    // Sort by score (highest first) and return top 8 results
-    return results.sort((a, b) => b.score - a.score).slice(0, 8);
-}
-
-// Extract meaningful keywords from search query
-function extractKeywords(text) {
-    const stopWords = ['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'was', 'were', 'be', 'been', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should'];
-    
-    return text.toLowerCase()
-        .split(/\s+/)
-        .filter(word => word.length > 2 && !stopWords.includes(word))
-        .map(word => word.replace(/[^\w]/g, ''))
-        .filter(word => word.length > 0);
-}
-
-// Get the text that matched for highlighting
-function getMatchedText(service, query, field) {
-    const searchTerm = query.toLowerCase();
-    
-    switch (field) {
-        case 'name':
-            return service.name;
-        case 'description':
-            return service.description;
-        case 'tag':
-            return service.tags.find(tag => 
-                tag.toLowerCase().includes(searchTerm) || 
-                calculateSimilarity(tag.toLowerCase(), searchTerm) >= 0.6
-            ) || service.tags[0];
-        default:
-            return service.name;
-    }
-}
-
-// Enhanced search suggestions with better UX
-function generateSearchSuggestions(query) {
-    if (!query || query.trim() === '') return [];
-    
-    const commonSearches = [
-        'business registration', 'tax registration', 'investment license', 
-        'startup funding', 'agriculture loans', 'tourism development',
-        'telecom license', 'tax calculator', 'social security', 'VAT registration'
-    ];
-    
-    const suggestions = [];
-    const searchTerm = query.toLowerCase().trim();
-    
-    // Add matching common searches
-    commonSearches.forEach(search => {
-        if (search.includes(searchTerm) || calculateSimilarity(search, searchTerm) >= 0.6) {
-            suggestions.push({
-                text: search,
-                type: 'suggestion',
-                icon: '💡'
-            });
-        }
-    });
-    
-    // Add "Did you mean?" suggestions for potential typos
-    if (suggestions.length === 0 && searchTerm.length > 3) {
-        const didYouMean = findDidYouMean(searchTerm);
-        if (didYouMean.length > 0) {
-            didYouMean.forEach(suggestion => {
-                suggestions.push({
-                    text: suggestion,
-                    type: 'correction',
-                    icon: '🔍'
-                });
-            });
-        }
-    }
-    
-    return suggestions.slice(0, 3);
-}
-
-// Find "Did you mean?" suggestions
-function findDidYouMean(query) {
-    const allTerms = [];
-    
-    services.forEach(service => {
-        allTerms.push(service.name);
-        allTerms.push(...service.tags);
-        allTerms.push(...service.description.split(' ').filter(word => word.length > 4));
-    });
-    
-    const uniqueTerms = [...new Set(allTerms)];
-    const suggestions = [];
-    
-    uniqueTerms.forEach(term => {
-        const similarity = calculateSimilarity(term.toLowerCase(), query.toLowerCase());
-        if (similarity >= 0.5 && similarity < 0.9) {
-            suggestions.push({ term, similarity });
-        }
-    });
-    
-    return suggestions
-        .sort((a, b) => b.similarity - a.similarity)
-        .slice(0, 3)
-        .map(s => s.term.toLowerCase());
-}
-
-// Enhanced search history management
 function updateSearchHistory() {
     const historyContainer = document.getElementById('searchHistory');
-    if (!historyContainer) return;
-    
     historyContainer.innerHTML = '<p class="text-sm text-gray-600 mr-2">Recent searches:</p>';
-    
-    searchHistory.slice(0, 5).forEach(term => {
+    searchHistory.forEach(term => {
         const button = document.createElement('button');
         button.textContent = term;
         button.className = 'quick-search-btn';
         button.onclick = () => quickSearch(term);
         historyContainer.appendChild(button);
     });
-    
     historyContainer.classList.toggle('hidden', searchHistory.length === 0);
 }
 
-// Enhanced search performance with better UI feedback
+function highlightElement(serviceName, section) {
+    document.querySelectorAll('.highlight-card').forEach(el => el.classList.remove('highlight-card'));
+    
+    if (section === '#calculator') {
+        const calculatorCard = document.querySelector('#calculator .service-card');
+        if (calculatorCard) {
+            calculatorCard.classList.add('highlight-card');
+            setTimeout(() => calculatorCard.classList.remove('highlight-card'), 3000);
+        }
+    } else {
+        const cards = document.querySelectorAll(`${section} .service-card`);
+        cards.forEach(card => {
+            const title = card.querySelector('h3').textContent;
+            if (title.toLowerCase() === serviceName.toLowerCase()) {
+                card.classList.add('highlight-card');
+                setTimeout(() => card.classList.remove('highlight-card'), 3000);
+            }
+        });
+    }
+}
+
 function performSearch(query) {
     const suggestions = document.getElementById('suggestions');
-    const noResultsDiv = document.getElementById('noResults') || createNoResultsDiv();
-    
     suggestions.innerHTML = '';
-    noResultsDiv.style.display = 'none';
     
     if (query.trim() === '') {
         suggestions.style.display = 'none';
         return;
     }
 
-    const searchResults = searchServices(query);
-    const searchSuggestions = generateSearchSuggestions(query);
-    
-    // Display search results
-    if (searchResults.length > 0) {
-        searchResults.forEach((service, index) => {
-            const div = document.createElement('div');
-            div.className = 'suggestion-item';
-            
-            const matchIcon = getMatchIcon(service.matchType);
-            const confidenceClass = getConfidenceClass(service.score);
-            
-            div.innerHTML = `
-                <div class="flex items-center justify-between w-full">
-                    <div class="flex-1">
-                        <div class="flex items-center gap-2">
-                            <span class="text-lg">${matchIcon}</span>
-                            <span class="font-medium">${highlightMatch(service.name, query)}</span>
-                            <span class="text-xs px-2 py-1 rounded-full ${confidenceClass}">
-                                ${service.score >= 90 ? 'Exact' : service.score >= 70 ? 'Good' : 'Similar'}
-                            </span>
-                        </div>
-                        <p class="text-sm text-gray-600 mt-1">${highlightMatch(service.matchedText, query)}</p>
-                        <div class="flex items-center gap-2 mt-1">
-                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">${service.sector}</span>
-                            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">${service.type}</span>
-                        </div>
-                    </div>
-                    <span class="match-location">${service.location.charAt(0).toUpperCase() + service.location.slice(1)}</span>
-                </div>
-            `;
-            
-            div.onclick = () => selectService(service, query);
-            div.dataset.index = index;
-            suggestions.appendChild(div);
-        });
-    }
-    
-    // Add search suggestions if no exact matches
-    if (searchResults.length === 0 || (searchResults.length > 0 && searchResults[0].score < 80)) {
-        if (searchSuggestions.length > 0) {
-            const suggestionHeader = document.createElement('div');
-            suggestionHeader.className = 'suggestion-header';
-            suggestionHeader.innerHTML = '<p class="text-xs text-gray-500 font-medium">Suggestions:</p>';
-            suggestions.appendChild(suggestionHeader);
-            
-            searchSuggestions.forEach(suggestion => {
-                const div = document.createElement('div');
-                div.className = 'suggestion-item suggestion-item-alt';
-                div.innerHTML = `
-                    <span class="text-sm">${suggestion.icon}</span>
-                    <span class="text-sm">${suggestion.text}</span>
-                    <span class="text-xs text-gray-500">${suggestion.type === 'correction' ? 'Did you mean?' : 'Try this'}</span>
-                `;
-                div.onclick = () => {
-                    document.getElementById('searchInput').value = suggestion.text;
-                    performSearch(suggestion.text);
-                };
-                suggestions.appendChild(div);
-            });
-        }
-    }
-    
-    // Show no results message if nothing found
-    if (searchResults.length === 0 && searchSuggestions.length === 0) {
-        showNoResults(query);
-    } else {
-        suggestions.style.display = 'block';
-        currentSuggestionIndex = -1;
-    }
-}
+    const filteredServices = services.filter(service => 
+        service.name.toLowerCase().includes(query.toLowerCase()) ||
+        service.description.toLowerCase().includes(query.toLowerCase()) ||
+        service.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+    );
 
-// Helper functions for enhanced search
-function getMatchIcon(matchType) {
-    switch (matchType) {
-        case 'exact': return '🎯';
-        case 'starts_with': return '⭐';
-        case 'contains': return '🔍';
-        case 'fuzzy': return '🎯';
-        case 'keyword': return '🔑';
-        default: return '📄';
-    }
-}
-
-function getConfidenceClass(score) {
-    if (score >= 90) return 'bg-green-100 text-green-800';
-    if (score >= 70) return 'bg-blue-100 text-blue-800';
-    return 'bg-yellow-100 text-yellow-800';
-}
-
-function createNoResultsDiv() {
-    const div = document.createElement('div');
-    div.id = 'noResults';
-    div.className = 'no-results';
-    div.style.display = 'none';
-    document.querySelector('.search-container').appendChild(div);
-    return div;
-}
-
-function showNoResults(query) {
-    const suggestions = document.getElementById('suggestions');
-    const noResultsDiv = document.getElementById('noResults') || createNoResultsDiv();
-    
-    suggestions.style.display = 'none';
-    
-    noResultsDiv.innerHTML = `
-        <div class="p-4 bg-gray-50 rounded-lg border text-center">
-            <p class="text-gray-600 mb-2">No results found for "<strong>${query}</strong>"</p>
-            <p class="text-sm text-gray-500 mb-3">Try these suggestions:</p>
-            <div class="flex flex-wrap gap-2 justify-center">
-                <button onclick="quickSearch('business registration')" class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm hover:bg-blue-200">Business Registration</button>
-                <button onclick="quickSearch('tax registration')" class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm hover:bg-green-200">Tax Registration</button>
-                <button onclick="quickSearch('investment')" class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm hover:bg-purple-200">Investment</button>
-                <button onclick="quickSearch('startup')" class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm hover:bg-orange-200">Startup</button>
-            </div>
-        </div>
-    `;
-    
-    noResultsDiv.style.display = 'block';
-}
-
-function selectService(service, query) {
-    const section = document.querySelector(service.section);
-    if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-    }
-    highlightElement(service.name, service.section);
-    if (service.url) {
-        window.open(service.url, '_blank');
-        showNotification(`Navigating to ${service.name} website`, 'info');
-    }
-    addToSearchHistory(query);
-    document.getElementById('suggestions').style.display = 'none';
-}
-
-// Enhanced highlight function with better matching
-function highlightMatch(text, query) {
-    if (!query || !text) return text;
-    
-    const searchTerm = query.toLowerCase();
-    const textLower = text.toLowerCase();
-    
-    // Find the best match position
-    let matchStart = textLower.indexOf(searchTerm);
-    let matchEnd = matchStart + searchTerm.length;
-    
-    if (matchStart === -1) {
-        // Try partial matches
-        const words = searchTerm.split(' ');
-        let highlightedText = text;
-        
-        words.forEach(word => {
-            if (word.length > 2) {
-                const regex = new RegExp(`(${word})`, 'gi');
-                highlightedText = highlightedText.replace(regex, '<span class="highlight">$1</span>');
+    filteredServices.forEach((service, index) => {
+        const div = document.createElement('div');
+        div.className = 'suggestion-item';
+        div.innerHTML = `
+            ${highlightMatch(service.name, query)}
+            <span class="match-location">${service.location.charAt(0).toUpperCase() + service.location.slice(1)}</span>
+        `;
+        div.onclick = () => {
+            const section = document.querySelector(service.section);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
             }
-        });
-        
-        return highlightedText;
-    }
-    
-    return text.substring(0, matchStart) + 
-           '<span class="highlight">' + 
-           text.substring(matchStart, matchEnd) + 
-           '</span>' + 
-           text.substring(matchEnd);
+            highlightElement(service.name, service.section);
+            if (service.url) {
+                window.open(service.url, '_blank');
+                showNotification(`Navigating to ${service.name} website`, 'info');
+            }
+            addToSearchHistory(query);
+            suggestions.style.display = 'none';
+        };
+        div.dataset.index = index;
+        suggestions.appendChild(div);
+    });
+
+    suggestions.style.display = filteredServices.length > 0 ? 'block' : 'none';
+    currentSuggestionIndex = -1;
+}
+
+function highlightMatch(text, query) {
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<span class="highlight">$1</span>');
 }
 
 function addToSearchHistory(term) {
-    if (!term || term.trim() === '') return;
-    
-    const cleanTerm = term.trim();
-    if (!searchHistory.includes(cleanTerm)) {
-        searchHistory.unshift(cleanTerm);
-        if (searchHistory.length > 8) searchHistory.pop();
-        
-        try {
-            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-        } catch (e) {
-            console.warn('Could not save search history to localStorage');
-        }
-        
+    if (!searchHistory.includes(term)) {
+        searchHistory.unshift(term);
+        if (searchHistory.length > 5) searchHistory.pop();
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
         updateSearchHistory();
-        showNotification(`Added "${cleanTerm}" to search history`, 'success');
+        showNotification(`Added "${term}" to search history`, 'success');
     }
 }
 
-// Enhanced keyboard navigation
 function handleKeyNavigation(event) {
     const suggestions = document.getElementById('suggestions');
     const suggestionItems = suggestions.getElementsByClassName('suggestion-item');
@@ -493,10 +123,20 @@ function handleKeyNavigation(event) {
         updateSuggestionSelection(suggestionItems);
     } else if (event.key === 'Enter' && currentSuggestionIndex >= 0) {
         event.preventDefault();
-        suggestionItems[currentSuggestionIndex].click();
-    } else if (event.key === 'Escape') {
-        suggestions.style.display = 'none';
-        currentSuggestionIndex = -1;
+        const selectedService = services.find((_, index) => index === parseInt(suggestionItems[currentSuggestionIndex].dataset.index));
+        if (selectedService) {
+            const section = document.querySelector(selectedService.section);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+            highlightElement(selectedService.name, selectedService.section);
+            if (selectedService.url) {
+                window.open(selectedService.url, '_blank');
+                showNotification(`Navigating to ${selectedService.name} website`, 'info');
+            }
+            addToSearchHistory(document.getElementById('searchInput').value);
+            suggestions.style.display = 'none';
+        }
     }
 }
 
@@ -513,9 +153,17 @@ function quickSearch(term) {
     document.getElementById('searchInput').value = term;
     performSearch(term);
     addToSearchHistory(term);
+    const service = services.find(s => s.name.toLowerCase() === term.toLowerCase());
+    if (service && service.section) {
+        const section = document.querySelector(service.section);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+            highlightElement(service.name, service.section);
+            showNotification(`Viewing ${service.name} in ${service.section}`, 'info');
+        }
+    }
 }
 
-// Debounced search for better performance
 const debounce = (func, delay) => {
     let timeoutId;
     return (...args) => {
@@ -524,111 +172,315 @@ const debounce = (func, delay) => {
     };
 };
 
-const debouncedSearch = debounce(performSearch, 200);
+const debouncedSearch = debounce(performSearch, 300);
 
 // Enhanced reset functionality
 function resetSearch() {
+    // Clear search input
     const searchInput = document.getElementById('searchInput');
     searchInput.value = '';
     
+    // Clear suggestions
     const suggestions = document.getElementById('suggestions');
     suggestions.innerHTML = '';
     suggestions.style.display = 'none';
     currentSuggestionIndex = -1;
     
-    const noResultsDiv = document.getElementById('noResults');
-    if (noResultsDiv) {
-        noResultsDiv.style.display = 'none';
-    }
-    
+    // Clear search history
     searchHistory = [];
-    try {
-        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-    } catch (e) {
-        console.warn('Could not clear search history in localStorage');
-    }
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
     updateSearchHistory();
     
+    // Clear filters
     document.getElementById('sectorFilter').value = 'all';
     document.getElementById('locationFilter').value = 'all';
     document.getElementById('serviceTypeFilter').value = 'all';
     filterServices();
     
+    // Show notification
     showNotification('Search and filters have been reset', 'success');
 }
 
-// Keep all other existing functions (filterServices, calculateTax, etc.)
-// ... [Rest of the original functions remain the same]
+// Filter functionality
+function filterServices() {
+    const sector = document.getElementById('sectorFilter').value;
+    const location = document.getElementById('locationFilter').value;
+    const serviceType = document.getElementById('serviceTypeFilter').value;
+    const servicesList = document.getElementById('servicesList');
+    const cards = servicesList.getElementsByClassName('service-card');
 
-// Initialize enhanced search
+    Array.from(cards).forEach(card => {
+        const cardSector = card.dataset.sector;
+        const cardLocation = card.dataset.location;
+        const cardType = card.dataset.type;
+
+        const matchesSector = sector === 'all' || cardSector === sector;
+        const matchesLocation = location === 'all' || cardLocation === location;
+        const matchesType = serviceType === 'all' || cardType === serviceType;
+
+        card.style.display = matchesSector && matchesLocation && matchesType ? 'block' : 'none';
+    });
+    showNotification('Filters applied successfully', 'success');
+}
+
+function clearFilters() {
+    document.getElementById('sectorFilter').value = 'all';
+    document.getElementById('locationFilter').value = 'all';
+    document.getElementById('serviceTypeFilter').value = 'all';
+    filterServices();
+    showNotification('Filters cleared', 'success');
+}
+
+// Tax Calculator
+function calculateTax() {
+    const amount = parseFloat(document.getElementById('investmentAmount').value);
+    const sector = document.getElementById('sector').value;
+    const type = document.getElementById('investmentType').value;
+    const resultDiv = document.getElementById('result');
+
+    if (isNaN(amount) || amount <= 0) {
+        resultDiv.innerHTML = '<p class="text-red-600">Please enter a valid investment amount.</p>';
+        resultDiv.classList.remove('hidden');
+        showNotification('Invalid investment amount entered', 'error');
+        return;
+    }
+
+    let taxRate, taxHoliday, vatRate;
+    switch (sector) {
+        case 'agriculture':
+            taxRate = type === 'new' ? 0.1 : 0.15;
+            taxHoliday = type === 'new' ? 10 : 5;
+            vatRate = 0.18;
+            break;
+        case 'tourism':
+            taxRate = type === 'new' ? 0.12 : 0.18;
+            taxHoliday = type === 'new' ? 8 : 4;
+            vatRate = 0.18;
+            break;
+        case 'minerals':
+            taxRate = type === 'new' ? 0.15 : 0.2;
+            taxHoliday = type === 'new' ? 7 : 3;
+            vatRate = 0.18;
+            break;
+        case 'ict':
+            taxRate = type === 'new' ? 0.08 : 0.12;
+            taxHoliday = type === 'new' ? 10 : 5;
+            vatRate = 0.16;
+            break;
+        default:
+            taxRate = 0.3;
+            taxHoliday = 0;
+            vatRate = 0.18;
+    }
+
+    const corporateTax = amount * taxRate;
+    const vat = amount * vatRate;
+    const totalTax = corporateTax + vat;
+
+    resultDiv.innerHTML = `
+        <h3 class="text-lg md:text-xl font-bold mb-4">Tax Calculation Results</h3>
+        <p><strong>Sector:</strong> ${sector.charAt(0).toUpperCase() + sector.slice(1)}</p>
+        <p><strong>Investment Type:</strong> ${type.charAt(0).toUpperCase() + type.slice(1)}</p>
+        <p><strong>Investment Amount:</strong> USD ${amount.toLocaleString()}</p>
+        <p><strong>Corporate Tax Rate:</strong> ${(taxRate * 100).toFixed(2)}%</p>
+        <p><strong>VAT Rate:</strong> ${(vatRate * 100).toFixed(2)}%</p>
+        <p><strong>Estimated Corporate Tax:</strong> USD ${corporateTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+        <p><strong>Estimated VAT:</strong> USD ${vat.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+        <p><strong>Total Estimated Tax:</strong> USD ${totalTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+        <p><strong>Tax Holiday:</strong> ${taxHoliday} years</p>
+        <p class="text-sm text-gray-600 mt-4">Note: These are estimated figures. Consult with URA for precise calculations.</p>
+    `;
+    resultDiv.classList.remove('hidden');
+    showNotification('Tax calculation completed', 'success');
+}
+
+// Modal handling
+function openEmail(service, email) {
+    document.getElementById('modalService').value = service;
+    document.getElementById('modalEmail').dataset.email = email;
+    document.getElementById('emailModal').classList.remove('hidden');
+    showNotification(`Opening email form for ${service}`, 'info');
+}
+
+function closeEmail() {
+    document.getElementById('emailModal').classList.add('hidden');
+    document.getElementById('modalName').value = '';
+    document.getElementById('modalEmail').value = '';
+    document.getElementById('modalMessage').value = '';
+    showNotification('Email form closed', 'info');
+}
+
+function sendEmail() {
+    const service = document.getElementById('modalService').value;
+    const name = document.getElementById('modalName').value;
+    const email = document.getElementById('modalEmail').value;
+    const message = document.getElementById('modalMessage').value;
+    const recipient = document.getElementById('modalEmail').dataset.email;
+
+    if (!name || !email || !message) {
+        showNotification('Please fill in all email fields', 'error');
+        return;
+    }
+
+    const subject = encodeURIComponent(`Inquiry about ${service}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    closeEmail();
+    showNotification('Email sent successfully', 'success');
+}
+
+function openChecklistModal() {
+    document.getElementById('checklistSelectionModal').classList.remove('hidden');
+    showNotification('Opening checklist selection', 'info');
+}
+
+function closeChecklistSelection() {
+    document.getElementById('checklistSelectionModal').classList.add('hidden');
+    showNotification('Checklist selection closed', 'info');
+}
+
+function openChecklist(type) {
+    const modal = document.getElementById('checklistModal');
+    const title = document.getElementById('checklistTitle');
+    const content = document.getElementById('checklistContent');
+    
+    let checklistItems = [];
+    
+    switch (type) {
+        case 'services':
+            title.textContent = 'Services Checklist';
+            checklistItems = [
+                { name: 'Business Registration', description: 'Register your company with URSB', mandatory: true },
+                { name: 'Tax Registration', description: 'Obtain TIN and register for VAT/PAYE with URA', mandatory: true },
+                { name: 'Social Security', description: 'Register employees with NSSF', mandatory: true },
+                { name: 'Communications License', description: 'Obtain telecom/broadcasting license from UCC (if applicable)', mandatory: false },
+                { name: 'Investment Facilitation', description: 'Apply for investment license with UIA', mandatory: false },
+                { name: 'Capital Markets', description: 'Obtain securities license from CMA (if applicable)', mandatory: false }
+            ];
+            break;
+        case 'investments':
+            title.textContent = 'Investments Checklist';
+            checklistItems = [
+                { name: 'Agricultural Credit', description: 'Apply for low-interest loans with BOU', mandatory: false },
+                { name: 'Tourism Development', description: 'Explore hotel/eco-tourism incentives with UTB', mandatory: false },
+                { name: 'Tech Innovation', description: 'Apply for startup funding with NITA', mandatory: false },
+                { name: 'Investment License', description: 'Secure investment license from UIA', mandatory: true }
+            ];
+            break;
+        case 'calculator':
+            title.textContent = 'Tax Checklist';
+            checklistItems = [
+                { name: 'Verify Investment Amount', description: 'Ensure accurate investment figures', mandatory: true },
+                { name: 'Select ATMS Sector', description: 'Choose appropriate sector for tax rates', mandatory: true },
+                { name: 'Confirm Investment Type', description: 'Specify new, expansion, or acquisition', mandatory: true },
+                { name: 'Consult URA', description: 'Validate calculations with URA for accuracy', mandatory: false }
+            ];
+            break;
+    }
+
+    content.innerHTML = checklistItems.map(item => `
+        <div class="checklist-item">
+            <input type="checkbox" class="mt-1" ${item.mandatory ? 'checked disabled' : ''}>
+            <div>
+                <p class="font-semibold">${item.name}</p>
+                <p class="text-sm text-gray-600">${item.description}</p>
+                ${item.mandatory ? '<span class="tag tag-mandatory mt-2">Required</span>' : ''}
+            </div>
+        </div>
+    `).join('');
+
+    closeChecklistSelection();
+    modal.classList.remove('hidden');
+    showNotification(`Opened ${type} checklist`, 'success');
+}
+
+function closeChecklist() {
+    document.getElementById('checklistModal').classList.add('hidden');
+    showNotification('Checklist closed', 'info');
+}
+
+// Navigation and utility functions
+function toggleMobileNav() {
+    document.getElementById('mobileNav').classList.toggle('active');
+    showNotification('Mobile navigation toggled', 'info');
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    showNotification('Scrolling to top', 'info');
+}
+
+function makeCall(phone) {
+    window.location.href = `tel:${phone}`;
+    showNotification(`Initiating call to ${phone}`, 'info');
+}
+
+function downloadBankableProjects() {
+    const downloadUrl = 'https://github.com/Ptr234/TEC/raw/main/Bankable%20Projects%20-%202025.3%20comp.pdf';
+    
+    try {
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = 'Bankable Projects - 2025.3 comp.pdf';
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showNotification('Downloading Bankable Projects PDF...', 'success');
+    } catch (error) {
+        console.error('Download error:', error);
+        window.open(downloadUrl, '_blank');
+        showNotification('Unable to download directly. Opening PDF in new tab...', 'error');
+    }
+}
+
+// Notification function for user feedback
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transition-opacity duration-300 ${
+        type === 'success' ? 'bg-green-500 text-white' : 
+        type === 'error' ? 'bg-red-500 text-white' : 
+        'bg-blue-500 text-white'
+    }`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
+function openChat() {
+    window.location.href = 'https://wa.me/+256775692335';
+    showNotification('Opening WhatsApp chat', 'info');
+}
+
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     updateSearchHistory();
     
-    // Add enhanced search input event listeners
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => debouncedSearch(e.target.value));
-        searchInput.addEventListener('keydown', handleKeyNavigation);
-        searchInput.addEventListener('focus', () => {
-            if (searchInput.value.trim()) {
-                performSearch(searchInput.value);
-            }
-        });
-    }
-    
-    // Enhanced click outside to close suggestions
+    window.addEventListener('scroll', () => {
+        const backToTop = document.getElementById('backToTop');
+        backToTop.classList.toggle('active', window.scrollY > 300);
+    });
+
     document.addEventListener('click', (e) => {
         const suggestions = document.getElementById('suggestions');
-        const noResults = document.getElementById('noResults');
-        
-        if (!e.target.closest('.search-container')) {
+        if (!e.target.closest('#searchInput') && !e.target.closest('.suggestions')) {
             suggestions.style.display = 'none';
-            if (noResults) noResults.style.display = 'none';
             currentSuggestionIndex = -1;
         }
     });
-    
-    // Add CSS for enhanced search styling
-    const style = document.createElement('style');
-    style.textContent = `
-        .suggestion-item {
-            transition: all 0.2s ease;
-            border-left: 3px solid transparent;
-        }
-        
-        .suggestion-item:hover,
-        .suggestion-item.selected {
-            background-color: #f8fafc;
-            border-left-color: #3b82f6;
-            transform: translateX(2px);
-        }
-        
-        .suggestion-item-alt {
-            background-color: #fefce8;
-            border-left-color: #eab308;
-        }
-        
-        .suggestion-header {
-            padding: 8px 16px;
-            background-color: #f1f5f9;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .highlight {
-            background-color: #fef3c7;
-            font-weight: 600;
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-        
-        .no-results {
-            animation: fadeIn 0.3s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    `;
-    document.head.appendChild(style);
+
+    // Add event listener for reset button
+    const resetButton = document.getElementById('resetButton');
+    if (resetButton) {
+        resetButton.addEventListener('click', resetSearch);
+    }
 });
