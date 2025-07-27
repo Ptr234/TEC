@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +9,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
         }
         
         /* Enhanced Hero Background */
@@ -239,6 +239,28 @@
         
         .btn-primary:active {
             transform: translateY(-2px);
+        }
+
+        /* Black Button */
+        .btn-black {
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            color: #FFFFFF;
+            border: 2px solid transparent;
+        }
+        
+        .btn-black:hover {
+            background: linear-gradient(135deg, #333333 0%, #000000 100%);
+        }
+
+        /* Red Button */
+        .btn-red {
+            background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+            color: #FFFFFF;
+            border: 2px solid transparent;
+        }
+        
+        .btn-red:hover {
+            background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%);
         }
         
         /* Talk to Someone Button - Enhanced */
@@ -578,6 +600,37 @@
         .contact-btn:hover {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+        /* Enhanced Search Bar */
+        .search-bar-container {
+            position: relative;
+            flex: 1;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            pointer-events: none;
+        }
+
+        .search-input-with-icon {
+            padding-left: 60px !important;
+        }
+
+        /* Logo styling */
+        .service-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            margin-right: 12px;
+            border-radius: 8px;
+            background-color: #f3f4f6;
+            padding: 4px;
+            border: 1px solid #e5e7eb;
+        }
     </style>
 </head>
 <body class="text-white">
@@ -636,10 +689,15 @@
                     
                     <div class="relative">
                         <div class="flex flex-col md:flex-row gap-6">
-                            <div class="flex-1 relative">
+                            <div class="search-bar-container">
+                                <div class="search-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
                                 <input type="text" id="searchInput" 
                                        placeholder="Search services, licenses, or business support..." 
-                                       class="search-input" 
+                                       class="search-input search-input-with-icon" 
                                        oninput="searchServices()"
                                        autocomplete="off"
                                        aria-label="Search ATMS services">
@@ -668,7 +726,7 @@
                                 <option value="jinja">Jinja</option>
                                 <option value="mbarara">Mbarara</option>
                             </select>
-                            <button onclick="clearFilters()" class="btn-primary bg-gray-600 hover:bg-gray-700" aria-label="Clear all filters">
+                            <button onclick="clearFilters()" class="btn-black" aria-label="Clear all filters">
                                 Clear Filters
                             </button>
                         </div>
@@ -691,7 +749,10 @@
                 <!-- Business Registration Service -->
                 <div class="service-card p-8" data-sector="all" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">Business Registration</h3>
+                        <div class="flex items-center">
+                            <img src="https://github.com/Ptr234/TEC/blob/main/URSB%20logo.png" alt="URSB Logo" class="service-logo">
+                            <h3 class="text-xl font-bold text-gray-900">Business Registration</h3>
+                        </div>
                         <span class="mandatory-tag">mandatory</span>
                     </div>
                     
@@ -741,20 +802,20 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414313247')" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="makePhoneCall('+256414313247')" class="btn-black text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                             Call Now
                         </button>
-                        <button onclick="openEmailModal('Business Registration', 'info@ursb.go.ug')" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="openEmailModal('Business Registration', 'info@ursb.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
                             Email
                         </button>
-                        <a href="https://www.ursb.go.ug" target="_blank" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 no-underline contact-btn">
+                        <a href="https://www.ursb.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                             </svg>
@@ -766,7 +827,10 @@
                 <!-- Tax Registration Service -->
                 <div class="service-card p-8" data-sector="all" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">Tax Registration & Compliance</h3>
+                        <div class="flex items-center">
+                            <img src="https://github.com/Ptr234/TEC/blob/main/URA%20logo.png" alt="URA Logo" class="service-logo">
+                            <h3 class="text-xl font-bold text-gray-900">Tax Registration & Compliance</h3>
+                        </div>
                         <span class="mandatory-tag">mandatory</span>
                     </div>
                     
@@ -816,20 +880,20 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414471000')" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="makePhoneCall('+256414471000')" class="btn-black text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                             Call Now
                         </button>
-                        <button onclick="openEmailModal('Tax Services', 'info@ura.go.ug')" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="openEmailModal('Tax Services', 'info@ura.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
                             Email
                         </button>
-                        <a href="https://www.ura.go.ug" target="_blank" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 no-underline contact-btn">
+                        <a href="https://www.ura.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                             </svg>
@@ -841,7 +905,10 @@
                 <!-- Agricultural Extension Services -->
                 <div class="service-card p-8" data-sector="agriculture" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">Agricultural Extension Services</h3>
+                        <div class="flex items-center">
+                            <img src="https://github.com/Ptr234/TEC/blob/main/MINISTRY%20OF%20FINANCE%20PLANNING%20..logo.png" alt="Ministry of Finance Logo" class="service-logo">
+                            <h3 class="text-xl font-bold text-gray-900">Agricultural Extension Services</h3>
+                        </div>
                         <span class="service-tag">Agriculture</span>
                     </div>
                     
@@ -891,20 +958,20 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414321035')" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="makePhoneCall('+256414321035')" class="btn-black text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                             Call Now
                         </button>
-                        <button onclick="openEmailModal('Agricultural Services', 'info@naads.or.ug')" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="openEmailModal('Agricultural Services', 'info@naads.or.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
                             Email
                         </button>
-                        <a href="https://www.naads.or.ug" target="_blank" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 no-underline contact-btn">
+                        <a href="https://www.naads.or.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                             </svg>
@@ -916,7 +983,10 @@
                 <!-- Tourism Business Licensing -->
                 <div class="service-card p-8" data-sector="tourism" data-location="entebbe">
                     <div class="flex items-start justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">Tourism Business Licensing</h3>
+                        <div class="flex items-center">
+                            <img src="https://github.com/Ptr234/TEC/blob/main/UIA%20logo.png" alt="UIA Logo" class="service-logo">
+                            <h3 class="text-xl font-bold text-gray-900">Tourism Business Licensing</h3>
+                        </div>
                         <span class="service-tag">Tourism</span>
                     </div>
                     
@@ -966,20 +1036,20 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414342196')" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="makePhoneCall('+256414342196')" class="btn-black text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                             Call Now
                         </button>
-                        <button onclick="openEmailModal('Tourism Licensing', 'utb@visituganda.com')" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="openEmailModal('Tourism Licensing', 'utb@visituganda.com')" class="btn-red text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
                             Email
                         </button>
-                        <a href="https://www.visituganda.com" target="_blank" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 no-underline contact-btn">
+                        <a href="https://www.visituganda.com" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                             </svg>
@@ -991,7 +1061,10 @@
                 <!-- Mining Permits & Licenses -->
                 <div class="service-card p-8" data-sector="minerals" data-location="entebbe">
                     <div class="flex items-start justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">Mining Permits & Licenses</h3>
+                        <div class="flex items-center">
+                            <img src="https://github.com/Ptr234/TEC/blob/main/FIA%20logo.png" alt="FIA Logo" class="service-logo">
+                            <h3 class="text-xl font-bold text-gray-900">Mining Permits & Licenses</h3>
+                        </div>
                         <span class="service-tag">Minerals</span>
                     </div>
                     
@@ -1041,20 +1114,20 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414320364')" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="makePhoneCall('+256414320364')" class="btn-black text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                             Call Now
                         </button>
-                        <button onclick="openEmailModal('Mining Services', 'dgsm@dgsm.go.ug')" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="openEmailModal('Mining Services', 'dgsm@dgsm.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
                             Email
                         </button>
-                        <a href="https://www.dgsm.go.ug" target="_blank" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 no-underline contact-btn">
+                        <a href="https://www.dgsm.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                             </svg>
@@ -1066,7 +1139,10 @@
                 <!-- ICT Infrastructure Services -->
                 <div class="service-card p-8" data-sector="ict" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">ICT Infrastructure & Digital Services</h3>
+                        <div class="flex items-center">
+                            <img src="https://github.com/Ptr234/TEC/blob/main/UCC%20logo.png" alt="UCC Logo" class="service-logo">
+                            <h3 class="text-xl font-bold text-gray-900">ICT Infrastructure & Digital Services</h3>
+                        </div>
                         <span class="service-tag">ICT</span>
                     </div>
                     
@@ -1116,20 +1192,20 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256417801038')" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="makePhoneCall('+256417801038')" class="btn-black text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                             Call Now
                         </button>
-                        <button onclick="openEmailModal('ICT Services', 'info@nita.go.ug')" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="openEmailModal('ICT Services', 'info@nita.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
                             Email
                         </button>
-                        <a href="https://www.nita.go.ug" target="_blank" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 no-underline contact-btn">
+                        <a href="https://www.nita.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                             </svg>
@@ -1154,7 +1230,10 @@
                 <!-- Industrial Development Financing -->
                 <div class="service-card p-8" data-sector="all" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">Industrial Development Financing</h3>
+                        <div class="flex items-center">
+                            <img src="https://github.com/Ptr234/TEC/blob/main/CMA%20logo.png" alt="CMA Logo" class="service-logo">
+                            <h3 class="text-xl font-bold text-gray-900">Industrial Development Financing</h3>
+                        </div>
                         <span class="service-tag">All Sectors</span>
                     </div>
                     
@@ -1204,20 +1283,20 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414707000')" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="makePhoneCall('+256414707000')" class="btn-black text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                             Call Now
                         </button>
-                        <button onclick="openEmailModal('Industrial Investment', 'info@udc.go.ug')" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="openEmailModal('Industrial Investment', 'info@udc.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
                             Email
                         </button>
-                        <a href="https://www.udc.go.ug" target="_blank" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 no-underline contact-btn">
+                        <a href="https://www.udc.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                             </svg>
@@ -1229,7 +1308,10 @@
                 <!-- Agricultural Finance Programs -->
                 <div class="service-card p-8" data-sector="agriculture" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">Agricultural Finance Programs</h3>
+                        <div class="flex items-center">
+                            <img src="https://github.com/Ptr234/TEC/blob/main/NSSF%20logo.png" alt="NSSF Logo" class="service-logo">
+                            <h3 class="text-xl font-bold text-gray-900">Agricultural Finance Programs</h3>
+                        </div>
                         <span class="service-tag">Agriculture</span>
                     </div>
                     
@@ -1279,20 +1361,20 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414258441')" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="makePhoneCall('+256414258441')" class="btn-black text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                             Call Now
                         </button>
-                        <button onclick="openEmailModal('Agricultural Finance', 'acf@bou.or.ug')" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="openEmailModal('Agricultural Finance', 'acf@bou.or.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
                             Email
                         </button>
-                        <a href="https://www.bou.or.ug" target="_blank" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 no-underline contact-btn">
+                        <a href="https://www.bou.or.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                             </svg>
@@ -1304,7 +1386,10 @@
                 <!-- Tourism Investment Incentives -->
                 <div class="service-card p-8" data-sector="tourism" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">Tourism Investment Incentives</h3>
+                        <div class="flex items-center">
+                            <img src="https://github.com/Ptr234/TEC/blob/main/UIA%20logo.png" alt="UIA Logo" class="service-logo">
+                            <h3 class="text-xl font-bold text-gray-900">Tourism Investment Incentives</h3>
+                        </div>
                         <span class="service-tag">Tourism</span>
                     </div>
                     
@@ -1354,20 +1439,20 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414301000')" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="makePhoneCall('+256414301000')" class="btn-black text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                             Call Now
                         </button>
-                        <button onclick="openEmailModal('Tourism Investment', 'investments@ugandainvest.go.ug')" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="openEmailModal('Tourism Investment', 'investments@ugandainvest.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
                             Email
                         </button>
-                        <a href="https://www.ugandainvest.go.ug" target="_blank" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 no-underline contact-btn">
+                        <a href="https://www.ugandainvest.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                             </svg>
@@ -1379,7 +1464,10 @@
                 <!-- Mining Sector Investments -->
                 <div class="service-card p-8" data-sector="minerals" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">Mining Sector Investments</h3>
+                        <div class="flex items-center">
+                            <img src="https://github.com/Ptr234/TEC/blob/main/FIA%20logo.png" alt="FIA Logo" class="service-logo">
+                            <h3 class="text-xl font-bold text-gray-900">Mining Sector Investments</h3>
+                        </div>
                         <span class="service-tag">Minerals</span>
                     </div>
                     
@@ -1429,20 +1517,20 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414345681')" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="makePhoneCall('+256414345681')" class="btn-black text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                             Call Now
                         </button>
-                        <button onclick="openEmailModal('Mining Investment', 'investments@energy.go.ug')" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="openEmailModal('Mining Investment', 'investments@energy.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
                             Email
                         </button>
-                        <a href="https://www.energy.go.ug" target="_blank" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 no-underline contact-btn">
+                        <a href="https://www.energy.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                             </svg>
@@ -1454,7 +1542,10 @@
                 <!-- Tech Innovation Funding -->
                 <div class="service-card p-8" data-sector="ict" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">Tech Innovation Funding</h3>
+                        <div class="flex items-center">
+                            <img src="https://github.com/Ptr234/TEC/blob/main/UCC%20logo.png" alt="UCC Logo" class="service-logo">
+                            <h3 class="text-xl font-bold text-gray-900">Tech Innovation Funding</h3>
+                        </div>
                         <span class="service-tag">ICT</span>
                     </div>
                     
@@ -1504,20 +1595,20 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414341240')" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="makePhoneCall('+256414341240')" class="btn-black text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                             Call Now
                         </button>
-                        <button onclick="openEmailModal('Tech Innovation', 'innovation@ict.go.ug')" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 contact-btn">
+                        <button onclick="openEmailModal('Tech Innovation', 'innovation@ict.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
                             Email
                         </button>
-                        <a href="https://www.ict.go.ug" target="_blank" class="btn-primary bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 no-underline contact-btn">
+                        <a href="https://www.ict.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
                             </svg>
@@ -1876,7 +1967,7 @@
         }
 
         function sendEmail() {
-            const senderName = document.getElementById('modalSenderName').value.trim();
+                        const senderName = document.getElementById('modalSenderName').value.trim();
             const senderEmail = document.getElementById('modalSenderEmail').value.trim();
             const message = document.getElementById('modalMessage').value.trim();
 
@@ -1935,7 +2026,7 @@
             };
 
             const { baseTax, incentive, description } = taxData[sector];
-                        const typeMultiplier = typeMultipliers[investmentType];
+            const typeMultiplier = typeMultipliers[investmentType];
             
             const tax = amount * baseTax * typeMultiplier;
             const incentiveAmount = amount * incentive;
