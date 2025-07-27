@@ -6,471 +6,91 @@
     <title>OneStopCentre Uganda - Business Simplified</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Roboto', sans-serif; }
-        
-        .hero-bg {
-            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), 
-                        url('https://www.shutterstock.com/image-photo/crowned-crane-600nw-472226197.jpg');
-            background-size: cover;
-            background-position: center;
-            min-height: 100vh;
-        }
-        
-        .search-container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(32,33,36,0.2);
-            padding: 24px;
-            margin: 80px auto;
-            max-width: 600px;
-            position: relative;
-            transition: box-shadow 0.2s ease;
-        }
-        
-        .search-container:hover {
-            box-shadow: 0 6px 16px rgba(32,33,36,0.3);
-        }
-        
-        .suggestions {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            max-height: 300px;
-            overflow-y: auto;
-            z-index: 10;
-            display: none;
-        }
-        
-        .suggestion-item {
-            padding: 12px 16px;
-            cursor: pointer;
-            font-size: 16px;
-            color: #202124;
-            transition: background 0.2s ease;
-        }
-        
-        .suggestion-item:hover {
-            background: #f8f9fa;
-        }
-        
-        .quick-search-btn {
-            background: linear-gradient(135deg, #ffd700, #ffa500);
-            color: black;
-            padding: 8px 16px;
-            border-radius: 9999px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .quick-search-btn:hover {
-            background: linear-gradient(135deg, #ffca28, #f59e0b);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 12px 20px 12px 48px;
-            border: 1px solid #dfe1e5;
-            border-radius: 6px;
-            font-size: 16px;
-            font-family: 'Roboto', sans-serif;
-            color: #202124;
-            background: white;
-            transition: all 0.2s ease;
-        }
-        
-        .search-input:focus {
-            outline: none;
-            border-color: #ffd700;
-            box-shadow: 0 0 0 2px rgba(255,215,0,0.2);
-        }
-        
-        .search-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #5f6368;
-            width: 20px;
-            height: 20px;
-        }
-        
-        .filter-select {
-            padding: 12px 20px;
-            border: 1px solid #dfe1e5;
-            border-radius: 6px;
-            background: white;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .filter-select:focus {
-            outline: none;
-            border-color: #ffd700;
-        }
-        
-        .service-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255,215,0,0.1);
-        }
-        
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            border-color: #ffd700;
-        }
-        
-        .btn {
-            padding: 12px 24px;
-            border-radius: 9999px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #ffd700, #ffa500);
-            color: black;
-            border: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(255,215,0,0.4);
-        }
-        
-        .btn-black {
-            background: #1f2937;
-            color: white;
-            border: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .btn-black:hover {
-            background: #374151;
-            transform: translateY(-2px);
-        }
-        
-        .btn-red {
-            background: #dc2626;
-            color: white;
-            border: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .btn-red:hover {
-            background: #b91c1c;
-            transform: translateY(-2px);
-        }
-        
-        .tag {
-            background: linear-gradient(135deg, #ffd700, #ffc107);
-            color: black;
-            padding: 6px 12px;
-            border-radius: 9999px;
-            font-size: 12px;
-            font-weight: 500;
-            display: inline-block;
-            margin: 2px;
-        }
-        
-        .tag-mandatory {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            color: white;
-        }
-        
-        .section-title {
-            font-size: 3rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffd700, #dc2626, #000);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        
-        .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #6b7280;
-            font-size: 14px;
-            margin: 8px 0;
-        }
-        
-        .contact-info svg {
-            width: 18px;
-            height: 18px;
-            color: #3b82f6;
-        }
-        
-        .service-logo {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-            margin-right: 12px;
-            border-radius: 8px;
-            background: white;
-            padding: 4px;
-            border: 2px solid #e5e7eb;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin: 20px 0;
-        }
-        
-        .info-box {
-            background: #fef3c7;
-            padding: 16px;
-            border-radius: 12px;
-            border-left: 4px solid #ffd700;
-        }
-        
-        .chat-btn {
-            position: fixed;
-            bottom: 24px;
-            left: 24px;
-            background: linear-gradient(135deg, #ffd700, #ffc107);
-            color: black;
-            border: none;
-            border-radius: 50px;
-            padding: 16px 24px;
-            font-weight: 600;
-            box-shadow: 0 8px 32px rgba(255,215,0,0.4);
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .chat-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(255,215,0,0.5);
-        }
-        
-        .download-btn {
-            position: fixed;
-            bottom: 24px;
-            right: 100px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb, #1d4ed8);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 16px 24px;
-            font-weight: 600;
-            box-shadow: 0 8px 32px rgba(59,130,246,0.4);
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            animation: pulse-download 2s infinite;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.1);
-        }
-        
-        .download-btn:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 16px 48px rgba(59,130,246,0.6);
-            background: linear-gradient(135deg, #2563eb, #1d4ed8, #1e40af);
-            animation: none;
-        }
-        
-        .download-btn:active {
-            transform: translateY(-2px) scale(1.02);
-        }
-        
-        @keyframes pulse-download {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 8px 32px rgba(59,130,246,0.4);
-            }
-            50% {
-                transform: scale(1.02);
-                box-shadow: 0 12px 40px rgba(59,130,246,0.6);
-            }
-        }
-        
-        .download-btn .download-icon {
-            animation: bounce-icon 1.5s ease-in-out infinite;
-        }
-        
-        @keyframes bounce-icon {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-3px);
-            }
-            60% {
-                transform: translateY(-1px);
-            }
-        }
-        
-        .back-to-top {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #ffd700, #ffc107);
-            color: black;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
-        
-        .back-to-top.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(8px);
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-        
-        .checklist-modal {
-            max-width: 600px;
-        }
-        
-        .checklist-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 12px 0;
-            border-bottom: 1px solid #f3f4f6;
-        }
-        
-        .checklist-item:last-child {
-            border-bottom: none;
-        }
-        
-        @media (max-width: 768px) {
-            .section-title { font-size: 2.5rem; }
-            .search-container { padding: 16px; margin: 40px auto; max-width: 100%; }
-            .chat-btn { bottom: 16px; left: 16px; }
-            .download-btn { bottom: 16px; right: 16px; font-size: 14px; padding: 14px 20px; }
-            .back-to-top { bottom: 80px; right: 16px; }
-            .suggestions { max-height: 200px; }
-        }
-    </style>
+    <link rel="stylesheet" href="components.css">
 </head>
 <body class="bg-gray-50">
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav md:hidden" id="mobileNav">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-bold">Menu</h3>
+            <button onclick="toggleMobileNav()" class="text-2xl">&times;</button>
+        </div>
+        <a href="#services">Services</a>
+        <a href="#investments">Investments</a>
+        <a href="#calculator">Tax Calculator</a>
+        <a href="#" onclick="openChecklistModal()">Checklist</a>
+    </div>
+
     <!-- Chat Button -->
     <button class="chat-btn" onclick="openChat()">
         <span>🎧</span>
-        Talk to Us
+        <span class="hidden sm:inline">Talk to Us</span>
     </button>
 
     <!-- Download Button -->
     <button class="download-btn" onclick="downloadBankableProjects()">
         <span class="download-icon">📄</span>
-        Download Bankable Projects
+        <span class="hidden sm:inline">Download Bankable Projects</span>
     </button>
 
     <!-- Back to Top -->
     <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
-        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
         </svg>
     </div>
 
     <!-- Hero Section -->
     <div class="hero-bg">
-        <!-- Header -->
-        <header class="bg-black/80 backdrop-blur-sm text-white py-6">
+        <header class="bg-black/80 backdrop-blur-sm text-white py-4 md:py-6">
             <div class="container mx-auto px-4">
                 <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <img src="https://github.com/Ptr234/TEC/blob/main/WhatsApp%20Image%202025-07-27%20at%2018.38.34%20(1).jpeg?raw=true" alt="OneStopCentre UG Logo" class="h-12 w-auto">
+                    <div class="flex items-center gap-3 md:gap-4">
+                        <img src="https://github.com/Ptr234/TEC/blob/main/WhatsApp%20Image%202025-07-27%20at%2018.38.34%20(1).jpeg?raw=true" alt="OneStopCentre UG Logo" class="h-10 md:h-12 w-auto">
                         <div>
-                            <h1 class="text-2xl md:text-3xl font-bold">OneStopCentre Uganda</h1>
-                            <p class="text-yellow-400 text-sm">Investing in Uganda Simplified</p>
+                            <h1 class="text-lg md:text-2xl lg:text-3xl font-bold">OneStopCentre Uganda</h1>
+                            <p class="text-yellow-400 text-xs md:text-sm">Investing in Uganda Simplified</p>
                         </div>
                     </div>
                     <nav class="hidden md:flex space-x-6">
                         <a href="#services" class="hover:text-yellow-400 transition-colors">Services</a>
                         <a href="#investments" class="hover:text-yellow-400 transition-colors">Investments</a>
-                        <a href="#calculator" class="hover:text-yellow-400 transition-colors">Tax and Incentive Calculator</a>
+                        <a href="#calculator" class="hover:text-yellow-400 transition-colors">Tax Calculator</a>
                         <a href="#" onclick="openChecklistModal()" class="hover:text-yellow-400 transition-colors">Checklist</a>
                     </nav>
+                    <div class="hamburger md:hidden" onclick="toggleMobileNav()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <!-- Search Section -->
-        <section class="py-20">
+        <section class="py-10 md:py-20">
             <div class="container mx-auto px-4">
                 <div class="search-container">
-                    <div class="text-center mb-8">
-                        <h2 class="text-4xl font-bold text-gray-900 mb-4">Explore ATMS opportunities in Uganda</h2>
-                        <p class="text-xl text-gray-600">Investing in Uganda Simplified</p>
+                    <div class="text-center mb-6 md:mb-8">
+                        <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-4">Explore ATMS opportunities in Uganda</h2>
+                        <p class="text-lg md:text-xl text-gray-600">Investing in Uganda Simplified</p>
                     </div>
                     
-                    <div class="space-y-6">
-                        <!-- Search Bar -->
+                    <div class="space-y-4 md:space-y-6">
                         <div class="relative">
                             <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
                             <input type="text" id="searchInput" placeholder="Search services, licenses, permits..." 
-                                   class="search-input" oninput="debouncedSearch()" autocomplete="off">
+                                   class="search-input" oninput="debouncedSearch()" autocomplete="off" onkeydown="handleKeyNavigation(event)">
                             <div id="suggestions" class="suggestions"></div>
                         </div>
+                        <div id="searchHistory" class="flex flex-wrap gap-1 md:gap-2 hidden">
+                            <p class="text-sm text-gray-600 mr-2">Recent searches:</p>
+                        </div>
                         
-                        <!-- Quick Search Tags -->
                         <div class="mt-4">
                             <p class="text-sm text-gray-600 mb-3">Popular searches:</p>
-                            <div class="flex flex-wrap gap-2">
+                            <div class="flex flex-wrap gap-1 md:gap-2">
                                 <button onclick="quickSearch('business registration')" class="quick-search-btn">Business Registration</button>
                                 <button onclick="quickSearch('tax registration')" class="quick-search-btn">Tax Registration</button>
                                 <button onclick="quickSearch('investment')" class="quick-search-btn">Investment</button>
@@ -480,8 +100,7 @@
                             </div>
                         </div>
                         
-                        <!-- Filters -->
-                        <div class="grid md:grid-cols-4 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4">
                             <select id="sectorFilter" class="filter-select" onchange="filterServices()">
                                 <option value="all">All Sectors</option>
                                 <option value="agriculture">🌾 Agriculture</option>
@@ -515,28 +134,25 @@
         </section>
     </div>
 
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-white">
+    <section id="services" class="py-12 md:py-20 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="section-title">Essential Services</h2>
-            <p class="text-center text-xl text-gray-600 mb-16 max-w-3xl mx-auto">Core business services and compliance requirements across Uganda's ATMS sectors</p>
+            <h2 class="section-title">Services</h2>
+            <p class="text-center text-lg md:text-xl text-gray-600 mb-12 md:mb-16 max-w-3xl mx-auto">Core business services and compliance requirements across Uganda's ATMS sectors</p>
             
-            <div id="servicesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Business Registration -->
-                <div class="service-card p-6" data-sector="all" data-location="kampala" data-type="registration">
+            <div id="servicesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div class="service-card p-4 md:p-6" data-sector="all" data-location="kampala" data-type="registration">
                     <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center">
+                        <div class="flex items-center flex-1 min-w-0">
                             <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/URSB%20logo.png" alt="URSB" class="service-logo">
-                            <h3 class="text-lg font-bold">Business Registration</h3>
+                            <h3 class="text-base md:text-lg font-bold truncate">Business Registration</h3>
                         </div>
-                        <span class="tag-mandatory tag">Required</span>
+                        <span class="tag-mandatory tag ml-2 flex-shrink-0">Required</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-4">Company incorporation, business names, and certificate services</p>
+                    <p class="text-gray-600 mb-4 text-sm md:text-base">Company incorporation, business names, and certificate services</p>
                     
                     <div class="mb-4">
-                        <div class="flex flex-wrap gap-2">
+                        <div class="flex flex-wrap gap-1 md:gap-2">
                             <span class="tag">Company registration</span>
                             <span class="tag">Business names</span>
                             <span class="tag">Certificates</span>
@@ -545,12 +161,12 @@
 
                     <div class="info-grid">
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Timeline</div>
-                            <div class="text-gray-700">7 working days</div>
+                            <div class="font-semibold text-xs md:text-sm">Timeline</div>
+                            <div class="text-gray-700 text-xs md:text-sm">7 working days</div>
                         </div>
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Fees</div>
-                            <div class="text-gray-700">From UGX 105,000</div>
+                            <div class="font-semibold text-xs md:text-sm">Fees</div>
+                            <div class="text-gray-700 text-xs md:text-sm">From UGX 105,000</div>
                         </div>
                     </div>
 
@@ -560,37 +176,36 @@
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            info@ursb.go.ug
+                            <span class="truncate">info@ursb.go.ug</span>
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 414 313 247
+                            <span>+256 414 313 247</span>
                         </div>
                     </div>
 
                     <div class="flex gap-2">
-                        <button onclick="makeCall('+256414313247')" class="btn btn-black text-sm">🎧 Call</button>
-                        <button onclick="openEmail('Business Registration', 'info@ursb.go.ug')" class="btn btn-red text-sm">Email</button>
-                        <a href="https://www.ursb.go.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
+                        <button onclick="makeCall('+256414313247')" class="btn btn-black">🎧 Call</button>
+                        <button onclick="openEmail('Business Registration', 'info@ursb.go.ug')" class="btn btn-red">Email</button>
+                        <a href="https://www.ursb.go.ug" target="_blank" class="btn btn-primary">Website</a>
                     </div>
                 </div>
 
-                <!-- Tax Registration -->
-                <div class="service-card p-6" data-sector="all" data-location="kampala" data-type="registration">
+                <div class="service-card p-4 md:p-6" data-sector="all" data-location="kampala" data-type="registration">
                     <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center">
+                        <div class="flex items-center flex-1 min-w-0">
                             <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/URA%20logo.png" alt="URA" class="service-logo">
-                            <h3 class="text-lg font-bold">Tax Registration</h3>
+                            <h3 class="text-base md:text-lg font-bold truncate">Tax Registration</h3>
                         </div>
-                        <span class="tag-mandatory tag">Required</span>
+                        <span class="tag-mandatory tag ml-2 flex-shrink-0">Required</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-4">VAT, PAYE registration and customs clearance services</p>
+                    <p class="text-gray-600 mb-4 text-sm md:text-base">VAT, PAYE registration and customs clearance services</p>
                     
                     <div class="mb-4">
-                        <div class="flex flex-wrap gap-2">
+                        <div class="flex flex-wrap gap-1 md:gap-2">
                             <span class="tag">VAT registration</span>
                             <span class="tag">PAYE</span>
                             <span class="tag">Customs</span>
@@ -599,12 +214,12 @@
 
                     <div class="info-grid">
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Timeline</div>
-                            <div class="text-gray-700">5-7 days</div>
+                            <div class="font-semibold text-xs md:text-sm">Timeline</div>
+                            <div class="text-gray-700 text-xs md:text-sm">5-7 days</div>
                         </div>
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Fees</div>
-                            <div class="text-gray-700">Free</div>
+                            <div class="font-semibold text-xs md:text-sm">Fees</div>
+                            <div class="text-gray-700 text-xs md:text-sm">Free</div>
                         </div>
                     </div>
 
@@ -614,37 +229,36 @@
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            info@ura.go.ug
+                            <span class="truncate">info@ura.go.ug</span>
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 414 471 000
+                            <span>+256 414 471 000</span>
                         </div>
                     </div>
 
                     <div class="flex gap-2">
-                        <button onclick="makeCall('+256414313247')" class="btn btn-black text-sm">🎧 Call</button>
-                        <button onclick="openEmail('Tax Services', 'info@ura.go.ug')" class="btn btn-red text-sm">Email</button>
-                        <a href="https://www.ura.go.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
+                        <button onclick="makeCall('+256414471000')" class="btn btn-black">🎧 Call</button>
+                        <button onclick="openEmail('Tax Services', 'info@ura.go.ug')" class="btn btn-red">Email</button>
+                        <a href="https://www.ura.go.ug" target="_blank" class="btn btn-primary">Website</a>
                     </div>
                 </div>
 
-                <!-- NSSF Registration -->
-                <div class="service-card p-6" data-sector="all" data-location="kampala" data-type="registration">
+                <div class="service-card p-4 md:p-6" data-sector="all" data-location="kampala" data-type="registration">
                     <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center">
+                        <div class="flex items-center flex-1 min-w-0">
                             <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/NSSF%20logo.png" alt="NSSF" class="service-logo">
-                            <h3 class="text-lg font-bold">Social Security</h3>
+                            <h3 class="text-base md:text-lg font-bold truncate">Social Security</h3>
                         </div>
-                        <span class="tag-mandatory tag">Required</span>
+                        <span class="tag-mandatory tag ml-2 flex-shrink-0">Required</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-4">Employee social security and pension services</p>
+                    <p class="text-gray-600 mb-4 text-sm md:text-base">Employee social security and pension services</p>
                     
                     <div class="mb-4">
-                        <div class="flex flex-wrap gap-2">
+                        <div class="flex flex-wrap gap-1 md:gap-2">
                             <span class="tag">Employee registration</span>
                             <span class="tag">Pension</span>
                             <span class="tag">Benefits</span>
@@ -653,12 +267,12 @@
 
                     <div class="info-grid">
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Timeline</div>
-                            <div class="text-gray-700">3-5 days</div>
+                            <div class="font-semibold text-xs md:text-sm">Timeline</div>
+                            <div class="text-gray-700 text-xs md:text-sm">3-5 days</div>
                         </div>
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Contribution</div>
-                            <div class="text-gray-700">15% of salary (5% employee, 10% employer)</div>
+                            <div class="font-semibold text-xs md:text-sm">Contribution</div>
+                            <div class="text-gray-700 text-xs md:text-sm">15% of salary</div>
                         </div>
                     </div>
 
@@ -668,37 +282,36 @@
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            info@nssfug.org
+                            <span class="truncate">info@nssfug.org</span>
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 414 342 843
+                            <span>+256 414 342 843</span>
                         </div>
                     </div>
 
                     <div class="flex gap-2">
-                        <button onclick="makeCall('+256414313247')" class="btn btn-black text-sm">🎧 Call</button>
-                        <button onclick="openEmail('NSSF Services', 'info@nssfug.org')" class="btn btn-red text-sm">Email</button>
-                        <a href="https://www.nssfug.org" target="_blank" class="btn btn-primary text-sm">Website</a>
+                        <button onclick="makeCall('+256414342843')" class="btn btn-black">🎧 Call</button>
+                        <button onclick="openEmail('NSSF Services', 'info@nssfug.org')" class="btn btn-red">Email</button>
+                        <a href="https://www.nssfug.org" target="_blank" class="btn btn-primary">Website</a>
                     </div>
                 </div>
 
-                <!-- UCC Licensing -->
-                <div class="service-card p-6" data-sector="ict" data-location="kampala" data-type="licensing">
+                <div class="service-card p-4 md:p-6" data-sector="ict" data-location="kampala" data-type="licensing">
                     <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center">
+                        <div class="flex items-center flex-1 min-w-0">
                             <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/UCC%20logo.png" alt="UCC" class="service-logo">
-                            <h3 class="text-lg font-bold">Communications License</h3>
+                            <h3 class="text-base md:text-lg font-bold truncate">Communications License</h3>
                         </div>
-                        <span class="tag">ICT</span>
+                        <span class="tag ml-2 flex-shrink-0">ICT</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-4">Telecommunications and broadcasting licensing services</p>
+                    <p class="text-gray-600 mb-4 text-sm md:text-base">Telecommunications and broadcasting licensing services</p>
                     
                     <div class="mb-4">
-                        <div class="flex flex-wrap gap-2">
+                        <div class="flex flex-wrap gap-1 md:gap-2">
                             <span class="tag">Telecom license</span>
                             <span class="tag">Broadcasting</span>
                             <span class="tag">ISP license</span>
@@ -707,12 +320,12 @@
 
                     <div class="info-grid">
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Timeline</div>
-                            <div class="text-gray-700">2-4 weeks</div>
+                            <div class="font-semibold text-xs md:text-sm">Timeline</div>
+                            <div class="text-gray-700 text-xs md:text-sm">2-4 weeks</div>
                         </div>
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Fees</div>
-                            <div class="text-gray-700">Variable (UGX 75,000 to millions)</div>
+                            <div class="font-semibold text-xs md:text-sm">Fees</div>
+                            <div class="text-gray-700 text-xs md:text-sm">Variable</div>
                         </div>
                     </div>
 
@@ -722,37 +335,36 @@
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            ucc@ucc.co.ug
+                            <span class="truncate">ucc@ucc.co.ug</span>
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 414 339 000
+                            <span>+256 414 339 000</span>
                         </div>
                     </div>
 
                     <div class="flex gap-2">
-                       <button onclick="makeCall('+256414313247')" class="btn btn-black text-sm">🎧 Call</button>
-                        <button onclick="openEmail('UCC Services', 'ucc@ucc.co.ug')" class="btn btn-red text-sm">Email</button>
-                        <a href="https://www.ucc.co.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
+                        <button onclick="makeCall('+256414339000')" class="btn btn-black">🎧 Call</button>
+                        <button onclick="openEmail('UCC Services', 'ucc@ucc.co.ug')" class="btn btn-red">Email</button>
+                        <a href="https://www.ucc.co.ug" target="_blank" class="btn btn-primary">Website</a>
                     </div>
                 </div>
 
-                <!-- Investment Services -->
-                <div class="service-card p-6" data-sector="all" data-location="kampala" data-type="investment">
+                <div class="service-card p-4 md:p-6" data-sector="all" data-location="kampala" data-type="investment">
                     <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center">
+                        <div class="flex items-center flex-1 min-w-0">
                             <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/UIA%20logo.png" alt="UIA" class="service-logo">
-                            <h3 class="text-lg font-bold">Investment Facilitation</h3>
+                            <h3 class="text-base md:text-lg font-bold truncate">Investment Facilitation</h3>
                         </div>
-                        <span class="tag">Investment</span>
+                        <span class="tag ml-2 flex-shrink-0">Investment</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-4">One-stop investment services and incentives</p>
+                    <p class="text-gray-600 mb-4 text-sm md:text-base">One-stop investment services and incentives</p>
                     
                     <div class="mb-4">
-                        <div class="flex flex-wrap gap-2">
+                        <div class="flex flex-wrap gap-1 md:gap-2">
                             <span class="tag">Investment license</span>
                             <span class="tag">Tax incentives</span>
                             <span class="tag">Facilitation</span>
@@ -761,12 +373,12 @@
 
                     <div class="info-grid">
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Min Investment</div>
-                            <div class="text-gray-700">USD 250,000 (foreign), USD 50,000 (domestic)</div>
+                            <div class="font-semibold text-xs md:text-sm">Min Investment</div>
+                            <div class="text-gray-700 text-xs md:text-sm">USD 250,000</div>
                         </div>
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Tax Holiday</div>
-                            <div class="text-gray-700">Up to 10 years</div>
+                            <div class="font-semibold text-xs md:text-sm">Tax Holiday</div>
+                            <div class="text-gray-700 text-xs md:text-sm">Up to 10 years</div>
                         </div>
                     </div>
 
@@ -776,37 +388,36 @@
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            info@ugandainvest.go.ug
+                            <span class="truncate">info@ugandainvest.go.ug</span>
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 414 301 000
+                            <span>+256 414 301 000</span>
                         </div>
                     </div>
 
                     <div class="flex gap-2">
-                       <button onclick="makeCall('+256414313247')" class="btn btn-black text-sm">🎧 Call</button>
-                        <button onclick="openEmail('Investment Services', 'info@ugandainvest.go.ug')" class="btn btn-red text-sm">Email</button>
-                        <a href="https://www.ugandainvest.go.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
+                        <button onclick="makeCall('+256414301000')" class="btn btn-black">🎧 Call</button>
+                        <button onclick="openEmail('Investment Services', 'info@ugandainvest.go.ug')" class="btn btn-red">Email</button>
+                        <a href="https://www.ugandainvest.go.ug" target="_blank" class="btn btn-primary">Website</a>
                     </div>
                 </div>
 
-                <!-- Capital Markets -->
-                <div class="service-card p-6" data-sector="all" data-location="kampala" data-type="licensing">
+                <div class="service-card p-4 md:p-6" data-sector="all" data-location="kampala" data-type="licensing">
                     <div class="flex items-start justify-between mb-4">
-                        <div class="flex items-center">
+                        <div class="flex items-center flex-1 min-w-0">
                             <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/CMA%20logo.png" alt="CMA" class="service-logo">
-                            <h3 class="text-lg font-bold">Capital Markets</h3>
+                            <h3 class="text-base md:text-lg font-bold truncate">Capital Markets</h3>
                         </div>
-                        <span class="tag">Finance</span>
+                        <span class="tag ml-2 flex-shrink-0">Finance</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-4">Securities licensing and market regulation services</p>
+                    <p class="text-gray-600 mb-4 text-sm md:text-base">Securities licensing and market regulation services</p>
                     
                     <div class="mb-4">
-                        <div class="flex flex-wrap gap-2">
+                        <div class="flex flex-wrap gap-1 md:gap-2">
                             <span class="tag">Securities license</span>
                             <span class="tag">Investment advisory</span>
                             <span class="tag">Market surveillance</span>
@@ -815,12 +426,12 @@
 
                     <div class="info-grid">
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Timeline</div>
-                            <div class="text-gray-700">4-6 weeks</div>
+                            <div class="font-semibold text-xs md:text-sm">Timeline</div>
+                            <div class="text-gray-700 text-xs md:text-sm">4-6 weeks</div>
                         </div>
                         <div class="info-box">
-                            <div class="font-semibold text-sm">Fees</div>
-                            <div class="text-gray-700">UGX 2M-10M</div>
+                            <div class="font-semibold text-xs md:text-sm">Fees</div>
+                            <div class="text-gray-700 text-xs md:text-sm">UGX 2M-10M</div>
                         </div>
                     </div>
 
@@ -830,47 +441,44 @@
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            info@cmauganda.co.ug
+                            <span class="truncate">info@cmauganda.co.ug</span>
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 414 342 818
+                            <span>+256 414 342 818</span>
                         </div>
                     </div>
 
                     <div class="flex gap-2">
-                       <button onclick="makeCall('+256414313247')" class="btn btn-black text-sm">🎧 Call</button>
-                        <button onclick="openEmail('CMA Services', 'info@cmauganda.co.ug')" class="btn btn-red text-sm">Email</button>
-                        <a href="https://www.cmauganda.co.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
+                        <button onclick="makeCall('+256414342818')" class="btn btn-black">🎧 Call</button>
+                        <button onclick="openEmail('CMA Services', 'info@cmauganda.co.ug')" class="btn btn-red">Email</button>
+                        <a href="https://www.cmauganda.co.ug" target="_blank" class="btn btn-primary">Website</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Investment Opportunities Section -->
-        <section id="investments" class="py-20 bg-gray-50">
+        <section id="investments" class="py-12 md:py-20 bg-gray-50">
             <div class="container mx-auto px-4">
                 <h2 class="section-title">Investment Opportunities</h2>
-                <p class="text-center text-xl text-gray-600 mb-16 max-w-3xl mx-auto">Funding and investment facilitation across Uganda's ATMS sectors</p>
+                <p class="text-center text-lg md:text-xl text-gray-600 mb-12 md:mb-16 max-w-3xl mx-auto">Funding and investment facilitation across Uganda's ATMS sectors</p>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                    <!-- Agriculture Finance -->
-                    <div class="service-card p-6" data-sector="agriculture" data-location="kampala" data-type="investment">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <div class="service-card p-4 md:p-6" data-sector="agriculture" data-location="kampala" data-type="investment">
                         <div class="flex items-start justify-between mb-4">
-                            <div class="flex items-center">
+                            <div class="flex items-center flex-1 min-w-0">
                                 <img src="https://www.bou.or.ug/export/sites/default/.gallery/slider/bou_logo_high_resolution.png_1670830119.png" alt="BOU" class="service-logo">
-                                <h3 class="text-lg font-bold">Agricultural Credit</h3>
+                                <h3 class="text-base md:text-lg font-bold truncate">Agricultural Credit</h3>
                             </div>
-                            <span class="tag" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">Agriculture</span>
+                            <span class="tag ml-2 flex-shrink-0" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">Agriculture</span>
                         </div>
                         
-                        <p class="text-gray-600 mb-4">Low-interest credit for agricultural investments and value chains</p>
+                        <p class="text-gray-600 mb-4 text-sm md:text-base">Low-interest credit for agricultural investments and value chains</p>
                         
                         <div class="mb-4">
-                            <div class="flex flex-wrap gap-2">
+                            <div class="flex flex-wrap gap-1 md:gap-2">
                                 <span class="tag">Agricultural loans</span>
                                 <span class="tag">Value chains</span>
                                 <span class="tag">Farm financing</span>
@@ -879,12 +487,12 @@
 
                         <div class="info-grid">
                             <div class="info-box">
-                                <div class="font-semibold text-sm">Interest Rate</div>
-                                <div class="text-gray-700">Up to 10% per annum</div>
+                                <div class="font-semibold text-xs md:text-sm">Interest Rate</div>
+                                <div class="text-gray-700 text-xs md:text-sm">Up to 10% per annum</div>
                             </div>
                             <div class="info-box">
-                                <div class="font-semibold text-sm">Loan Range</div>
-                                <div class="text-gray-700">UGX 5M-5B</div>
+                                <div class="font-semibold text-xs md:text-sm">Loan Range</div>
+                                <div class="text-gray-700 text-xs md:text-sm">UGX 5M-5B</div>
                             </div>
                         </div>
 
@@ -894,37 +502,36 @@
                                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                                 </svg>
-                                acf@bou.or.ug
+                                <span class="truncate">acf@bou.or.ug</span>
                             </div>
                             <div class="contact-info">
                                 <svg fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                                 </svg>
-                                +256 414 258 441
+                                <span>+256 414 258 441</span>
                             </div>
                         </div>
 
                         <div class="flex gap-2">
-                            <button onclick="makeCall('+256414258441')" class="btn btn-black text-sm">Call</button>
-                            <button onclick="openEmail('Agricultural Finance', 'acf@bou.or.ug')" class="btn btn-red text-sm">Email</button>
-                            <a href="https://www.bou.or.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
+                            <button onclick="makeCall('+256414258441')" class="btn btn-black">🎧 Call</button>
+                            <button onclick="openEmail('Agricultural Credit', 'acf@bou.or.ug')" class="btn btn-red">Email</button>
+                            <a href="https://www.bou.or.ug" target="_blank" class="btn btn-primary">Website</a>
                         </div>
                     </div>
 
-                    <!-- Tourism Investment -->
-                    <div class="service-card p-6" data-sector="tourism" data-location="kampala" data-type="investment">
+                    <div class="service-card p-4 md:p-6" data-sector="tourism" data-location="kampala" data-type="investment">
                         <div class="flex items-start justify-between mb-4">
-                            <div class="flex items-center">
+                            <div class="flex items-center flex-1 min-w-0">
                                 <img src="https://exploreuganda.com/wp-content/uploads/2024/05/Explore-Uganda-Logo-white.png" alt="UTB" class="service-logo">
-                                <h3 class="text-lg font-bold">Tourism Development</h3>
+                                <h3 class="text-base md:text-lg font-bold truncate">Tourism Development</h3>
                             </div>
-                            <span class="tag" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white;">Tourism</span>
+                            <span class="tag ml-2 flex-shrink-0" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white;">Tourism</span>
                         </div>
                         
-                        <p class="text-gray-600 mb-4">Hotel development and eco-tourism investment opportunities</p>
+                        <p class="text-gray-600 mb-4 text-sm md:text-base">Hotel development and eco-tourism investment opportunities</p>
                         
                         <div class="mb-4">
-                            <div class="flex flex-wrap gap-2">
+                            <div class="flex flex-wrap gap-1 md:gap-2">
                                 <span class="tag">Hotel development</span>
                                 <span class="tag">Eco-tourism</span>
                                 <span class="tag">Tourism incentives</span>
@@ -933,12 +540,12 @@
 
                         <div class="info-grid">
                             <div class="info-box">
-                                <div class="font-semibold text-sm">Min Investment</div>
-                                <div class="text-gray-700">From USD 250,000 (foreign)</div>
+                                <div class="font-semibold text-xs md:text-sm">Min Investment</div>
+                                <div class="text-gray-700 text-xs md:text-sm">USD 250,000</div>
                             </div>
                             <div class="info-box">
-                                <div class="font-semibold text-sm">Tax Incentives</div>
-                                <div class="text-gray-700">Up to 10 years</div>
+                                <div class="font-semibold text-xs md:text-sm">Tax Incentives</div>
+                                <div class="text-gray-700 text-xs md:text-sm">Up to 10 years</div>
                             </div>
                         </div>
 
@@ -948,37 +555,36 @@
                                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                                 </svg>
-                                utb@visituganda.com
+                                <span class="truncate">utb@visituganda.com</span>
                             </div>
                             <div class="contact-info">
                                 <svg fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                                 </svg>
-                                +256 414 342 196
+                                <span>+256 414 342 196</span>
                             </div>
                         </div>
 
                         <div class="flex gap-2">
-                          <button onclick="makeCall('+256414313247')" class="btn btn-black text-sm">🎧 Call</button>
-                            <button onclick="openEmail('Tourism Investment', 'utb@visituganda.com')" class="btn btn-red text-sm">Email</button>
-                            <a href="https://www.visituganda.com" target="_blank" class="btn btn-primary text-sm">Website</a>
+                            <button onclick="makeCall('+256414342196')" class="btn btn-black">🎧 Call</button>
+                            <button onclick="openEmail('Tourism Development', 'utb@visituganda.com')" class="btn btn-red">Email</button>
+                            <a href="https://www.visituganda.com" target="_blank" class="btn btn-primary">Website</a>
                         </div>
                     </div>
 
-                    <!-- Tech Innovation -->
-                    <div class="service-card p-6" data-sector="ict" data-location="kampala" data-type="investment">
+                    <div class="service-card p-4 md:p-6" data-sector="ict" data-location="kampala" data-type="investment">
                         <div class="flex items-start justify-between mb-4">
-                            <div class="flex items-center">
+                            <div class="flex items-center flex-1 min-w-0">
                                 <img src="https://www.nita.go.ug/themes/gavias_kiamo/nitawebbanner-01.svg" alt="NITA" class="service-logo">
-                                <h3 class="text-lg font-bold">Tech Innovation</h3>
+                                <h3 class="text-base md:text-lg font-bold truncate">Tech Innovation</h3>
                             </div>
-                            <span class="tag" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white;">ICT</span>
+                            <span class="tag ml-2 flex-shrink-0" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white;">ICT</span>
                         </div>
                         
-                        <p class="text-gray-600 mb-4">Startup funding and digital infrastructure investments</p>
+                        <p class="text-gray-600 mb-4 text-sm md:text-base">Startup funding and digital infrastructure investments</p>
                         
                         <div class="mb-4">
-                            <div class="flex flex-wrap gap-2">
+                            <div class="flex flex-wrap gap-1 md:gap-2">
                                 <span class="tag">Startup funding</span>
                                 <span class="tag">Digital infrastructure</span>
                                 <span class="tag">Innovation grants</span>
@@ -987,12 +593,12 @@
 
                         <div class="info-grid">
                             <div class="info-box">
-                                <div class="font-semibold text-sm">Funding Range</div>
-                                <div class="text-gray-700">USD 50,000-10M</div>
+                                <div class="font-semibold text-xs md:text-sm">Funding Range</div>
+                                <div class="text-gray-700 text-xs md:text-sm">USD 50,000-10M</div>
                             </div>
                             <div class="info-box">
-                                <div class="font-semibold text-sm">Support</div>
-                                <div class="text-gray-700">Incubation</div>
+                                <div class="font-semibold text-xs md:text-sm">Support</div>
+                                <div class="text-gray-700 text-xs md:text-sm">Incubation</div>
                             </div>
                         </div>
 
@@ -1002,35 +608,34 @@
                                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                                 </svg>
-                                info@nita.go.ug
+                                <span class="truncate">info@nita.go.ug</span>
                             </div>
                             <div class="contact-info">
                                 <svg fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                                 </svg>
-                                +256 417 801 038
+                                <span>+256 417 801 038</span>
                             </div>
                         </div>
 
                         <div class="flex gap-2">
-                            <button onclick="makeCall('+256414313247')" class="btn btn-black text-sm">🎧 Call</button>
-                            <button onclick="openEmail('Tech Innovation', 'info@nita.go.ug')" class="btn btn-red text-sm">Email</button>
-                            <a href="https://www.nita.go.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
+                            <button onclick="makeCall('+256417801038')" class="btn btn-black">🎧 Call</button>
+                            <button onclick="openEmail('Tech Innovation', 'info@nita.go.ug')" class="btn btn-red">Email</button>
+                            <a href="https://www.nita.go.ug" target="_blank" class="btn btn-primary">Website</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Tax Calculator Section -->
-        <section id="calculator" class="py-20 bg-white">
+        <section id="calculator" class="py-12 md:py-20 bg-white">
             <div class="container mx-auto px-4">
                 <h2 class="section-title">Tax Calculator</h2>
-                <p class="text-center text-xl text-gray-600 mb-16 max-w-3xl mx-auto">Calculate potential tax obligations and available ATMS sector incentives</p>
+                <p class="text-center text-lg md:text-xl text-gray-600 mb-12 md:mb-16 max-w-3xl mx-auto">Calculate potential tax obligations and available ATMS sector incentives</p>
                 
-                <div class="service-card p-8 max-w-2xl mx-auto">
-                    <div class="space-y-6">
-                        <div class="grid md:grid-cols-2 gap-6">
+                <div class="service-card p-6 md:p-8 max-w-2xl mx-auto">
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                             <div>
                                 <label class="block text-gray-800 font-semibold mb-3">Investment Amount (USD)</label>
                                 <input type="number" id="investmentAmount" placeholder="Enter amount" 
@@ -1056,24 +661,23 @@
                             </select>
                         </div>
                         
-                        <button onclick="calculateTax()" class="btn btn-primary w-full text-lg py-4">
+                        <button onclick="calculateTax()" class="btn btn-primary w-full text-base md:text-lg py-3 md:py-4">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
                             </svg>
                             Calculate Tax & Incentives
                         </button>
                         
-                        <div id="result" class="hidden mt-8 p-6 bg-gray-50 rounded-xl border-2 border-gray-200"></div>
+                        <div id="result" class="hidden mt-6 md:mt-8 p-4 md:p-6 bg-gray-50 rounded-xl border-2 border-gray-200"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Email Modal -->
         <div id="emailModal" class="modal hidden">
             <div class="modal-content">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold">Send Email</h3>
+                    <h3 class="text-xl md:text-2xl font-bold">Send Email</h3>
                     <button onclick="closeEmail()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
                 </div>
                 
@@ -1103,11 +707,10 @@
             </div>
         </div>
 
-        <!-- Checklist Selection Modal -->
         <div id="checklistSelectionModal" class="modal hidden">
             <div class="modal-content">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold">Select Checklist</h3>
+                    <h3 class="text-xl md:text-2xl font-bold">Select Checklist</h3>
                     <button onclick="closeChecklistSelection()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
                 </div>
                 
@@ -1123,11 +726,10 @@
             </div>
         </div>
 
-        <!-- Checklist Modal -->
         <div id="checklistModal" class="modal hidden">
             <div class="modal-content checklist-modal">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold" id="checklistTitle">Checklist</h3>
+                    <h3 class="text-xl md:text-2xl font-bold" id="checklistTitle">Checklist</h3>
                     <button onclick="closeChecklist()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
                 </div>
                 
@@ -1139,19 +741,18 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="bg-black text-white py-16">
+        <footer class="bg-black text-white py-12 md:py-16">
             <div class="container mx-auto px-4">
-                <div class="grid md:grid-cols-4 gap-8">
-                    <div>
-                        <div class="flex items-center gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+                    <div class="text-center md:text-left">
+                        <div class="flex items-center justify-center md:justify-start gap-3 mb-4">
                             <img src="https://github.com/Ptr234/TEC/blob/main/WhatsApp%20Image%202025-07-27%20at%2018.38.34%20(1).jpeg?raw=true" alt="OneStopCentre UG Logo" class="h-10 w-auto">
-                            <h3 class="text-xl font-bold">OneStopCentre UG</h3>
+                            <h3 class="text-lg md:text-xl font-bold">OneStopCentre UG</h3>
                         </div>
                         <p class="text-gray-300">Your gateway to Uganda's ATMS sectors</p>
                     </div>
                     
-                    <div>
+                    <div class="text-center md:text-left">
                         <h4 class="text-lg font-semibold mb-4 text-yellow-400">ATMS Sectors</h4>
                         <ul class="space-y-2">
                             <li><a href="#" class="text-gray-300 hover:text-yellow-400">Agriculture</a></li>
@@ -1161,18 +762,18 @@
                         </ul>
                     </div>
                     
-                    <div>
+                    <div class="text-center md:text-left">
                         <h4 class="text-lg font-semibold mb-4 text-yellow-400">Quick Links</h4>
                         <ul class="space-y-2">
                             <li><a href="#services" class="text-gray-300 hover:text-yellow-400">Services</a></li>
                             <li><a href="#investments" class="text-gray-300 hover:text-yellow-400">Investments</a></li>
-                            <li><a href="#calculator" class="text-gray-300 hover:text-yellow-400">Tax and Incentive Calculator</a></li>
+                            <li><a href="#calculator" class="text-gray-300 hover:text-yellow-400">Tax Calculator</a></li>
                         </ul>
                     </div>
                     
-                    <div>
+                    <div class="text-center md:text-left">
                         <h4 class="text-lg font-semibold mb-4 text-yellow-400">Contact</h4>
-                        <ul class="space-y-2 text-gray-300">
+                        <ul class="space-y-2 text-gray-300 text-sm md:text-base">
                             <li>📧 info@oscdigitaltool.com</li>
                             <li>📞 +256 775 692 335</li>
                             <li>📍 Kampala, Uganda</li>
@@ -1180,438 +781,22 @@
                     </div>
                 </div>
                 
-                <div class="border-t border-gray-700 mt-12 pt-8 text-center">
-                    <p class="text-gray-300">&copy; 2025 OneStopCentre Uganda. All rights reserved.</p>
-                    <p class="text-gray-300 mt-2">
-                        <a href="https://mybusiness.go.ug/" class="text-yellow-400 hover:text-yellow-200">MyBusiness</a> | 
-                        <a href="https://ebiz.go.ug/" class="text-yellow-400 hover:text-yellow-200">eBiz Portal</a> | 
-                        <a href="https://ugandainvest.go.ug/" class="text-yellow-400 hover:text-yellow-200">Uganda Investment Authority</a>
+                <div class="border-t border-gray-700 mt-8 md:mt-12 pt-6 md:pt-8 text-center">
+                    <p class="text-gray-300 text-sm md:text-base">&copy; 2025 OneStopCentre Uganda. All rights reserved.</p>
+                    <p class="text-gray-300 mt-2 text-sm md:text-base">
+                        <a href="#" class="hover:text-yellow-400">Privacy Policy</a> | 
+                        <a href="#" class="hover:text-yellow-400">Terms of Service</a>
                     </p>
+                     <p class="text-gray-300 mt-2 text-sm md:text-base">
+                       <a href="https://ebiz.go.ug/" target="_blank" class="hover:text-yellow-400">eBiz Uganda</a> | 
+                       <a href="https://ugandainvest.go.ug/" target="_blank" class="hover:text-yellow-400">Uganda Investment Authority</a> | 
+                       <a href="https://mybusiness.go.ug/" target="_blank" class="hover:text-yellow-400">National SME Portal</a>
+                     </p>
+
                 </div>
             </div>
         </footer>
 
-        <script>
-            // Global variables
-            let currentEmailData = {};
-            
-            // Service data for suggestions
-            const servicesData = [
-                { title: 'Business Registration', tags: ['company registration', 'business names', 'certificates'], sector: 'all', type: 'registration', section: 'services' },
-                { title: 'Tax Registration', tags: ['vat registration', 'paye', 'customs'], sector: 'all', type: 'registration', section: 'services' },
-                { title: 'Social Security', tags: ['employee registration', 'pension', 'benefits'], sector: 'all', type: 'registration', section: 'services' },
-                { title: 'Communications License', tags: ['telecom license', 'broadcasting', 'isp license'], sector: 'ict', type: 'licensing', section: 'services' },
-                { title: 'Investment Facilitation', tags: ['investment license', 'tax incentives', 'facilitation'], sector: 'all', type: 'investment', section: 'services' },
-                { title: 'Capital Markets', tags: ['securities license', 'investment advisory', 'market surveillance'], sector: 'all', type: 'licensing', section: 'services' },
-                { title: 'Agricultural Credit', tags: ['agricultural loans', 'value chains', 'farm financing'], sector: 'agriculture', type: 'investment', section: 'investments' },
-                { title: 'Tourism Development', tags: ['hotel development', 'eco-tourism', 'tourism incentives'], sector: 'tourism', type: 'investment', section: 'investments' },
-                { title: 'Tech Innovation', tags: ['startup funding', 'digital infrastructure', 'innovation grants'], sector: 'ict', type: 'investment', section: 'investments' }
-            ];
-            
-            // Checklist data
-            const checklists = {
-                services: [
-                    { step: "Choose Business Structure", description: "Select appropriate structure (Sole Proprietorship, Partnership, or Limited Company)" },
-                    { step: "Register Business Name", description: "Reserve and register your business name with URSB" },
-                    { step: "Obtain Tax Identification Number", description: "Register for TIN with URA for tax compliance" },
-                    { step: "Register for Social Security", description: "Enroll employees with NSSF for social security benefits" },
-                    { step: "Acquire Necessary Licenses", description: "Obtain sector-specific licenses (e.g., UCC for ICT, CMA for finance)" },
-                    { step: "Set Up Business Premises", description: "Secure a physical location and obtain trading license" },
-                    { step: "Open Business Bank Account", description: "Establish a corporate bank account for transactions" }
-                ],
-                investments: [
-                    { step: "Identify Investment Sector", description: "Choose an ATMS sector (Agriculture, Tourism, Minerals, ICT)" },
-                    { step: "Meet Minimum Investment", description: "Ensure investment meets minimum thresholds (e.g., USD 250,000 for foreign investors)" },
-                    { step: "Contact UIA", description: "Engage Uganda Investment Authority for facilitation and incentives" },
-                    { step: "Prepare Business Plan", description: "Develop a detailed business plan for investment approval" },
-                    { step: "Apply for Incentives", description: "Request tax holidays and other investment incentives" },
-                    { step: "Secure Funding", description: "Explore financing options (e.g., BOU for agriculture, NITA for tech)" },
-                    { step: "Monitor Compliance", description: "Ensure adherence to sector-specific regulations" }
-                ],
-                calculator: [
-                    { step: "Determine Investment Amount", description: "Calculate the total investment amount in USD" },
-                    { step: "Select ATMS Sector", description: "Choose the relevant sector for tax calculation" },
-                    { step: "Choose Investment Type", description: "Specify if investment is new, expansion, or acquisition" },
-                    { step: "Calculate Tax Obligations", description: "Use the tax calculator to estimate base tax and incentives" },
-                    { step: "Review Incentives", description: "Understand applicable tax holidays and reductions" },
-                    { step: "Consult URA", description: "Verify calculations with Uganda Revenue Authority" },
-                    { step: "Plan Financials", description: "Incorporate tax estimates into financial planning" }
-                ]
-            };
-            
-            // Debounce function for search
-            function debounce(func, wait) {
-                let timeout;
-                return function executedFunction(...args) {
-                    const later = () => {
-                        clearTimeout(timeout);
-                        func(...args);
-                    };
-                    clearTimeout(timeout);
-                    timeout = setTimeout(later, wait);
-                };
-            }
-            
-            // Debounced search function
-            const debouncedSearch = debounce(searchServices, 300);
-            
-            // Back to top functionality
-            window.addEventListener('scroll', function() {
-                const backToTop = document.getElementById('backToTop');
-                if (window.pageYOffset > 300) {
-                    backToTop.classList.add('active');
-                } else {
-                    backToTop.classList.remove('active');
-                }
-            });
-            
-            function scrollToTop() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            
-            // Download Bankable Projects functionality
-            function downloadBankableProjects() {
-                showNotification('PDF is loading...', 'info');
-                
-                // Create a temporary link element for download
-                const link = document.createElement('a');
-                link.href = 'https://github.com/Ptr234/TEC/raw/main/Bankable%20Projects%20-%202025.3%20comp.pdf';
-                link.download = 'Bankable Projects - 2025.3 comp.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                // Show success notification after a delay
-                setTimeout(() => {
-                    showNotification('Download started successfully!', 'success');
-                }, 1500);
-            }
-            
-            // Search functionality with suggestions
-            function searchServices() {
-                const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-                const cards = document.querySelectorAll('#servicesList .service-card, #investments .service-card');
-                const suggestionsContainer = document.getElementById('suggestions');
-                
-                // Clear previous suggestions
-                suggestionsContainer.innerHTML = '';
-                
-                if (searchTerm.length > 1) {
-                    const matches = servicesData.filter(service => 
-                        service.title.toLowerCase().includes(searchTerm) ||
-                        service.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-                    );
-                    
-                    if (matches.length > 0) {
-                        matches.forEach(match => {
-                            const suggestion = document.createElement('div');
-                            suggestion.className = 'suggestion-item';
-                            suggestion.textContent = match.title;
-                            suggestion.onclick = () => {
-                                document.getElementById('searchInput').value = match.title;
-                                suggestionsContainer.style.display = 'none';
-                                filterServices();
-                                // Scroll to the specific service card
-                                const targetCard = Array.from(cards).find(card => 
-                                    card.querySelector('h3').textContent.toLowerCase() === match.title.toLowerCase()
-                                );
-                                if (targetCard) {
-                                    const sectionId = match.section;
-                                    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-                                    targetCard.style.transition = 'background 0.3s ease';
-                                    targetCard.style.background = '#fef3c7';
-                                    setTimeout(() => {
-                                        targetCard.style.background = 'white';
-                                    }, 2000);
-                                }
-                            };
-                            suggestionsContainer.appendChild(suggestion);
-                        });
-                        suggestionsContainer.style.display = 'block';
-                    } else {
-                        suggestionsContainer.style.display = 'none';
-                    }
-                } else {
-                    suggestionsContainer.style.display = 'none';
-                }
-                
-                // Filter cards
-                cards.forEach(card => {
-                    const title = card.querySelector('h3').textContent.toLowerCase();
-                    const description = card.querySelector('p').textContent.toLowerCase();
-                    const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
-                    
-                    const matches = title.includes(searchTerm) || 
-                                   description.includes(searchTerm) || 
-                                   tags.some(tag => tag.includes(searchTerm));
-                    
-                    card.style.display = matches || searchTerm === '' ? 'block' : 'none';
-                });
-            }
-            
-            // Handle click outside suggestions
-            document.addEventListener('click', (e) => {
-                const suggestions = document.getElementById('suggestions');
-                const searchInput = document.getElementById('searchInput');
-                if (!suggestions.contains(e.target) && e.target !== searchInput) {
-                    suggestions.style.display = 'none';
-                }
-            });
-            
-            // Quick search
-            function quickSearch(term) {
-                document.getElementById('searchInput').value = term;
-                searchServices();
-                showNotification(`Searching for "${term}"`, 'info');
-                const match = servicesData.find(service => service.title.toLowerCase() === term.toLowerCase());
-                if (match) {
-                    const cards = document.querySelectorAll('#servicesList .service-card, #investments .service-card');
-                    const targetCard = Array.from(cards).find(card => 
-                        card.querySelector('h3').textContent.toLowerCase() === term.toLowerCase()
-                    );
-                    if (targetCard) {
-                        const sectionId = match.section;
-                        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-                        targetCard.style.transition = 'background 0.3s ease';
-                        targetCard.style.background = '#fef3c7';
-                        setTimeout(() => {
-                            targetCard.style.background = 'white';
-                        }, 2000);
-                    }
-                }
-            }
-            
-            // Filter functionality
-            function filterServices() {
-                const sector = document.getElementById('sectorFilter').value;
-                const location = document.getElementById('locationFilter').value;
-                const serviceType = document.getElementById('serviceTypeFilter').value;
-                const cards = document.querySelectorAll('#servicesList .service-card, #investments .service-card');
-                
-                let visibleCount = 0;
-                
-                cards.forEach(card => {
-                    const cardSector = card.getAttribute('data-sector');
-                    const cardLocation = card.getAttribute('data-location');
-                    const cardType = card.getAttribute('data-type');
-                    
-                    const sectorMatch = sector === 'all' || cardSector === sector || cardSector === 'all';
-                    const locationMatch = location === 'all' || cardLocation === location;
-                    const typeMatch = serviceType === 'all' || cardType === serviceType;
-                    
-                    if (sectorMatch && locationMatch && typeMatch) {
-                        card.style.display = 'block';
-                        visibleCount++;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-                
-                // Show notification if no results
-                if (visibleCount === 0) {
-                    showNotification('No services match the selected filters', 'warning');
-                }
-            }
-            
-            // Clear filters
-            function clearFilters() {
-                document.getElementById('sectorFilter').value = 'all';
-                document.getElementById('locationFilter').value = 'all';
-                document.getElementById('serviceTypeFilter').value = 'all';
-                document.getElementById('searchInput').value = '';
-                document.getElementById('suggestions').style.display = 'none';
-                filterServices();
-                showNotification('Filters cleared', 'success');
-            }
-            
-            // Email functionality
-            function openEmail(service, email) {
-                currentEmailData = { service, email };
-                document.getElementById('modalService').value = service;
-                document.getElementById('modalMessage').value = 
-                    `Dear ${service} Team,\n\nI am interested in learning more about your services. Please provide information about your processes and requirements.\n\nThank you.`;
-                document.getElementById('emailModal').classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-            
-            function closeEmail() {
-                document.getElementById('emailModal').classList.add('hidden');
-                document.getElementById('modalName').value = '';
-                document.getElementById('modalEmail').value = '';
-                document.getElementById('modalMessage').value = '';
-                document.body.style.overflow = 'auto';
-                currentEmailData = {};
-            }
-            
-            function sendEmail() {
-                const name = document.getElementById('modalName').value;
-                const email = document.getElementById('modalEmail').value;
-                const message = document.getElementById('modalMessage').value;
-                
-                if (!name || !email || !message) {
-                    showNotification('Please fill in all fields', 'error');
-                    return;
-                }
-                
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                    showNotification('Please enter a valid email address', 'error');
-                    return;
-                }
-                // Simulate sending email
-                console.log(`Sending email to ${currentEmailData.email}:`, { name, email, message });
-                showNotification('Email sent successfully!', 'success');
-                closeEmail();
-            }
-
-            // Call functionality
-            function makeCall(phone) {
-                window.location.href = `tel:${phone}`;
-            }
-
-            // Chat functionality
-            function openChat() {
-                window.open('https://wa.me/+256 775 692 335', '_blank');
-            }
-
-            // Notification system
-            function showNotification(message, type) {
-                const notification = document.createElement('div');
-                notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg text-white z-[1000] max-w-sm`;
-
-                switch (type) {
-                    case 'success':
-                        notification.className += ' bg-green-500';
-                        break;
-                    case 'error':
-                        notification.className += ' bg-red-500';
-                        break;
-                    case 'warning':
-                        notification.className += ' bg-yellow-500';
-                        break;
-                    default:
-                        notification.className += ' bg-blue-500';
-                }
-
-                notification.textContent = message;
-                document.body.appendChild(notification);
-
-                setTimeout(() => {
-                    notification.style.opacity = '0';
-                    notification.style.transition = 'opacity 0.3s ease';
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 300);
-                }, 3000);
-            }
-
-            // Tax calculator
-            function calculateTax() {
-                const amount = parseFloat(document.getElementById('investmentAmount').value);
-                const sector = document.getElementById('sector').value;
-                const investmentType = document.getElementById('investmentType').value;
-                const resultDiv = document.getElementById('result');
-
-                if (isNaN(amount) || amount <= 0) {
-                    showNotification('Please enter a valid investment amount', 'error');
-                    return;
-                }
-
-                let baseTaxRate = 0.3; // Default corporate tax rate
-                let taxHoliday = 0;
-                let incentives = [];
-
-                // Adjust tax rate and incentives based on sector
-                switch (sector) {
-                    case 'agriculture':
-                        taxHoliday = amount >= 50000 ? 10 : 5;
-                        incentives = ['Duty-free import of agricultural equipment', 'VAT exemption on inputs'];
-                        break;
-                    case 'tourism':
-                        taxHoliday = amount >= 250000 ? 10 : 7;
-                        incentives = ['Tax holiday on hotel development', 'Exemption on tourism equipment'];
-                        break;
-                    case 'minerals':
-                        taxHoliday = amount >= 1000000 ? 10 : 5;
-                        incentives = ['Royalty tax exemptions', 'Capital expenditure deductions'];
-                        break;
-                    case 'ict':
-                        taxHoliday = amount >= 50000 ? 7 : 3;
-                        incentives = ['Tax holiday for tech startups', 'R&D tax credits'];
-                        break;
-                }
-
-                // Adjust based on investment type
-                if (investmentType === 'expansion') {
-                    taxHoliday = Math.max(taxHoliday - 2, 0);
-                    incentives.push('Expansion allowance');
-                } else if (investmentType === 'acquisition') {
-                    taxHoliday = Math.max(taxHoliday - 3, 0);
-                    incentives.push('Acquisition restructuring benefits');
-                }
-
-                const annualTax = amount * baseTaxRate;
-                const taxSavings = annualTax * (taxHoliday / 10);
-
-                resultDiv.innerHTML = `
-                    <h4 class="text-lg font-bold mb-4">Tax Calculation Results</h4>
-                    <div class="space-y-3">
-                        <p><strong>Investment Amount:</strong> ${amount.toLocaleString()}</p>
-                        <p><strong>Sector:</strong> ${sector.charAt(0).toUpperCase() + sector.slice(1)}</p>
-                        <p><strong>Investment Type:</strong> ${investmentType.charAt(0).toUpperCase() + investmentType.slice(1)}</p>
-                        <p><strong>Base Tax Rate:</strong> ${(baseTaxRate * 100).toFixed(0)}%</p>
-                        <p><strong>Estimated Annual Tax:</strong> UGX ${(annualTax * 3800).toLocaleString()}</p>
-                        <p><strong>Tax Holiday:</strong> ${taxHoliday} years</p>
-                        <p><strong>Estimated Tax Savings:</strong> UGX ${(taxSavings * 3800).toLocaleString()}</p>
-                        <p><strong>Incentives:</strong></p>
-                        <ul class="list-disc list-inside">
-                            ${incentives.map(i => `<li>${i}</li>`).join('')}
-                        </ul>
-                    </div>
-                    <p class="text-sm text-gray-600 mt-4">Note: These are estimates. Contact URA for official calculations.</p>
-                `;
-
-                resultDiv.classList.remove('hidden');
-                resultDiv.scrollIntoView({ behavior: 'smooth' });
-                showNotification('Tax calculation completed', 'success');
-            }
-
-            // Checklist functionality
-            function openChecklistModal() {
-                document.getElementById('checklistSelectionModal').classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeChecklistSelection() {
-                document.getElementById('checklistSelectionModal').classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }
-
-            function openChecklist(type) {
-                closeChecklistSelection();
-                const checklistModal = document.getElementById('checklistModal');
-                const checklistTitle = document.getElementById('checklistTitle');
-                const checklistContent = document.getElementById('checklistContent');
-
-                checklistTitle.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Checklist`;
-
-                checklistContent.innerHTML = checklists[type].map(item => `
-                    <div class="checklist-item">
-                        <input type="checkbox" class="mt-1">
-                        <div>
-                            <h4 class="font-semibold">${item.step}</h4>
-                            <p class="text-gray-600">${item.description}</p>
-                        </div>
-                    </div>
-                `).join('');
-
-                checklistModal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeChecklist() {
-                document.getElementById('checklistModal').classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }
-        </script>
+        <script src="main.js"></script>
     </body>
-    </html>
+</html>
