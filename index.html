@@ -101,7 +101,7 @@
             left: -3px;
             right: -3px;
             bottom: -3px;
-            background: linear-gradient(45deg, #FFD700, #DC2626, #FFD700, #DC2626);
+            background: linear-gradient( #011022);
             border-radius: 27px;
             z-index: -1;
             animation: borderFlow 4s linear infinite;
@@ -122,7 +122,7 @@
             height: 100%;
             background: linear-gradient(90deg, 
                 transparent 0%, 
-                rgba(255, 215, 0, 0.1) 50%, 
+                rgba(195, 241, 30, 0.1) 50%, 
                 transparent 100%);
             animation: shimmerSearch 3s ease-in-out infinite;
         }
@@ -132,47 +132,51 @@
             50% { left: 100%; }
         }
         
-        /* Enhanced Input Styling */
+        /* Updated Search Input Styling */
         .search-input {
             width: 100%;
             padding: 20px 28px;
-            border: 3px solid rgba(229, 231, 235, 0.8);
+            border: 3px solid #000000;
             border-radius: 16px;
             font-size: 16px;
             font-weight: 500;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
+            background: #f4f1f1;
+            color: #010a01;
             position: relative;
         }
         
         .search-input:focus {
             outline: none;
             border-color: #FFD700;
-            box-shadow: 
-                0 0 0 4px rgba(255, 215, 0, 0.2),
-                0 8px 24px rgba(255, 215, 0, 0.1);
-            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.2);
+            background: #0e0d0d;
             transform: translateY(-2px);
         }
         
         .search-input::placeholder {
-            color: rgba(107, 114, 128, 0.8);
+            color: rgba(0, 0, 0, 0.6);
             font-weight: 400;
+        }
+        
+        /* Yellow accent text */
+        .search-accent {
+            color: #FFD700;
+            font-weight: 600;
         }
         
         .filter-select {
             padding: 16px 24px;
-            border: 3px solid rgba(229, 231, 235, 0.8);
+            border: 3px solid rgba(0, 0, 0, 0.8);
             border-radius: 16px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(232, 222, 222, 0.9);
             backdrop-filter: blur(10px);
             font-size: 15px;
             font-weight: 500;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             appearance: none;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23000000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
             background-position: right 12px center;
             background-repeat: no-repeat;
             background-size: 16px;
@@ -370,7 +374,7 @@
             transform: translateX(-50%);
             width: 120px;
             height: 6px;
-            background: linear-gradient(90deg, #FFD700 0%, #DC2626 100%);
+            background: linear-gradient(90deg, #ecebe8 0%, #DC2626 100%);
             border-radius: 3px;
         }
         
@@ -536,6 +540,12 @@
             .hero-background {
                 background-attachment: scroll;
             }
+            
+            /* Responsive text for search input */
+            .search-input {
+                font-size: 14px;
+                padding: 16px 24px;
+            }
         }
         
         /* Animation for cards */
@@ -612,7 +622,7 @@
             left: 20px;
             top: 50%;
             transform: translateY(-50%);
-            color: #6b7280;
+            color: #000000;
             pointer-events: none;
         }
 
@@ -630,6 +640,22 @@
             background-color: #f3f4f6;
             padding: 4px;
             border: 1px solid #e5e7eb;
+        }
+        
+        .logo-fallback {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            margin-right: 12px;
+            font-weight: bold;
+            color: #000;
+            border: 1px solid #e5e7eb;
+            font-size: 12px;
+            text-align: center;
         }
     </style>
 </head>
@@ -666,8 +692,8 @@
                             <span class="text-2xl font-bold text-black">O</span>
                         </div>
                         <div>
-                            <h1 class="text-3xl md:text-4xl font-bold">OneTestCenter UG</h1>
-                            <p class="text-yellow-400 text-sm font-medium">ATMS Services Directory</p>
+                            <h1 class="text-3xl md:text-4xl font-bold">OneStopCentre UG</h1>
+                            <p class="text-yellow-400 text-sm font-medium">Bussiness Simplified</p>
                         </div>
                     </div>
                     <nav class="hidden md:flex space-x-8">
@@ -684,8 +710,8 @@
         <section class="py-20 relative z-10">
             <div class="container mx-auto px-4">
                 <div class="search-container">
-                    <h2 class="text-4xl font-bold text-center mb-6 text-black">Find ATMS Services</h2>
-                    <p class="text-center text-gray-600 mb-10 text-lg">Search for Agriculture, Tourism, Minerals, and ICT services across Uganda</p>
+                    <h2 class="text-4xl font-bold text-center mb-6 text-black">Explore <span class="search-accent">bussiness</span> Oppotunies in Uganda</h2>
+                    <p class="text-center text-gray-600 mb-10 text-lg">Search for <span class="search-accent">Agriculture</span>, <span class="search-accent">Tourism</span>, <span class="search-accent">Minerals</span>, and <span class="search-accent">ICT</span> services across Uganda</p>
                     
                     <div class="relative">
                         <div class="flex flex-col md:flex-row gap-6">
@@ -741,7 +767,7 @@
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="section-title">📌 Services</h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">Essential government services for business operations and compliance across Uganda's key economic sectors</p>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">Essential services for business operations and compliance across Uganda's key economic sectors</p>
             </div>
             
             <div id="servicesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -750,7 +776,7 @@
                 <div class="service-card p-8" data-sector="all" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center">
-                            <img src="https://github.com/Ptr234/TEC/blob/main/URSB%20logo.png" alt="URSB Logo" class="service-logo">
+                            <div class="logo-fallback">URSB</div>
                             <h3 class="text-xl font-bold text-gray-900">Business Registration</h3>
                         </div>
                         <span class="mandatory-tag">mandatory</span>
@@ -828,7 +854,7 @@
                 <div class="service-card p-8" data-sector="all" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center">
-                            <img src="https://github.com/Ptr234/TEC/blob/main/URA%20logo.png" alt="URA Logo" class="service-logo">
+                            <div class="logo-fallback">URA</div>
                             <h3 class="text-xl font-bold text-gray-900">Tax Registration & Compliance</h3>
                         </div>
                         <span class="mandatory-tag">mandatory</span>
@@ -906,7 +932,7 @@
                 <div class="service-card p-8" data-sector="agriculture" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center">
-                            <img src="https://github.com/Ptr234/TEC/blob/main/MINISTRY%20OF%20FINANCE%20PLANNING%20..logo.png" alt="Ministry of Finance Logo" class="service-logo">
+                            <div class="logo-fallback">NAADS</div>
                             <h3 class="text-xl font-bold text-gray-900">Agricultural Extension Services</h3>
                         </div>
                         <span class="service-tag">Agriculture</span>
@@ -984,7 +1010,7 @@
                 <div class="service-card p-8" data-sector="tourism" data-location="entebbe">
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center">
-                            <img src="https://github.com/Ptr234/TEC/blob/main/UIA%20logo.png" alt="UIA Logo" class="service-logo">
+                            <div class="logo-fallback">UTB</div>
                             <h3 class="text-xl font-bold text-gray-900">Tourism Business Licensing</h3>
                         </div>
                         <span class="service-tag">Tourism</span>
@@ -1062,7 +1088,7 @@
                 <div class="service-card p-8" data-sector="minerals" data-location="entebbe">
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center">
-                            <img src="https://github.com/Ptr234/TEC/blob/main/FIA%20logo.png" alt="FIA Logo" class="service-logo">
+                            <div class="logo-fallback">DGSM</div>
                             <h3 class="text-xl font-bold text-gray-900">Mining Permits & Licenses</h3>
                         </div>
                         <span class="service-tag">Minerals</span>
@@ -1140,7 +1166,7 @@
                 <div class="service-card p-8" data-sector="ict" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center">
-                            <img src="https://github.com/Ptr234/TEC/blob/main/UCC%20logo.png" alt="UCC Logo" class="service-logo">
+                            <div class="logo-fallback">NITA</div>
                             <h3 class="text-xl font-bold text-gray-900">ICT Infrastructure & Digital Services</h3>
                         </div>
                         <span class="service-tag">ICT</span>
@@ -1231,7 +1257,7 @@
                 <div class="service-card p-8" data-sector="all" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center">
-                            <img src="https://github.com/Ptr234/TEC/blob/main/CMA%20logo.png" alt="CMA Logo" class="service-logo">
+                            <div class="logo-fallback">UDC</div>
                             <h3 class="text-xl font-bold text-gray-900">Industrial Development Financing</h3>
                         </div>
                         <span class="service-tag">All Sectors</span>
@@ -1309,7 +1335,7 @@
                 <div class="service-card p-8" data-sector="agriculture" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center">
-                            <img src="https://github.com/Ptr234/TEC/blob/main/NSSF%20logo.png" alt="NSSF Logo" class="service-logo">
+                            <div class="logo-fallback">ACF</div>
                             <h3 class="text-xl font-bold text-gray-900">Agricultural Finance Programs</h3>
                         </div>
                         <span class="service-tag">Agriculture</span>
@@ -1387,7 +1413,7 @@
                 <div class="service-card p-8" data-sector="tourism" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center">
-                            <img src="https://github.com/Ptr234/TEC/blob/main/UIA%20logo.png" alt="UIA Logo" class="service-logo">
+                            <div class="logo-fallback">UIA</div>
                             <h3 class="text-xl font-bold text-gray-900">Tourism Investment Incentives</h3>
                         </div>
                         <span class="service-tag">Tourism</span>
@@ -1465,7 +1491,7 @@
                 <div class="service-card p-8" data-sector="minerals" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center">
-                            <img src="https://github.com/Ptr234/TEC/blob/main/FIA%20logo.png" alt="FIA Logo" class="service-logo">
+                            <div class="logo-fallback">MEMD</div>
                             <h3 class="text-xl font-bold text-gray-900">Mining Sector Investments</h3>
                         </div>
                         <span class="service-tag">Minerals</span>
@@ -1543,7 +1569,7 @@
                 <div class="service-card p-8" data-sector="ict" data-location="kampala">
                     <div class="flex items-start justify-between mb-6">
                         <div class="flex items-center">
-                            <img src="https://github.com/Ptr234/TEC/blob/main/UCC%20logo.png" alt="UCC Logo" class="service-logo">
+                            <div class="logo-fallback">ICT</div>
                             <h3 class="text-xl font-bold text-gray-900">Tech Innovation Funding</h3>
                         </div>
                         <span class="service-tag">ICT</span>
@@ -1967,7 +1993,7 @@
         }
 
         function sendEmail() {
-                        const senderName = document.getElementById('modalSenderName').value.trim();
+            const senderName = document.getElementById('modalSenderName').value.trim();
             const senderEmail = document.getElementById('modalSenderEmail').value.trim();
             const message = document.getElementById('modalMessage').value.trim();
 
@@ -1976,7 +2002,7 @@
                 return;
             }
 
-            if (!isValidEmail(senderEmail)) {
+             if (!isValidEmail(senderEmail)) {
                 showNotification('❌ Please enter a valid email address', 'error');
                 return;
             }
@@ -2116,14 +2142,14 @@
                     notification.classList.add('bg-gradient-to-r', 'from-red-500', 'to-red-600');
                     notification.innerHTML = `
                         <div class="flex items-center">
-                            <svg class="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                                        <svg class="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                             </svg>
                             <span>${message}</span>
                         </div>
                     `;
                     break;
-                default:
+                default: // info
                     notification.classList.add('bg-gradient-to-r', 'from-blue-500', 'to-blue-600');
                     notification.innerHTML = `
                         <div class="flex items-center">
@@ -2134,195 +2160,69 @@
                         </div>
                     `;
             }
-            
+
             document.body.appendChild(notification);
-            
+
             // Animate in
             setTimeout(() => {
                 notification.classList.remove('translate-x-full');
-            }, 100);
-            
-            // Auto-hide after delay
-            const hideDelay = type === 'error' ? 6000 : 4000;
+                notification.classList.add('translate-x-0');
+            }, 10);
+
+            // Auto-dismiss after 5 seconds
             setTimeout(() => {
-                notification.classList.add('translate-x-full');
+                notification.classList.add('opacity-0', 'translate-x-full');
                 setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
+                    notification.remove();
                 }, 500);
-            }, hideDelay);
-        }
+            }, 5000);
 
-        // Enhanced search input functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            
-            // Search input event listeners
-            searchInput.addEventListener('input', function() {
-                const value = this.value;
-                clearTimeout(this.searchTimeout);
-                this.searchTimeout = setTimeout(() => {
-                    showSuggestions(value);
-                }, 200);
-            });
-
-            searchInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    searchServices();
-                    hideSuggestions();
-                } else if (e.key === 'Escape') {
-                    hideSuggestions();
-                }
-            });
-
-            // Hide suggestions when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.search-container')) {
-                    hideSuggestions();
-                }
-                
-                // Close modal when clicking outside
-                const modal = document.getElementById('emailModal');
-                if (e.target === modal) {
-                    closeEmailModal();
-                }
-            });
-
-            // Smooth scroll for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-
-            // Initialize card animations
-            const cards = document.querySelectorAll('.service-card');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('animate-fade-in');
-                        }, index * 150);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            cards.forEach(card => {
-                observer.observe(card);
-            });
-
-            // Show welcome message
-            setTimeout(() => {
-                showNotification('🇺🇬 Welcome to Uganda ATMS Services Directory! Explore our comprehensive government services.', 'success');
-            }, 1000);
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Escape key to close modal
-            if (e.key === 'Escape') {
-                const modal = document.getElementById('emailModal');
-                if (!modal.classList.contains('hidden')) {
-                    closeEmailModal();
-                }
-                hideSuggestions();
-            }
-            
-            // Search shortcut (Ctrl/Cmd + K)
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                e.preventDefault();
-                document.getElementById('searchInput').focus();
-                showNotification('🔍 Search activated! Start typing to find services.', 'info');
-            }
-
-            // Quick navigation shortcuts
-            if ((e.ctrlKey || e.metaKey) && e.key === '1') {
-                e.preventDefault();
-                document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
-            }
-            if ((e.ctrlKey || e.metaKey) && e.key === '2') {
-                e.preventDefault();
-                document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
-            }
-            if ((e.ctrlKey || e.metaKey) && e.key === '3') {
-                e.preventDefault();
-                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-
-        // Enhanced accessibility features
-        function enhanceAccessibility() {
-            // Add focus outlines for keyboard navigation
-            const style = document.createElement('style');
-            style.textContent = `
-                .service-card:focus-within {
-                    outline: 3px solid #FFD700;
-                    outline-offset: 2px;
-                }
-                
-                button:focus, input:focus, select:focus, textarea:focus {
-                    outline: 2px solid #FFD700;
-                    outline-offset: 2px;
-                }
-            `;
-            document.head.appendChild(style);
-        }
-
-        // Initialize accessibility enhancements
-        document.addEventListener('DOMContentLoaded', enhanceAccessibility);
-
-        // Performance optimization - Lazy loading for images
-        function lazyLoadImages() {
-            const images = document.querySelectorAll('img[data-src]');
-            const imageObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.removeAttribute('data-src');
-                        imageObserver.unobserve(img);
-                    }
-                });
-            });
-
-            images.forEach(img => imageObserver.observe(img));
-        }
-
-        // Initialize performance optimizations
-        document.addEventListener('DOMContentLoaded', lazyLoadImages);
-
-        // Direct phone call functionality
-        function makePhoneCall(phoneNumber) {
-            // Show confirmation dialog
-            const confirmed = confirm(`Do you want to call ${phoneNumber}?`);
-            if (confirmed) {
-                // Create a temporary link to trigger the phone call
-                const phoneLink = document.createElement('a');
-                phoneLink.href = `tel:${phoneNumber}`;
-                phoneLink.style.display = 'none';
-                document.body.appendChild(phoneLink);
-                
-                // Trigger the click event
-                phoneLink.click();
-                
-                // Remove the temporary link
+            // Allow manual dismiss
+            notification.addEventListener('click', () => {
+                notification.classList.add('opacity-0', 'translate-x-full');
                 setTimeout(() => {
-                    document.body.removeChild(phoneLink);
-                }, 100);
-                
-                // Show notification
-                showNotification(`📞 Dialing ${phoneNumber}...`, 'success');
+                    notification.remove();
+                }, 500);
+            });
+        }
+
+        // Phone call functionality
+        function makePhoneCall(number) {
+            if (confirm(`Would you like to call ${number}?`)) {
+                showNotification(`📞 Calling ${number}...`, 'info');
+                // In a real app, you would use: window.location.href = `tel:${number}`;
             }
         }
+
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search input with suggestions
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function() {
+                showSuggestions(this.value);
+            });
+
+            // Click outside to hide suggestions
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.search-bar-container')) {
+                    hideSuggestions();
+                }
+            });
+
+            // Escape key to hide suggestions
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    hideSuggestions();
+                }
+            });
+
+            // Initialize service cards with animation
+            const cards = document.querySelectorAll('.service-card');
+            cards.forEach((card, index) => {
+                card.classList.add('animate-fade-in');
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
     </script>
 </body>
 </html>
