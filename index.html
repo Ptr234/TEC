@@ -3,435 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ontester Uganda - ATMS Services Directory</title>
+    <title>OneStopCentre Uganda - ATMS Services Directory</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-        }
+        body { font-family: 'Inter', sans-serif; }
         
-        /* Enhanced Hero Background */
-        .hero-background {
-            background: 
-                linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%),
-                url('https://www.shutterstock.com/image-photo/crowned-crane-600nw-472226197.jpg');
+        /* Hero Background */
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), 
+                        url('https://www.shutterstock.com/image-photo/crowned-crane-600nw-472226197.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
             min-height: 100vh;
-            position: relative;
         }
         
-        .hero-background::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, 
-                rgba(255, 215, 0, 0.1) 0%, 
-                transparent 25%, 
-                transparent 75%, 
-                rgba(220, 38, 38, 0.1) 100%);
-            pointer-events: none;
-        }
-        
-        /* Enhanced Service Cards */
-        .service-card {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 215, 0, 0.2);
-            border-radius: 20px;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.1),
-                0 2px 8px rgba(255, 215, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #FFD700 0%, #DC2626 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            border-color: #FFD700;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.15),
-                0 8px 32px rgba(255, 215, 0, 0.2);
-        }
-        
-        .service-card:hover::before {
-            opacity: 1;
-        }
-        
-        /* Enhanced Search Container */
+        /* Modern Search Container */
         .search-container {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255,255,255,0.97);
             backdrop-filter: blur(20px);
-            border: 3px solid transparent;
-            background-clip: padding-box;
             border-radius: 24px;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.1),
-                0 8px 32px rgba(255, 215, 0, 0.1);
-            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            padding: 48px;
             margin: 80px auto;
             max-width: 1000px;
             position: relative;
-            overflow: hidden;
         }
         
-        .search-container::before {
-            content: '';
+        /* Search Suggestions */
+        .suggestions {
             position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            background: linear-gradient( #011022);
-            border-radius: 27px;
-            z-index: -1;
-            animation: borderFlow 4s linear infinite;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 10;
+            display: none;
         }
         
-        @keyframes borderFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .suggestion-item {
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
         
-        .search-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(195, 241, 30, 0.1) 50%, 
-                transparent 100%);
-            animation: shimmerSearch 3s ease-in-out infinite;
+        .suggestion-item:hover {
+            background: #f5f5f5;
+            color: #ffd700;
         }
         
-        @keyframes shimmerSearch {
-            0%, 100% { left: -100%; }
-            50% { left: 100%; }
+        /* Quick Search Buttons */
+        .quick-search-btn {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #b45309;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
         
-        /* Updated Search Input Styling */
+        .quick-search-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #ffd700;
+            color: #92400e;
+            transform: translateY(-1px);
+        }
+        
+        /* Enhanced Search Input */
         .search-input {
             width: 100%;
-            padding: 20px 28px;
-            border: 3px solid #000000;
+            padding: 20px 60px 20px 24px;
+            border: 2px solid #e5e7eb;
             border-radius: 16px;
             font-size: 16px;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: #f4f1f1;
-            color: #010a01;
-            position: relative;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         
         .search-input:focus {
             outline: none;
-            border-color: #FFD700;
-            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.2);
-            background: #0e0d0d;
+            border-color: #ffd700;
+            box-shadow: 0 0 0 3px rgba(255,215,0,0.1), 0 8px 24px rgba(0,0,0,0.1);
             transform: translateY(-2px);
         }
         
-        .search-input::placeholder {
-            color: rgba(0, 0, 0, 0.6);
-            font-weight: 400;
-        }
-        
-        /* Yellow accent text */
-        .search-accent {
-            color: #FFD700;
-            font-weight: 600;
-        }
-        
+        /* Filter Selects */
         .filter-select {
-            padding: 16px 24px;
-            border: 3px solid rgba(0, 0, 0, 0.8);
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
             border-radius: 16px;
-            background: rgba(232, 222, 222, 0.9);
-            backdrop-filter: blur(10px);
-            font-size: 15px;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
             cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23000000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 12px center;
-            background-repeat: no-repeat;
-            background-size: 16px;
-            padding-right: 48px;
         }
         
         .filter-select:focus {
             outline: none;
-            border-color: #FFD700;
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
-            transform: translateY(-1px);
+            border-color: #ffd700;
         }
         
-        /* Enhanced Buttons */
-        .btn-primary {
-            background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
-            color: #000000;
-            border: 2px solid transparent;
-            padding: 16px 32px;
-            border-radius: 16px;
+        /* Service Cards */
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,215,0,0.1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border-color: #ffd700;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 
-                0 8px 24px rgba(255, 215, 0, 0.3),
-                0 4px 12px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
+            gap: 8px;
+            text-decoration: none;
         }
         
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.4), 
-                transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn-primary:hover::before {
-            left: 100%;
+        .btn-primary {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            color: black;
+            border: none;
         }
         
         .btn-primary:hover {
-            background: linear-gradient(135deg, #FFC107 0%, #FFB300 100%);
-            transform: translateY(-4px);
-            box-shadow: 
-                0 12px 32px rgba(255, 215, 0, 0.4),
-                0 8px 24px rgba(0, 0, 0, 0.15);
-            border-color: #FFD700;
-        }
-        
-        .btn-primary:active {
             transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255,215,0,0.4);
         }
-
-        /* Black Button */
+        
         .btn-black {
-            background: linear-gradient(135deg, #000000 0%, #333333 100%);
-            color: #FFFFFF;
-            border: 2px solid transparent;
-        }
-        
-        .btn-black:hover {
-            background: linear-gradient(135deg, #333333 0%, #000000 100%);
-        }
-
-        /* Red Button */
-        .btn-red {
-            background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
-            color: #FFFFFF;
-            border: 2px solid transparent;
-        }
-        
-        .btn-red:hover {
-            background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%);
-        }
-        
-        /* Talk to Someone Button - Enhanced */
-        .chat-assistant-btn {
-            position: fixed;
-            bottom: 32px;
-            left: 32px;
-            background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
-            color: #000;
+            background: #1f2937;
+            color: white;
             border: none;
-            border-radius: 60px;
-            padding: 18px 28px;
-            font-weight: 600;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 
-                0 8px 32px rgba(255, 215, 0, 0.4),
-                0 4px 16px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .chat-assistant-btn:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 
-                0 12px 40px rgba(255, 215, 0, 0.5),
-                0 8px 24px rgba(0, 0, 0, 0.15);
-            background: linear-gradient(135deg, #FFC107 0%, #FFB300 100%);
-        }
-
-        .chat-assistant-btn:focus {
-            outline: none;
-            box-shadow: 
-                0 0 0 4px rgba(255, 215, 0, 0.3),
-                0 12px 40px rgba(255, 215, 0, 0.5);
-        }
-
-        .chat-assistant-btn svg {
-            width: 22px;
-            height: 22px;
-            animation: pulse 2s ease-in-out infinite;
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        .btn-red {
+            background: #dc2626;
+            color: white;
+            border: none;
         }
         
-        /* Enhanced Tags */
-        .service-tag {
-            background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
-            color: #000000;
-            padding: 8px 16px;
-            border-radius: 24px;
+        /* Tags */
+        .tag {
+            background: linear-gradient(135deg, #ffd700, #ffc107);
+            color: black;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
             display: inline-block;
-            margin: 3px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-            transition: all 0.2s ease;
+            margin: 2px;
         }
         
-        .service-tag:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
+        .tag-mandatory {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
         }
         
-        .mandatory-tag {
-            background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
-            color: #FFFFFF;
-            padding: 8px 16px;
-            border-radius: 24px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-        }
-        
-        /* Enhanced Section Titles */
+        /* Section Titles */
         .section-title {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #FFD700 0%, #DC2626 60%, #000000 100%);
+            background: linear-gradient(135deg, #ffd700, #dc2626, #000);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 24px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            position: relative;
             text-align: center;
+            margin-bottom: 24px;
         }
         
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 6px;
-            background: linear-gradient(90deg, #ecebe8 0%, #DC2626 100%);
-            border-radius: 3px;
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #6b7280;
+            font-size: 14px;
+            margin: 8px 0;
         }
         
-        /* Enhanced Header */
-        .header-bg {
-            background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.9) 0%, 
-                rgba(31, 31, 31, 0.8) 50%, 
-                rgba(0, 0, 0, 0.9) 100%);
-            backdrop-filter: blur(10px);
-            border-bottom: 4px solid #FFD700;
-            position: relative;
-            overflow: hidden;
+        .contact-info svg {
+            width: 18px;
+            height: 18px;
+            color: #3b82f6;
         }
         
-        .header-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(255, 215, 0, 0.1) 50%, 
-                transparent 100%);
-            animation: headerShimmer 4s ease-in-out infinite;
+        /* Logo */
+        .service-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            margin-right: 12px;
+            border-radius: 8px;
+            background: white;
+            padding: 4px;
+            border: 2px solid #e5e7eb;
         }
         
-        @keyframes headerShimmer {
-            0%, 100% { transform: translateX(-100%); }
-            50% { transform: translateX(100%); }
+        /* Timeline/Fees Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
         }
         
-        /* Back to top button enhancement */
+        .info-box {
+            background: #fef3c7;
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 4px solid #ffd700;
+        }
+        
+        /* Chat Button */
+        .chat-btn {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            background: linear-gradient(135deg, #ffd700, #ffc107);
+            color: black;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 24px;
+            font-weight: 600;
+            box-shadow: 0 8px 32px rgba(255,215,0,0.4);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(255,215,0,0.5);
+        }
+        
+        /* Back to Top */
         .back-to-top {
             position: fixed;
-            bottom: 32px;
-            right: 32px;
+            bottom: 24px;
+            right: 24px;
             width: 56px;
             height: 56px;
-            background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
-            color: #000;
+            background: linear-gradient(135deg, #ffd700, #ffc107);
+            color: black;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            box-shadow: 
-                0 8px 32px rgba(255, 215, 0, 0.4),
-                0 4px 16px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             z-index: 999;
-            border: 2px solid rgba(255, 215, 0, 0.3);
         }
         
         .back-to-top.active {
@@ -439,321 +284,146 @@
             visibility: visible;
         }
         
-        .back-to-top:hover {
-            transform: translateY(-4px) scale(1.1);
-            box-shadow: 
-                0 12px 40px rgba(255, 215, 0, 0.5),
-                0 8px 24px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* Enhanced contact info */
-        .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #4B5563;
-            font-size: 14px;
-            margin: 8px 0;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-        
-        .contact-info:hover {
-            color: #1F2937;
-            transform: translateX(4px);
-        }
-        
-        .contact-info svg {
-            width: 20px;
-            height: 20px;
-            color: #1E40AF;
-            flex-shrink: 0;
-        }
-        
-        /* Enhanced timeline and fees */
-        .timeline-fees {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin: 24px 0;
-        }
-        
-        .timeline-fees > div {
-            padding: 20px;
-            background: linear-gradient(135deg, #FFF9E6 0%, #FFFBEF 100%);
-            border-radius: 16px;
-            border-left: 5px solid #FFD700;
-            border-right: 1px solid #FEE68C;
-            position: relative;
-            transition: all 0.2s ease;
-        }
-        
-        .timeline-fees > div:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(255, 215, 0, 0.1);
-        }
-        
-        .timeline-fees > div::before {
-            content: '';
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 8px;
-            height: 8px;
-            background: #FFD700;
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 2.5rem;
-                letter-spacing: 2px;
-            }
-            
-            .search-container {
-                padding: 28px;
-                margin: 48px auto;
-            }
-            
-            .chat-assistant-btn {
-                bottom: 24px;
-                left: 24px;
-                padding: 16px 20px;
-                font-size: 14px;
-            }
-            
-            .back-to-top {
-                width: 48px;
-                height: 48px;
-                font-size: 20px;
-                bottom: 24px;
-                right: 24px;
-            }
-            
-            .btn-primary {
-                padding: 14px 24px;
-                font-size: 14px;
-            }
-            
-            .hero-background {
-                background-attachment: scroll;
-            }
-            
-            /* Responsive text for search input */
-            .search-input {
-                font-size: 14px;
-                padding: 16px 24px;
-            }
-        }
-        
-        /* Animation for cards */
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(60px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
-        }
-        
-        .animate-fade-in {
-            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        
-        /* Search suggestions */
-        .search-suggestions {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 215, 0, 0.2);
-            border-top: none;
-            border-radius: 0 0 16px 16px;
-            max-height: 300px;
-            overflow-y: auto;
-            z-index: 100;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-        
-        .search-suggestion-item {
-            padding: 12px 24px;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(229, 231, 235, 0.5);
-            transition: all 0.2s ease;
-        }
-        
-        .search-suggestion-item:hover {
-            background: rgba(255, 215, 0, 0.1);
-            transform: translateX(4px);
-        }
-        
-        .search-suggestion-item:last-child {
-            border-bottom: none;
-        }
-
-        /* Enhanced contact button */
-        .contact-btn {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            transform-origin: center;
-        }
-        
-        .contact-btn:active {
-            transform: scale(0.95);
-        }
-        
-        .contact-btn:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Enhanced Search Bar */
-        .search-bar-container {
-            position: relative;
-            flex: 1;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #000000;
-            pointer-events: none;
-        }
-
-        .search-input-with-icon {
-            padding-left: 60px !important;
-        }
-
-        /* Logo styling */
-        .service-logo {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            margin-right: 12px;
-            border-radius: 8px;
-            background-color: #f3f4f6;
-            padding: 4px;
-            border: 1px solid #e5e7eb;
-        }
-        
-        .logo-fallback {
-            width: 40px;
-            height: 40px;
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 50;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #f3f4f6;
-            border-radius: 8px;
-            margin-right: 12px;
-            font-weight: bold;
-            color: #000;
-            border: 1px solid #e5e7eb;
-            font-size: 12px;
-            text-align: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title { font-size: 2.5rem; }
+            .search-container { padding: 24px; margin: 40px auto; }
+            .chat-btn { bottom: 16px; left: 16px; }
+            .back-to-top { bottom: 16px; right: 16px; }
+            .suggestions { max-height: 200px; }
         }
     </style>
 </head>
-<body class="text-white">
-    <!-- Chat Assistant Button -->
-    <button class="chat-assistant-btn" onclick="openChatAssistant()" 
-            aria-label="Talk to our assistant for help with ATMS services"
-            role="button" tabindex="0">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+<body class="bg-gray-50">
+    <!-- Chat Button -->
+    <button class="chat-btn" onclick="openChat()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
         </svg>
-        Talk to Someone
+        Talk to Us
     </button>
 
-    <!-- Back to top button -->
-    <div class="back-to-top" id="backToTop" 
-         role="button" tabindex="0" 
-         aria-label="Back to top"
-         onclick="scrollToTop()" 
-         onkeydown="handleBackToTopKeydown(event)">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    <!-- Back to Top -->
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
         </svg>
     </div>
 
-    <!-- Hero Section with Enhanced Background -->
-    <div class="hero-background">
+    <!-- Hero Section -->
+    <div class="hero-bg">
         <!-- Header -->
-        <header class="header-bg text-white py-8 relative z-10">
+        <header class="bg-black/80 backdrop-blur-sm text-white py-6">
             <div class="container mx-auto px-4">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <div class="h-14 w-14 bg-gradient-to-br from-yellow-400 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
-                            <span class="text-2xl font-bold text-black">O</span>
+                        <div class="h-12 w-12 bg-gradient-to-br from-yellow-400 to-red-600 rounded-xl flex items-center justify-center">
+                            <span class="text-xl font-bold text-black">O</span>
                         </div>
                         <div>
-                            <h1 class="text-3xl md:text-4xl font-bold">OneStopCentre UG</h1>
-                            <p class="text-yellow-400 text-sm font-medium">Bussiness Simplified</p>
+                            <h1 class="text-2xl md:text-3xl font-bold">OneStopCentre UG</h1>
+                            <p class="text-yellow-400 text-sm">ATMS Services Directory</p>
                         </div>
                     </div>
-                    <nav class="hidden md:flex space-x-8">
-                        <a href="#services" class="hover:text-yellow-400 transition-colors font-medium">Services</a>
-                        <a href="#investments" class="hover:text-yellow-400 transition-colors font-medium">Investments</a>
-                        <a href="#calculator" class="hover:text-yellow-400 transition-colors font-medium">Calculator</a>
-                        <a href="#contact" class="hover:text-yellow-400 transition-colors font-medium">Contact</a>
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="#services" class="hover:text-yellow-400 transition-colors">Services</a>
+                        <a href="#investments" class="hover:text-yellow-400 transition-colors">Investments</a>
+                        <a href="#calculator" class="hover:text-yellow-400 transition-colors">Calculator</a>
                     </nav>
                 </div>
             </div>
         </header>
 
-        <!-- Enhanced Search Section -->
-        <section class="py-20 relative z-10">
+        <!-- Search Section -->
+        <section class="py-20">
             <div class="container mx-auto px-4">
                 <div class="search-container">
-                    <h2 class="text-4xl font-bold text-center mb-6 text-black">Explore <span class="search-accent">bussiness</span> Oppotunies in Uganda</h2>
-                    <p class="text-center text-gray-600 mb-10 text-lg">Search for <span class="search-accent">Agriculture</span>, <span class="search-accent">Tourism</span>, <span class="search-accent">Minerals</span>, and <span class="search-accent">ICT</span> services across Uganda</p>
+                    <div class="text-center mb-8">
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4">Find ATMS Services</h2>
+                        <p class="text-xl text-gray-600">Discover opportunities in Agriculture, Tourism, Minerals & ICT</p>
+                    </div>
                     
-                    <div class="relative">
-                        <div class="flex flex-col md:flex-row gap-6">
-                            <div class="search-bar-container">
-                                <div class="search-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                </div>
-                                <input type="text" id="searchInput" 
-                                       placeholder="Search services, licenses, or business support..." 
-                                       class="search-input search-input-with-icon" 
-                                       oninput="searchServices()"
-                                       autocomplete="off"
-                                       aria-label="Search ATMS services">
-                                <div id="searchSuggestions" class="search-suggestions hidden"></div>
+                    <div class="space-y-6">
+                        <!-- Search Bar -->
+                        <div class="relative">
+                            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
                             </div>
-                            <button onclick="searchServices()" class="btn-primary" aria-label="Search services">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <input type="text" id="searchInput" placeholder="Search services, licenses, permits..." 
+                                   class="search-input pl-12 pr-32" oninput="searchServices()" autocomplete="off">
+                            <button onclick="searchServices()" class="absolute right-2 top-1/2 transform -translate-y-1/2 btn-primary px-6 py-3">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                                 </svg>
                                 Search
                             </button>
+                            <div id="suggestions" class="suggestions"></div>
                         </div>
                         
-                        <div class="flex flex-wrap gap-6 mt-8">
-                            <select id="sectorFilter" class="filter-select" onchange="filterServices()" aria-label="Filter by sector">
+                        <!-- Quick Search Tags -->
+                        <div class="mt-4">
+                            <p class="text-sm text-gray-600 mb-3">Popular searches:</p>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="quickSearch('business registration')" class="quick-search-btn">Business Registration</button>
+                                <button onclick="quickSearch('tax registration')" class="quick-search-btn">Tax Registration</button>
+                                <button onclick="quickSearch('investment')" class="quick-search-btn">Investment</button>
+                                <button onclick="quickSearch('licenses')" class="quick-search-btn">Licenses</button>
+                                <button onclick="quickSearch('permits')" class="quick-search-btn">Permits</button>
+                                <button onclick="quickSearch('NSSF')" class="quick-search-btn">NSSF</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Filters -->
+                        <div class="grid md:grid-cols-4 gap-4">
+                            <select id="sectorFilter" class="filter-select" onchange="filterServices()">
                                 <option value="all">All Sectors</option>
-                                <option value="agriculture">Agriculture</option>
-                                <option value="tourism">Tourism</option>
-                                <option value="minerals">Minerals</option>
-                                <option value="ict">ICT</option>
+                                <option value="agriculture">🌾 Agriculture</option>
+                                <option value="tourism">🏖️ Tourism</option>
+                                <option value="minerals">⛏️ Minerals</option>
+                                <option value="ict">💻 ICT</option>
                             </select>
-                            <select id="locationFilter" class="filter-select" onchange="filterServices()" aria-label="Filter by location">
+                            <select id="locationFilter" class="filter-select" onchange="filterServices()">
                                 <option value="all">All Locations</option>
-                                <option value="kampala">Kampala</option>
-                                <option value="entebbe">Entebbe</option>
-                                <option value="jinja">Jinja</option>
-                                <option value="mbarara">Mbarara</option>
+                                <option value="kampala">🏛️ Kampala</option>
+                                <option value="entebbe">✈️ Entebbe</option>
+                                <option value="jinja">🌊 Jinja</option>
+                                <option value="mbarara">🐄 Mbarara</option>
                             </select>
-                            <button onclick="clearFilters()" class="btn-black" aria-label="Clear all filters">
-                                Clear Filters
+                            <select id="serviceTypeFilter" class="filter-select" onchange="filterServices()">
+                                <option value="all">All Service Types</option>
+                                <option value="registration">Registration</option>
+                                <option value="licensing">Licensing</option>
+                                <option value="investment">Investment</option>
+                            </select>
+                            <button onclick="clearFilters()" class="btn-black">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                </svg>
+                                Reset
                             </button>
                         </div>
                     </div>
@@ -763,49 +433,45 @@
     </div>
 
     <!-- Services Section -->
-    <section id="services" class="py-20 bg-gray-50">
+    <section id="services" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">📌 Services</h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">Essential services for business operations and compliance across Uganda's key economic sectors</p>
-            </div>
+            <h2 class="section-title">Essential Services</h2>
+            <p class="text-center text-xl text-gray-600 mb-16 max-w-3xl mx-auto">Core business services and compliance requirements across Uganda's ATMS sectors</p>
             
-            <div id="servicesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div id="servicesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Business Registration Service -->
-                <div class="service-card p-8" data-sector="all" data-location="kampala">
-                    <div class="flex items-start justify-between mb-6">
+                <!-- Business Registration -->
+                <div class="service-card p-6" data-sector="all" data-location="kampala" data-type="registration">
+                    <div class="flex items-start justify-between mb-4">
                         <div class="flex items-center">
-                            <div class="logo-fallback">URSB</div>
-                            <h3 class="text-xl font-bold text-gray-900">Business Registration</h3>
+                            <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/URSB%20logo.png" alt="URSB" class="service-logo">
+                            <h3 class="text-lg font-bold">Business Registration</h3>
                         </div>
-                        <span class="mandatory-tag">mandatory</span>
+                        <span class="tag-mandatory tag">Required</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-6 leading-relaxed">Company incorporation, business name registration, and certificate issuance for all business types in Uganda.</p>
+                    <p class="text-gray-600 mb-4">Company incorporation, business names, and certificate services</p>
                     
-                    <div class="mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-3">Services Offered:</h4>
+                    <div class="mb-4">
                         <div class="flex flex-wrap gap-2">
-                            <span class="service-tag">Company registration</span>
-                            <span class="service-tag">Business names</span>
-                            <span class="service-tag">Certificate amendments</span>
-                            <span class="service-tag">Annual returns</span>
+                            <span class="tag">Company registration</span>
+                            <span class="tag">Business names</span>
+                            <span class="tag">Certificates</span>
                         </div>
                     </div>
 
-                    <div class="timeline-fees">
-                        <div>
-                            <span class="font-semibold text-gray-800">Timeline:</span>
-                            <p class="text-gray-600 mt-1">3-5 days</p>
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Timeline</div>
+                            <div class="text-gray-700">1-2 weeks</div>
                         </div>
-                        <div>
-                            <span class="font-semibold text-gray-800">Fees:</span>
-                            <p class="text-gray-600 mt-1">From UGX 150,000</p>
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Fees</div>
+                            <div class="text-gray-700">UGX 150K+</div>
                         </div>
                     </div>
 
-                    <div class="space-y-3 mb-6">
+                    <div class="space-y-2 mb-4 text-sm">
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
@@ -819,71 +485,47 @@
                             </svg>
                             +256 414 313 247
                         </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
-                            </svg>
-                            ICT Tower, Kampala
-                        </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414313247')" class="btn-black text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            Call Now
-                        </button>
-                        <button onclick="openEmailModal('Business Registration', 'info@ursb.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            Email
-                        </button>
-                        <a href="https://www.ursb.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
-                            </svg>
-                            Website
-                        </a>
+                    <div class="flex gap-2">
+                        <button onclick="makeCall('+256414313247')" class="btn btn-black text-sm">Call</button>
+                        <button onclick="openEmail('Business Registration', 'info@ursb.go.ug')" class="btn btn-red text-sm">Email</button>
+                        <a href="https://www.ursb.go.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
                     </div>
                 </div>
 
-                <!-- Tax Registration Service -->
-                <div class="service-card p-8" data-sector="all" data-location="kampala">
-                    <div class="flex items-start justify-between mb-6">
+                <!-- Tax Registration -->
+                <div class="service-card p-6" data-sector="all" data-location="kampala" data-type="registration">
+                    <div class="flex items-start justify-between mb-4">
                         <div class="flex items-center">
-                            <div class="logo-fallback">URA</div>
-                            <h3 class="text-xl font-bold text-gray-900">Tax Registration & Compliance</h3>
+                            <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/URA%20logo.png" alt="URA" class="service-logo">
+                            <h3 class="text-lg font-bold">Tax Registration</h3>
                         </div>
-                        <span class="mandatory-tag">mandatory</span>
+                        <span class="tag-mandatory tag">Required</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-6 leading-relaxed">Tax registration, customs clearance, and revenue collection services for businesses and individuals across Uganda.</p>
+                    <p class="text-gray-600 mb-4">VAT, PAYE registration and customs clearance services</p>
                     
-                    <div class="mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-3">Services Offered:</h4>
+                    <div class="mb-4">
                         <div class="flex flex-wrap gap-2">
-                            <span class="service-tag">VAT registration</span>
-                            <span class="service-tag">PAYE registration</span>
-                            <span class="service-tag">Customs clearance</span>
-                            <span class="service-tag">Tax incentive certificates</span>
+                            <span class="tag">VAT registration</span>
+                            <span class="tag">PAYE</span>
+                            <span class="tag">Customs</span>
                         </div>
                     </div>
 
-                    <div class="timeline-fees">
-                        <div>
-                            <span class="font-semibold text-gray-800">Timeline:</span>
-                            <p class="text-gray-600 mt-1">5-7 days</p>
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Timeline</div>
+                            <div class="text-gray-700">5-7 days</div>
                         </div>
-                        <div>
-                            <span class="font-semibold text-gray-800">Fees:</span>
-                            <p class="text-gray-600 mt-1">Free registration</p>
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Fees</div>
+                            <div class="text-gray-700">Free</div>
                         </div>
                     </div>
 
-                    <div class="space-y-3 mb-6">
+                    <div class="space-y-2 mb-4 text-sm">
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
@@ -897,346 +539,228 @@
                             </svg>
                             +256 414 471 000
                         </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
-                            </svg>
-                            Plot 42/52 Nakasero Road, Kampala
-                        </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414471000')" class="btn-black text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            Call Now
-                        </button>
-                        <button onclick="openEmailModal('Tax Services', 'info@ura.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            Email
-                        </button>
-                        <a href="https://www.ura.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
-                            </svg>
-                            Website
-                        </a>
+                    <div class="flex gap-2">
+                        <button onclick="makeCall('+256414471000')" class="btn btn-black text-sm">Call</button>
+                        <button onclick="openEmail('Tax Services', 'info@ura.go.ug')" class="btn btn-red text-sm">Email</button>
+                        <a href="https://www.ura.go.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
                     </div>
                 </div>
 
-                <!-- Agricultural Extension Services -->
-                <div class="service-card p-8" data-sector="agriculture" data-location="kampala">
-                    <div class="flex items-start justify-between mb-6">
+                <!-- NSSF Registration -->
+                <div class="service-card p-6" data-sector="all" data-location="kampala" data-type="registration">
+                    <div class="flex items-start justify-between mb-4">
                         <div class="flex items-center">
-                            <div class="logo-fallback">NAADS</div>
-                            <h3 class="text-xl font-bold text-gray-900">Agricultural Extension Services</h3>
+                            <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/NSSF%20logo.png" alt="NSSF" class="service-logo">
+                            <h3 class="text-lg font-bold">Social Security</h3>
                         </div>
-                        <span class="service-tag">Agriculture</span>
+                        <span class="tag-mandatory tag">Required</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-6 leading-relaxed">Farmer training, technology transfer, and agricultural advisory services to improve productivity and sustainability.</p>
+                    <p class="text-gray-600 mb-4">Employee social security and pension services</p>
                     
-                    <div class="mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-3">Services Offered:</h4>
+                    <div class="mb-4">
                         <div class="flex flex-wrap gap-2">
-                            <span class="service-tag">Farmer training</span>
-                            <span class="service-tag">Technology transfer</span>
-                            <span class="service-tag">Agricultural credit</span>
-                            <span class="service-tag">Crop advisory</span>
+                            <span class="tag">Employee registration</span>
+                            <span class="tag">Pension</span>
+                            <span class="tag">Benefits</span>
                         </div>
                     </div>
 
-                    <div class="timeline-fees">
-                        <div>
-                            <span class="font-semibold text-gray-800">Timeline:</span>
-                            <p class="text-gray-600 mt-1">2-4 weeks</p>
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Timeline</div>
+                            <div class="text-gray-700">3-5 days</div>
                         </div>
-                        <div>
-                            <span class="font-semibold text-gray-800">Fees:</span>
-                            <p class="text-gray-600 mt-1">Subsidized rates</p>
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Contribution</div>
+                            <div class="text-gray-700">15% salary</div>
                         </div>
                     </div>
 
-                    <div class="space-y-3 mb-6">
+                    <div class="space-y-2 mb-4 text-sm">
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            info@naads.or.ug
+                            info@nssfug.org
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 414 321 035
-                        </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
-                            </svg>
-                            Entebbe Road, Kampala
+                            +256 414 342 843
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414321035')" class="btn-black text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            Call Now
-                        </button>
-                        <button onclick="openEmailModal('Agricultural Services', 'info@naads.or.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            Email
-                        </button>
-                        <a href="https://www.naads.or.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
-                            </svg>
-                            Website
-                        </a>
+                    <div class="flex gap-2">
+                        <button onclick="makeCall('+256414342843')" class="btn btn-black text-sm">Call</button>
+                        <button onclick="openEmail('NSSF Services', 'info@nssfug.org')" class="btn btn-red text-sm">Email</button>
+                        <a href="https://www.nssfug.org" target="_blank" class="btn btn-primary text-sm">Website</a>
                     </div>
                 </div>
 
-                <!-- Tourism Business Licensing -->
-                <div class="service-card p-8" data-sector="tourism" data-location="entebbe">
-                    <div class="flex items-start justify-between mb-6">
+                <!-- UCC Licensing -->
+                <div class="service-card p-6" data-sector="ict" data-location="kampala" data-type="licensing">
+                    <div class="flex items-start justify-between mb-4">
                         <div class="flex items-center">
-                            <div class="logo-fallback">UTB</div>
-                            <h3 class="text-xl font-bold text-gray-900">Tourism Business Licensing</h3>
+                            <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/UCC%20logo.png" alt="UCC" class="service-logo">
+                            <h3 class="text-lg font-bold">Communications License</h3>
                         </div>
-                        <span class="service-tag">Tourism</span>
+                        <span class="tag">ICT</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-6 leading-relaxed">Hotel, lodge, and tourism operator licensing, destination marketing support, and industry certification services.</p>
+                    <p class="text-gray-600 mb-4">Telecommunications and broadcasting licensing services</p>
                     
-                    <div class="mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-3">Services Offered:</h4>
+                    <div class="mb-4">
                         <div class="flex flex-wrap gap-2">
-                            <span class="service-tag">Hotel licensing</span>
-                            <span class="service-tag">Tour operator permits</span>
-                            <span class="service-tag">Marketing support</span>
-                            <span class="service-tag">Quality certification</span>
+                            <span class="tag">Telecom license</span>
+                            <span class="tag">Broadcasting</span>
+                            <span class="tag">ISP license</span>
                         </div>
                     </div>
 
-                    <div class="timeline-fees">
-                        <div>
-                            <span class="font-semibold text-gray-800">Timeline:</span>
-                            <p class="text-gray-600 mt-1">2-3 weeks</p>
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Timeline</div>
+                            <div class="text-gray-700">2-4 weeks</div>
                         </div>
-                        <div>
-                            <span class="font-semibold text-gray-800">Fees:</span>
-                            <p class="text-gray-600 mt-1">UGX 500,000 - 2M</p>
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Fees</div>
+                            <div class="text-gray-700">Variable</div>
                         </div>
                     </div>
 
-                    <div class="space-y-3 mb-6">
+                    <div class="space-y-2 mb-4 text-sm">
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            utb@visituganda.com
+                            ucc@ucc.co.ug
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 414 342 196
-                        </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
-                            </svg>
-                            IPS Building, Entebbe
+                            +256 414 339 000
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414342196')" class="btn-black text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            Call Now
-                        </button>
-                        <button onclick="openEmailModal('Tourism Licensing', 'utb@visituganda.com')" class="btn-red text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            Email
-                        </button>
-                        <a href="https://www.visituganda.com" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
-                            </svg>
-                            Website
-                        </a>
+                    <div class="flex gap-2">
+                        <button onclick="makeCall('+256414339000')" class="btn btn-black text-sm">Call</button>
+                        <button onclick="openEmail('UCC Services', 'ucc@ucc.co.ug')" class="btn btn-red text-sm">Email</button>
+                        <a href="https://www.ucc.co.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
                     </div>
                 </div>
 
-                <!-- Mining Permits & Licenses -->
-                <div class="service-card p-8" data-sector="minerals" data-location="entebbe">
-                    <div class="flex items-start justify-between mb-6">
+                <!-- Investment Services -->
+                <div class="service-card p-6" data-sector="all" data-location="kampala" data-type="investment">
+                    <div class="flex items-start justify-between mb-4">
                         <div class="flex items-center">
-                            <div class="logo-fallback">DGSM</div>
-                            <h3 class="text-xl font-bold text-gray-900">Mining Permits & Licenses</h3>
+                            <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/UIA%20logo.png" alt="UIA" class="service-logo">
+                            <h3 class="text-lg font-bold">Investment Facilitation</h3>
                         </div>
-                        <span class="service-tag">Minerals</span>
+                        <span class="tag">Investment</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-6 leading-relaxed">Geological surveys, mining licenses, mineral exploration permits, and environmental compliance certification.</p>
+                    <p class="text-gray-600 mb-4">One-stop investment services and incentives</p>
                     
-                    <div class="mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-3">Services Offered:</h4>
+                    <div class="mb-4">
                         <div class="flex flex-wrap gap-2">
-                            <span class="service-tag">Mining licenses</span>
-                            <span class="service-tag">Exploration permits</span>
-                            <span class="service-tag">Geological surveys</span>
-                            <span class="service-tag">Environmental clearance</span>
+                            <span class="tag">Investment license</span>
+                            <span class="tag">Tax incentives</span>
+                            <span class="tag">Facilitation</span>
                         </div>
                     </div>
 
-                    <div class="timeline-fees">
-                        <div>
-                            <span class="font-semibold text-gray-800">Timeline:</span>
-                            <p class="text-gray-600 mt-1">4-8 weeks</p>
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Min Investment</div>
+                            <div class="text-gray-700">USD 100K</div>
                         </div>
-                        <div>
-                            <span class="font-semibold text-gray-800">Fees:</span>
-                            <p class="text-gray-600 mt-1">USD 5,000 - 50,000</p>
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Tax Holiday</div>
+                            <div class="text-gray-700">Up to 10 years</div>
                         </div>
                     </div>
 
-                    <div class="space-y-3 mb-6">
+                    <div class="space-y-2 mb-4 text-sm">
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            dgsm@dgsm.go.ug
+                            info@ugandainvest.go.ug
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 414 320 364
-                        </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
-                            </svg>
-                            Amber House, Entebbe
+                            +256 414 301 000
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414320364')" class="btn-black text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            Call Now
-                        </button>
-                        <button onclick="openEmailModal('Mining Services', 'dgsm@dgsm.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            Email
-                        </button>
-                        <a href="https://www.dgsm.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
-                            </svg>
-                            Website
-                        </a>
+                    <div class="flex gap-2">
+                        <button onclick="makeCall('+256414301000')" class="btn btn-black text-sm">Call</button>
+                        <button onclick="openEmail('Investment Services', 'info@ugandainvest.go.ug')" class="btn btn-red text-sm">Email</button>
+                        <a href="https://www.ugandainvest.go.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
                     </div>
                 </div>
 
-                <!-- ICT Infrastructure Services -->
-                <div class="service-card p-8" data-sector="ict" data-location="kampala">
-                    <div class="flex items-start justify-between mb-6">
+                <!-- Capital Markets -->
+                <div class="service-card p-6" data-sector="all" data-location="kampala" data-type="licensing">
+                    <div class="flex items-start justify-between mb-4">
                         <div class="flex items-center">
-                            <div class="logo-fallback">NITA</div>
-                            <h3 class="text-xl font-bold text-gray-900">ICT Infrastructure & Digital Services</h3>
+                            <img src="https://raw.githubusercontent.com/Ptr234/TEC/main/CMA%20logo.png" alt="CMA" class="service-logo">
+                            <h3 class="text-lg font-bold">Capital Markets</h3>
                         </div>
-                        <span class="service-tag">ICT</span>
+                        <span class="tag">Finance</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-6 leading-relaxed">E-government services, cybersecurity frameworks, digital infrastructure development, and ICT standards implementation.</p>
+                    <p class="text-gray-600 mb-4">Securities licensing and market regulation services</p>
                     
-                    <div class="mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-3">Services Offered:</h4>
+                    <div class="mb-4">
                         <div class="flex flex-wrap gap-2">
-                            <span class="service-tag">E-government services</span>
-                            <span class="service-tag">Cybersecurity</span>
-                            <span class="service-tag">Digital infrastructure</span>
-                            <span class="service-tag">ICT standards</span>
+                            <span class="tag">Securities license</span>
+                            <span class="tag">Investment advisory</span>
+                            <span class="tag">Market surveillance</span>
                         </div>
                     </div>
 
-                    <div class="timeline-fees">
-                        <div>
-                            <span class="font-semibold text-gray-800">Timeline:</span>
-                            <p class="text-gray-600 mt-1">1-3 weeks</p>
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Timeline</div>
+                            <div class="text-gray-700">4-6 weeks</div>
                         </div>
-                        <div>
-                            <span class="font-semibold text-gray-800">Fees:</span>
-                            <p class="text-gray-600 mt-1">Variable</p>
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Fees</div>
+                            <div class="text-gray-700">UGX 2M-10M</div>
                         </div>
                     </div>
 
-                    <div class="space-y-3 mb-6">
+                    <div class="space-y-2 mb-4 text-sm">
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            info@nita.go.ug
+                            info@cmauganda.co.ug
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 417 801 038
-                        </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
-                            </svg>
-                            Plot 28, Jinja Road, Kampala
+                            +256 414 342 818
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256417801038')" class="btn-black text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            Call Now
-                        </button>
-                        <button onclick="openEmailModal('ICT Services', 'info@nita.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            Email
-                        </button>
-                        <a href="https://www.nita.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
-                            </svg>
-                            Website
-                        </a>
+                    <div class="flex gap-2">
+                        <button onclick="makeCall('+256414342818')" class="btn btn-black text-sm">Call</button>
+                        <button onclick="openEmail('CMA Services', 'info@cmauganda.co.ug')" class="btn btn-red text-sm">Email</button>
+                        <a href="https://www.cmauganda.co.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
                     </div>
                 </div>
             </div>
@@ -1244,127 +768,45 @@
     </section>
 
     <!-- Investment Opportunities Section -->
-    <section id="investments" class="py-20 bg-white">
+    <section id="investments" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">📈 Investment Opportunities</h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">Strategic investment facilitation and funding opportunities across Uganda's growing ATMS sectors</p>
-            </div>
+            <h2 class="section-title">Investment Opportunities</h2>
+            <p class="text-center text-xl text-gray-600 mb-16 max-w-3xl mx-auto">Funding and investment facilitation across Uganda's ATMS sectors</p>
             
-            <div id="investmentsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Industrial Development Financing -->
-                <div class="service-card p-8" data-sector="all" data-location="kampala">
-                    <div class="flex items-start justify-between mb-6">
+                <!-- Agriculture Finance -->
+                <div class="service-card p-6" data-sector="agriculture" data-location="kampala" data-type="investment">
+                    <div class="flex items-start justify-between mb-4">
                         <div class="flex items-center">
-                            <div class="logo-fallback">UDC</div>
-                            <h3 class="text-xl font-bold text-gray-900">Industrial Development Financing</h3>
+                            <div class="service-logo bg-green-100 text-green-600 flex items-center justify-center font-bold">ACF</div>
+                            <h3 class="text-lg font-bold">Agricultural Credit</h3>
                         </div>
-                        <span class="service-tag">All Sectors</span>
+                        <span class="tag" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">Agriculture</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-6 leading-relaxed">Strategic investments in agro-processing, manufacturing, value addition, and public-private partnerships across key sectors.</p>
+                    <p class="text-gray-600 mb-4">Low-interest credit for agricultural investments and value chains</p>
                     
-                    <div class="mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-3">Investment Areas:</h4>
+                    <div class="mb-4">
                         <div class="flex flex-wrap gap-2">
-                            <span class="service-tag">Agro-processing</span>
-                            <span class="service-tag">Manufacturing</span>
-                            <span class="service-tag">Value addition</span>
-                            <span class="service-tag">Infrastructure</span>
+                            <span class="tag">Agricultural loans</span>
+                            <span class="tag">Value chains</span>
+                            <span class="tag">Farm financing</span>
                         </div>
                     </div>
 
-                    <div class="timeline-fees">
-                        <div>
-                            <span class="font-semibold text-gray-800">Funding:</span>
-                            <p class="text-gray-600 mt-1">USD 1M - 100M</p>
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Interest Rate</div>
+                            <div class="text-gray-700">8-12% annually</div>
                         </div>
-                        <div>
-                            <span class="font-semibold text-gray-800">ROI:</span>
-                            <p class="text-gray-600 mt-1">15-25% annually</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3 mb-6">
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            info@udc.go.ug
-                        </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            +256 414 707 000
-                        </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
-                            </svg>
-                            UDC Tower, Kampala
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Loan Range</div>
+                            <div class="text-gray-700">UGX 5M-5B</div>
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414707000')" class="btn-black text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            Call Now
-                        </button>
-                        <button onclick="openEmailModal('Industrial Investment', 'info@udc.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            Email
-                        </button>
-                        <a href="https://www.udc.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
-                            </svg>
-                            Website
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Agricultural Finance Programs -->
-                <div class="service-card p-8" data-sector="agriculture" data-location="kampala">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="flex items-center">
-                            <div class="logo-fallback">ACF</div>
-                            <h3 class="text-xl font-bold text-gray-900">Agricultural Finance Programs</h3>
-                        </div>
-                        <span class="service-tag">Agriculture</span>
-                    </div>
-                    
-                    <p class="text-gray-600 mb-6 leading-relaxed">Low-interest credit facilities for agricultural investments, farm mechanization, value chain financing, and rural development projects.</p>
-                    
-                    <div class="mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-3">Financing Options:</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="service-tag">Farm credit</span>
-                            <span class="service-tag">Equipment financing</span>
-                            <span class="service-tag">Value chain loans</span>
-                            <span class="service-tag">Rural development</span>
-                        </div>
-                    </div>
-
-                    <div class="timeline-fees">
-                        <div>
-                            <span class="font-semibold text-gray-800">Interest Rate:</span>
-                            <p class="text-gray-600 mt-1">8-12% annually</p>
-                        </div>
-                        <div>
-                            <span class="font-semibold text-gray-800">Loan Amount:</span>
-                            <p class="text-gray-600 mt-1">UGX 5M - 5B</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3 mb-6">
+                    <div class="space-y-2 mb-4 text-sm">
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
@@ -1378,268 +820,120 @@
                             </svg>
                             +256 414 258 441
                         </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
-                            </svg>
-                            Bank of Uganda, Kampala
-                        </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414258441')" class="btn-black text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            Call Now
-                        </button>
-                        <button onclick="openEmailModal('Agricultural Finance', 'acf@bou.or.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            Email
-                        </button>
-                        <a href="https://www.bou.or.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
-                            </svg>
-                            Website
-                        </a>
+                    <div class="flex gap-2">
+                        <button onclick="makeCall('+256414258441')" class="btn btn-black text-sm">Call</button>
+                        <button onclick="openEmail('Agricultural Finance', 'acf@bou.or.ug')" class="btn btn-red text-sm">Email</button>
+                        <a href="https://www.bou.or.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
                     </div>
                 </div>
 
-                <!-- Tourism Investment Incentives -->
-                <div class="service-card p-8" data-sector="tourism" data-location="kampala">
-                    <div class="flex items-start justify-between mb-6">
+                <!-- Tourism Investment -->
+                <div class="service-card p-6" data-sector="tourism" data-location="kampala" data-type="investment">
+                    <div class="flex items-start justify-between mb-4">
                         <div class="flex items-center">
-                            <div class="logo-fallback">UIA</div>
-                            <h3 class="text-xl font-bold text-gray-900">Tourism Investment Incentives</h3>
+                            <div class="service-logo bg-blue-100 text-blue-600 flex items-center justify-center font-bold">UTB</div>
+                            <h3 class="text-lg font-bold">Tourism Development</h3>
                         </div>
-                        <span class="service-tag">Tourism</span>
+                        <span class="tag" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white;">Tourism</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-6 leading-relaxed">Hotel and lodge development financing, eco-tourism investments, hospitality infrastructure, and tourism product development opportunities.</p>
+                    <p class="text-gray-600 mb-4">Hotel development and eco-tourism investment opportunities</p>
                     
-                    <div class="mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-3">Investment Types:</h4>
+                    <div class="mb-4">
                         <div class="flex flex-wrap gap-2">
-                            <span class="service-tag">Hotel development</span>
-                            <span class="service-tag">Eco-tourism</span>
-                            <span class="service-tag">Safari lodges</span>
-                            <span class="service-tag">Cultural sites</span>
+                            <span class="tag">Hotel development</span>
+                            <span class="tag">Eco-tourism</span>
+                            <span class="tag">Tourism incentives</span>
                         </div>
                     </div>
 
-                    <div class="timeline-fees">
-                        <div>
-                            <span class="font-semibold text-gray-800">Tax Incentives:</span>
-                            <p class="text-gray-600 mt-1">Up to 10 years</p>
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Min Investment</div>
+                            <div class="text-gray-700">USD 500K</div>
                         </div>
-                        <div>
-                            <span class="font-semibold text-gray-800">Min Investment:</span>
-                            <p class="text-gray-600 mt-1">USD 500,000</p>
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Tax Incentives</div>
+                            <div class="text-gray-700">Up to 10 years</div>
                         </div>
                     </div>
 
-                    <div class="space-y-3 mb-6">
+                    <div class="space-y-2 mb-4 text-sm">
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            investments@ugandainvest.go.ug
+                            utb@visituganda.com
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 414 301 000
-                        </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
-                            </svg>
-                            UIA House, Kampala
+                            +256 414 342 196
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414301000')" class="btn-black text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            Call Now
-                        </button>
-                        <button onclick="openEmailModal('Tourism Investment', 'investments@ugandainvest.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            Email
-                        </button>
-                        <a href="https://www.ugandainvest.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
-                            </svg>
-                            Website
-                        </a>
+                    <div class="flex gap-2">
+                        <button onclick="makeCall('+256414342196')" class="btn btn-black text-sm">Call</button>
+                        <button onclick="openEmail('Tourism Investment', 'utb@visituganda.com')" class="btn btn-red text-sm">Email</button>
+                        <a href="https://www.visituganda.com" target="_blank" class="btn btn-primary text-sm">Website</a>
                     </div>
                 </div>
 
-                <!-- Mining Sector Investments -->
-                <div class="service-card p-8" data-sector="minerals" data-location="kampala">
-                    <div class="flex items-start justify-between mb-6">
+                <!-- Tech Innovation -->
+                <div class="service-card p-6" data-sector="ict" data-location="kampala" data-type="investment">
+                    <div class="flex items-start justify-between mb-4">
                         <div class="flex items-center">
-                            <div class="logo-fallback">MEMD</div>
-                            <h3 class="text-xl font-bold text-gray-900">Mining Sector Investments</h3>
+                            <div class="service-logo bg-purple-100 text-purple-600 flex items-center justify-center font-bold">NITA</div>
+                            <h3 class="text-lg font-bold">Tech Innovation</h3>
                         </div>
-                        <span class="service-tag">Minerals</span>
+                        <span class="tag" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white;">ICT</span>
                     </div>
                     
-                    <p class="text-gray-600 mb-6 leading-relaxed">Large-scale mining investments, mineral exploration partnerships, extractive industry development, and mining infrastructure projects.</p>
+                    <p class="text-gray-600 mb-4">Startup funding and digital infrastructure investments</p>
                     
-                    <div class="mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-3">Opportunities:</h4>
+                    <div class="mb-4">
                         <div class="flex flex-wrap gap-2">
-                            <span class="service-tag">Gold mining</span>
-                            <span class="service-tag">Mineral exploration</span>
-                            <span class="service-tag">Processing plants</span>
-                            <span class="service-tag">Infrastructure</span>
+                            <span class="tag">Startup funding</span>
+                            <span class="tag">Digital infrastructure</span>
+                            <span class="tag">Innovation grants</span>
                         </div>
                     </div>
 
-                    <div class="timeline-fees">
-                        <div>
-                            <span class="font-semibold text-gray-800">Investment:</span>
-                            <p class="text-gray-600 mt-1">USD 10M+</p>
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Funding Range</div>
+                            <div class="text-gray-700">USD 50K-10M</div>
                         </div>
-                        <div>
-                            <span class="font-semibold text-gray-800">Tax Holiday:</span>
-                            <p class="text-gray-600 mt-1">Up to 5 years</p>
+                        <div class="info-box">
+                            <div class="font-semibold text-sm">Support</div>
+                            <div class="text-gray-700">Incubation</div>
                         </div>
                     </div>
 
-                    <div class="space-y-3 mb-6">
+                    <div class="space-y-2 mb-4 text-sm">
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                             </svg>
-                            investments@energy.go.ug
+                            info@nita.go.ug
                         </div>
                         <div class="contact-info">
                             <svg fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                            +256 414 345 681
-                        </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
-                            </svg>
-                            Amber House, Kampala
+                            +256 417 801 038
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414345681')" class="btn-black text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            Call Now
-                        </button>
-                        <button onclick="openEmailModal('Mining Investment', 'investments@energy.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            Email
-                        </button>
-                        <a href="https://www.energy.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
-                            </svg>
-                            Website
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Tech Innovation Funding -->
-                <div class="service-card p-8" data-sector="ict" data-location="kampala">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="flex items-center">
-                            <div class="logo-fallback">ICT</div>
-                            <h3 class="text-xl font-bold text-gray-900">Tech Innovation Funding</h3>
-                        </div>
-                        <span class="service-tag">ICT</span>
-                    </div>
-                    
-                    <p class="text-gray-600 mb-6 leading-relaxed">Tech startup funding, digital innovation hubs, software development centers, and ICT infrastructure investments.</p>
-                    
-                    <div class="mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-3">Focus Areas:</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="service-tag">Tech startups</span>
-                            <span class="service-tag">Innovation hubs</span>
-                            <span class="service-tag">Digital infrastructure</span>
-                            <span class="service-tag">Software development</span>
-                        </div>
-                    </div>
-
-                    <div class="timeline-fees">
-                        <div>
-                            <span class="font-semibold text-gray-800">Funding:</span>
-                            <p class="text-gray-600 mt-1">USD 50K - 10M</p>
-                        </div>
-                        <div>
-                            <span class="font-semibold text-gray-800">Support:</span>
-                            <p class="text-gray-600 mt-1">Incubation programs</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3 mb-6">
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            innovation@ict.go.ug
-                        </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            +256 414 341 240
-                        </div>
-                        <div class="contact-info">
-                            <svg fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 2L3 7v11h4v-6h6v6h4V7l-7-5z"/>
-                            </svg>
-                            Plot 8, George Street, Kampala
-                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="makePhoneCall('+256414341240')" class="btn-black text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            Call Now
-                        </button>
-                        <button onclick="openEmailModal('Tech Innovation', 'innovation@ict.go.ug')" class="btn-red text-sm px-4 py-2 contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                            </svg>
-                            Email
-                        </button>
-                        <a href="https://www.ict.go.ug" target="_blank" class="btn-primary text-sm px-4 py-2 no-underline contact-btn">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/>
-                            </svg>
-                            Website
-                        </a>
+                    <div class="flex gap-2">
+                        <button onclick="makeCall('+256417801038')" class="btn btn-black text-sm">Call</button>
+                        <button onclick="openEmail('Tech Innovation', 'info@nita.go.ug')" class="btn btn-red text-sm">Email</button>
+                        <a href="https://www.nita.go.ug" target="_blank" class="btn btn-primary text-sm">Website</a>
                     </div>
                 </div>
             </div>
@@ -1649,159 +943,120 @@
     <!-- Tax Calculator Section -->
     <section id="calculator" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">🧮 Tax Calculator</h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">Calculate potential tax obligations and available incentives for your ATMS sector investment</p>
-            </div>
+            <h2 class="section-title">Tax Calculator</h2>
+            <p class="text-center text-xl text-gray-600 mb-16 max-w-3xl mx-auto">Calculate potential tax obligations and available ATMS sector incentives</p>
             
-            <div class="service-card p-10 max-w-3xl mx-auto">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <label for="investmentAmount" class="block text-gray-800 font-semibold mb-4 text-lg">Investment Amount (USD)</label>
-                        <input type="number" id="investmentAmount" placeholder="Enter amount" 
-                               class="w-full p-5 border-3 border-gray-300 rounded-xl focus:border-yellow-400 focus:outline-none transition-all text-lg" 
-                               aria-required="true">
+            <div class="service-card p-8 max-w-2xl mx-auto">
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-800 font-semibold mb-3">Investment Amount (USD)</label>
+                            <input type="number" id="investmentAmount" placeholder="Enter amount" 
+                                   class="search-input">
+                        </div>
+                        <div>
+                            <label class="block text-gray-800 font-semibold mb-3">ATMS Sector</label>
+                            <select id="sector" class="filter-select w-full">
+                                <option value="agriculture">Agriculture & Agribusiness</option>
+                                <option value="tourism">Tourism & Hospitality</option>
+                                <option value="minerals">Minerals & Mining</option>
+                                <option value="ict">ICT & Technology</option>
+                            </select>
+                        </div>
                     </div>
+                    
                     <div>
-                        <label for="sector" class="block text-gray-800 font-semibold mb-4 text-lg">ATMS Sector</label>
-                        <select id="sector" class="w-full p-5 border-3 border-gray-300 rounded-xl focus:border-yellow-400 focus:outline-none transition-all text-lg" aria-label="Select sector">
-                            <option value="agriculture">Agriculture & Agribusiness</option>
-                            <option value="tourism">Tourism & Hospitality</option>
-                            <option value="minerals">Minerals & Mining</option>
-                            <option value="ict">ICT & Technology</option>
+                        <label class="block text-gray-800 font-semibold mb-3">Investment Type</label>
+                        <select id="investmentType" class="filter-select w-full">
+                            <option value="new">New Investment</option>
+                            <option value="expansion">Business Expansion</option>
+                            <option value="acquisition">Acquisition</option>
                         </select>
                     </div>
+                    
+                    <button onclick="calculateTax()" class="btn btn-primary w-full text-lg py-4">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                        </svg>
+                        Calculate Tax & Incentives
+                    </button>
+                    
+                    <div id="result" class="hidden mt-8 p-6 bg-gray-50 rounded-xl border-2 border-gray-200"></div>
                 </div>
-                
-                <div class="mt-8">
-                    <label for="investmentType" class="block text-gray-800 font-semibold mb-4 text-lg">Investment Type</label>
-                    <select id="investmentType" class="w-full p-5 border-3 border-gray-300 rounded-xl focus:border-yellow-400 focus:outline-none transition-all text-lg">
-                        <option value="new">New Investment</option>
-                        <option value="expansion">Business Expansion</option>
-                        <option value="acquisition">Acquisition</option>
-                    </select>
-                </div>
-                
-                <button onclick="calculateTax()" class="btn-primary w-full mt-10 text-xl py-5" aria-label="Calculate tax">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                    Calculate Tax & Incentives
-                </button>
-                
-                <div id="result" class="mt-10 p-8 bg-gray-50 rounded-xl border-3 border-gray-200 hidden"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title">📞 Get In Touch</h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">Ready to explore ATMS sector opportunities? Our team is here to assist you</p>
-            </div>
-            
-            <div class="service-card p-10 max-w-3xl mx-auto text-center">
-                <h3 class="text-2xl font-bold text-gray-900 mb-6">Need Help? Talk to Our Personal Assistant</h3>
-                <p class="text-gray-600 mb-8 text-lg leading-relaxed">Our dedicated assistant is available to answer your questions and guide you through the ATMS services and investment opportunities.</p>
-                
-                <button onclick="openChatAssistant()" class="btn-primary mx-auto text-xl py-5 px-8 contact-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
-                    Talk to Someone Now
-                </button>
             </div>
         </div>
     </section>
 
     <!-- Email Modal -->
-    <div id="emailModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="service-card max-w-lg w-full p-10 relative">
-            <div class="flex justify-between items-center mb-8">
-                <h3 class="text-3xl font-bold text-gray-900">Send Email</h3>
-                <button onclick="closeEmailModal()" 
-                        class="text-gray-500 hover:text-gray-700 text-4xl font-bold transition-colors"
-                        aria-label="Close modal">&times;</button>
+    <div id="emailModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold">Send Email</h3>
+                <button onclick="closeEmail()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
             </div>
             
-            <div class="space-y-6">
+            <div class="space-y-4">
                 <div>
-                    <label for="modalService" class="block text-sm font-semibold text-gray-800 mb-3">Service</label>
-                    <input type="text" id="modalService" readonly 
-                           class="w-full p-4 border-3 border-gray-300 rounded-xl bg-gray-50 text-lg" 
-                           aria-readonly="true">
+                    <label class="block text-sm font-semibold mb-2">Service</label>
+                    <input type="text" id="modalService" readonly class="search-input bg-gray-50">
                 </div>
                 <div>
-                    <label for="modalSenderName" class="block text-sm font-semibold text-gray-800 mb-3">Your Name</label>
-                    <input type="text" id="modalSenderName" placeholder="Enter your full name" 
-                           class="w-full p-4 border-3 border-gray-300 rounded-xl focus:border-yellow-400 focus:outline-none transition-all text-lg" 
-                           aria-required="true">
+                    <label class="block text-sm font-semibold mb-2">Your Name</label>
+                    <input type="text" id="modalName" placeholder="Enter your name" class="search-input">
                 </div>
                 <div>
-                    <label for="modalSenderEmail" class="block text-sm font-semibold text-gray-800 mb-3">Your Email</label>
-                    <input type="email" id="modalSenderEmail" placeholder="your.email@example.com" 
-                           class="w-full p-4 border-3 border-gray-300 rounded-xl focus:border-yellow-400 focus:outline-none transition-all text-lg" 
-                           aria-required="true">
+                    <label class="block text-sm font-semibold mb-2">Your Email</label>
+                    <input type="email" id="modalEmail" placeholder="your.email@example.com" class="search-input">
                 </div>
                 <div>
-                    <label for="modalMessage" class="block text-sm font-semibold text-gray-800 mb-3">Message</label>
-                    <textarea id="modalMessage" rows="6" 
-                              placeholder="Dear Team,&#10;&#10;I am writing to inquire about..." 
-                              class="w-full p-4 border-3 border-gray-300 rounded-xl focus:border-yellow-400 focus:outline-none transition-all resize-none text-lg" 
-                              aria-required="true"></textarea>
+                    <label class="block text-sm font-semibold mb-2">Message</label>
+                    <textarea id="modalMessage" rows="4" placeholder="Your message..." class="search-input resize-none"></textarea>
                 </div>
             </div>
             
-            <div class="flex space-x-4 mt-10">
-                <button onclick="sendEmail()" 
-                        class="btn-primary flex-1 py-4 px-6 font-semibold text-lg contact-btn" 
-                        aria-label="Send email">Send Email</button>
-                <button onclick="closeEmailModal()" 
-                        class="px-8 py-4 border-3 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-all font-semibold text-lg contact-btn" 
-                        aria-label="Cancel">Cancel</button>
+            <div class="flex gap-4 mt-6">
+                <button onclick="sendEmail()" class="btn btn-primary flex-1">Send Email</button>
+                <button onclick="closeEmail()" class="btn bg-gray-300 text-gray-700">Cancel</button>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-black text-white py-16 border-t-4 border-yellow-400">
+    <footer class="bg-black text-white py-16">
         <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-10">
+            <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="h-12 w-12 bg-gradient-to-br from-yellow-400 to-red-600 rounded-lg flex items-center justify-center">
-                            <span class="text-xl font-bold text-black">O</span>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="h-10 w-10 bg-gradient-to-br from-yellow-400 to-red-600 rounded-lg flex items-center justify-center">
+                            <span class="text-lg font-bold text-black">O</span>
                         </div>
-                        <h3 class="text-2xl font-bold">Ontester ATMS</h3>
+                        <h3 class="text-xl font-bold">OneStopCentre UG</h3>
                     </div>
-                    <p class="text-gray-300 leading-relaxed">Your gateway to Uganda's Agriculture, Tourism, Minerals, and ICT sectors.</p>
+                    <p class="text-gray-300">Your gateway to Uganda's ATMS sectors</p>
                 </div>
                 
                 <div>
-                    <h4 class="text-xl font-semibold mb-6 text-yellow-400">ATMS Sectors</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" onclick="filterBySector('agriculture')" class="text-gray-300 hover:text-yellow-400 transition-colors">Agriculture</a></li>
-                        <li><a href="#" onclick="filterBySector('tourism')" class="text-gray-300 hover:text-yellow-400 transition-colors">Tourism</a></li>
-                        <li><a href="#" onclick="filterBySector('minerals')" class="text-gray-300 hover:text-yellow-400 transition-colors">Minerals</a></li>
-                        <li><a href="#" onclick="filterBySector('ict')" class="text-gray-300 hover:text-yellow-400 transition-colors">ICT</a></li>
+                    <h4 class="text-lg font-semibold mb-4 text-yellow-400">ATMS Sectors</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-yellow-400">Agriculture</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-yellow-400">Tourism</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-yellow-400">Minerals</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-yellow-400">ICT</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h4 class="text-xl font-semibold mb-6 text-yellow-400">Quick Links</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#services" class="text-gray-300 hover:text-yellow-400 transition-colors">Services</a></li>
-                        <li><a href="#investments" class="text-gray-300 hover:text-yellow-400 transition-colors">Investments</a></li>
-                        <li><a href="#calculator" class="text-gray-300 hover:text-yellow-400 transition-colors">Calculator</a></li>
-                        <li><a href="#contact" class="text-gray-300 hover:text-yellow-400 transition-colors">Contact</a></li>
+                    <h4 class="text-lg font-semibold mb-4 text-yellow-400">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="text-gray-300 hover:text-yellow-400">Services</a></li>
+                        <li><a href="#investments" class="text-gray-300 hover:text-yellow-400">Investments</a></li>
+                        <li><a href="#calculator" class="text-gray-300 hover:text-yellow-400">Calculator</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h4 class="text-xl font-semibold mb-6 text-yellow-400">Contact Info</h4>
-                    <ul class="space-y-3 text-gray-300">
+                    <h4 class="text-lg font-semibold mb-4 text-yellow-400">Contact</h4>
+                    <ul class="space-y-2 text-gray-300">
                         <li>📧 info@ontester.ug</li>
                         <li>📞 +256 700 000 000</li>
                         <li>📍 Kampala, Uganda</li>
@@ -1809,8 +1064,8 @@
                 </div>
             </div>
             
-            <div class="border-t border-yellow-400/20 mt-12 pt-8 text-center">
-                <p class="text-gray-300">&copy; 2025 Ontester Uganda ATMS Directory. All rights reserved.</p>
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2025 OneStopCentre Uganda. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1819,408 +1074,337 @@
         // Global variables
         let currentEmailData = {};
         
-        // Search suggestions data
-        const searchSuggestions = [
-            'Business Registration',
-            'Tax Registration',
-            'Agricultural Extension',
-            'Tourism Licensing',
-            'Mining Permits',
-            'ICT Infrastructure',
-            'Investment Opportunities',
-            'Export Development',
-            'VAT Registration',
-            'Company Incorporation',
-            'Hotel Licensing',
-            'Mining Licenses',
-            'Farmer Training',
-            'Digital Services',
-            'Customs Clearance'
+        // Service data for suggestions
+        const servicesData = [
+            { title: 'Business Registration', tags: ['company registration', 'business names', 'certificates'], sector: 'all', type: 'registration' },
+            { title: 'Tax Registration', tags: ['vat registration', 'paye', 'customs'], sector: 'all', type: 'registration' },
+            { title: 'Social Security', tags: ['employee registration', 'pension', 'benefits'], sector: 'all', type: 'registration' },
+            { title: 'Communications License', tags: ['telecom license', 'broadcasting', 'isp license'], sector: 'ict', type: 'licensing' },
+            { title: 'Investment Facilitation', tags: ['investment license', 'tax incentives', 'facilitation'], sector: 'all', type: 'investment' },
+            { title: 'Capital Markets', tags: ['securities license', 'investment advisory', 'market surveillance'], sector: 'all', type: 'licensing' },
+            { title: 'Agricultural Credit', tags: ['agricultural loans', 'value chains', 'farm financing'], sector: 'agriculture', type: 'investment' },
+            { title: 'Tourism Development', tags: ['hotel development', 'eco-tourism', 'tourism incentives'], sector: 'tourism', type: 'investment' },
+            { title: 'Tech Innovation', tags: ['startup funding', 'digital infrastructure', 'innovation grants'], sector: 'ict', type: 'investment' }
         ];
-
-        // Enhanced back to top functionality
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
         
-        function handleBackToTopKeydown(event) {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                scrollToTop();
-            }
-        }
-
-        // Back to top button functionality
+        // Back to top functionality
         window.addEventListener('scroll', function() {
-            const backToTopButton = document.getElementById('backToTop');
+            const backToTop = document.getElementById('backToTop');
             if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('active');
+                backToTop.classList.add('active');
             } else {
-                backToTopButton.classList.remove('active');
+                backToTop.classList.remove('active');
             }
         });
-
-        // Enhanced chat assistant functionality
-        function openChatAssistant() {
-            showNotification('🤖 Connecting you to our personal assistant...', 'success');
-            // Simulate assistant response
-            setTimeout(() => {
-                showNotification('💬 Assistant: Hello! How can I help you with ATMS services today?', 'info');
-            }, 2000);
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        // Enhanced search functionality with suggestions
+        
+        // Search functionality with suggestions
         function searchServices() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
             const cards = document.querySelectorAll('#servicesList .service-card');
-            let found = false;
-
+            const suggestionsContainer = document.getElementById('suggestions');
+            
+            // Clear previous suggestions
+            suggestionsContainer.innerHTML = '';
+            
+            if (searchTerm.length > 1) {
+                const matches = servicesData.filter(service => 
+                    service.title.toLowerCase().includes(searchTerm) ||
+                    service.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+                
+                if (matches.length > 0) {
+                    matches.forEach(match => {
+                        const suggestion = document.createElement('div');
+                        suggestion.className = 'suggestion-item';
+                        suggestion.textContent = match.title;
+                        suggestion.onclick = () => {
+                            document.getElementById('searchInput').value = match.title;
+                            suggestionsContainer.style.display = 'none';
+                            filterServices();
+                        };
+                        suggestionsContainer.appendChild(suggestion);
+                    });
+                    suggestionsContainer.style.display = 'block';
+                } else {
+                    suggestionsContainer.style.display = 'none';
+                }
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+            
+            // Filter cards
             cards.forEach(card => {
                 const title = card.querySelector('h3').textContent.toLowerCase();
                 const description = card.querySelector('p').textContent.toLowerCase();
-                const tags = Array.from(card.querySelectorAll('.service-tag')).map(tag => tag.textContent.toLowerCase());
+                const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
                 
                 const matches = title.includes(searchTerm) || 
                                description.includes(searchTerm) || 
                                tags.some(tag => tag.includes(searchTerm));
                 
-                if (matches || searchTerm === '') {
-                    card.style.display = 'block';
-                    found = true;
-                } else {
-                    card.style.display = 'none';
-                }
+                card.style.display = matches || searchTerm === '' ? 'block' : 'none';
             });
-
-            if (!found && searchTerm !== '') {
-                showNotification('⚠️ No services found matching your search', 'warning');
-            }
-            
-            hideSuggestions();
         }
-
-        // Search suggestions functionality
-        function showSuggestions(searchTerm) {
-            const suggestionsDiv = document.getElementById('searchSuggestions');
-            const filteredSuggestions = searchSuggestions.filter(suggestion => 
-                suggestion.toLowerCase().includes(searchTerm.toLowerCase()) && 
-                searchTerm.length > 0
-            );
-
-            if (filteredSuggestions.length > 0 && searchTerm.length > 1) {
-                suggestionsDiv.innerHTML = filteredSuggestions.slice(0, 5).map(suggestion => 
-                    `<div class="search-suggestion-item" onclick="selectSuggestion('${suggestion}')">${suggestion}</div>`
-                ).join('');
-                suggestionsDiv.classList.remove('hidden');
-            } else {
-                hideSuggestions();
+        
+        // Handle click outside suggestions
+        document.addEventListener('click', (e) => {
+            const suggestions = document.getElementById('suggestions');
+            const searchInput = document.getElementById('searchInput');
+            if (!suggestions.contains(e.target) && e.target !== searchInput) {
+                suggestions.style.display = 'none';
             }
-        }
-
-        function selectSuggestion(suggestion) {
-            document.getElementById('searchInput').value = suggestion;
-            hideSuggestions();
+        });
+        
+        // Quick search
+        function quickSearch(term) {
+            document.getElementById('searchInput').value = term;
             searchServices();
+            showNotification(`Searching for "${term}"`, 'info');
         }
-
-        function hideSuggestions() {
-            document.getElementById('searchSuggestions').classList.add('hidden');
-        }
-
-        // Enhanced filter functionality
+        
+        // Filter functionality
         function filterServices() {
-            const sectorFilter = document.getElementById('sectorFilter').value;
-            const locationFilter = document.getElementById('locationFilter').value;
+            const sector = document.getElementById('sectorFilter').value;
+            const location = document.getElementById('locationFilter').value;
+            const serviceType = document.getElementById('serviceTypeFilter').value;
             const cards = document.querySelectorAll('#servicesList .service-card');
-
+            
+            let visibleCount = 0;
+            
             cards.forEach(card => {
                 const cardSector = card.getAttribute('data-sector');
                 const cardLocation = card.getAttribute('data-location');
+                const cardType = card.getAttribute('data-type');
                 
-                const sectorMatch = sectorFilter === 'all' || cardSector === sectorFilter || cardSector === 'all';
-                const locationMatch = locationFilter === 'all' || cardLocation === locationFilter;
+                const sectorMatch = sector === 'all' || cardSector === sector || cardSector === 'all';
+                const locationMatch = location === 'all' || cardLocation === location;
+                const typeMatch = serviceType === 'all' || cardType === serviceType;
                 
-                if (sectorMatch && locationMatch) {
+                if (sectorMatch && locationMatch && typeMatch) {
                     card.style.display = 'block';
+                    visibleCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
+            
+            // Show notification if no results
+            if (visibleCount === 0) {
+                showNotification('No services match the selected filters', 'warning');
+            }
         }
-
-        function filterBySector(sector) {
-            document.getElementById('sectorFilter').value = sector;
-            filterServices();
-            document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
-        }
-
+        
         function clearFilters() {
             document.getElementById('sectorFilter').value = 'all';
             document.getElementById('locationFilter').value = 'all';
+            document.getElementById('serviceTypeFilter').value = 'all';
             document.getElementById('searchInput').value = '';
+            document.getElementById('suggestions').style.display = 'none';
             filterServices();
-            hideSuggestions();
-            showNotification('✅ Filters cleared', 'success');
+            showNotification('Filters cleared', 'success');
         }
-
-        // Enhanced email modal functionality
-        function openEmailModal(service, email) {
+        
+        // Email functionality
+        function openEmail(service, email) {
             currentEmailData = { service, email };
-            
             document.getElementById('modalService').value = service;
             document.getElementById('modalMessage').value = 
-                `Dear ${service} Team,\n\nI am writing to inquire about your services and would appreciate more information about your offerings.\n\nI am particularly interested in learning more about your processes, requirements, and how you can assist with my business needs.\n\nThank you for your time and assistance.\n\nBest regards,`;
-            
+                `Dear ${service} Team,\n\nI am interested in learning more about your services. Please provide information about your processes and requirements.\n\nThank you.`;
             document.getElementById('emailModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-            
-            // Reset form fields
-            document.getElementById('modalSenderName').value = '';
-            document.getElementById('modalSenderEmail').value = '';
-            
-            // Focus on first input
-            setTimeout(() => {
-                document.getElementById('modalSenderName').focus();
-            }, 100);
         }
-
-        function closeEmailModal() {
+        
+        function closeEmail() {
             document.getElementById('emailModal').classList.add('hidden');
             document.body.style.overflow = '';
+            // Reset form
+            document.getElementById('modalName').value = '';
+            document.getElementById('modalEmail').value = '';
         }
-
+        
         function sendEmail() {
-            const senderName = document.getElementById('modalSenderName').value.trim();
-            const senderEmail = document.getElementById('modalSenderEmail').value.trim();
+            const name = document.getElementById('modalName').value.trim();
+            const email = document.getElementById('modalEmail').value.trim();
             const message = document.getElementById('modalMessage').value.trim();
-
-            if (!senderName || !senderEmail || !message) {
-                showNotification('❌ Please fill in all required fields', 'error');
+            
+            if (!name || !email || !message) {
+                showNotification('Please fill in all fields', 'error');
                 return;
             }
-
-             if (!isValidEmail(senderEmail)) {
-                showNotification('❌ Please enter a valid email address', 'error');
-                return;
-            }
-
-            const emailBody = `From: ${senderName} (${senderEmail})\n\n${message}\n\n---\nSent via Ontester Uganda ATMS Directory\nTimestamp: ${new Date().toLocaleString()}`;
+            
+            const emailBody = `From: ${name} (${email})\n\n${message}`;
             const subject = `ATMS Inquiry: ${currentEmailData.service}`;
             const mailtoLink = `mailto:${currentEmailData.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
             
             window.location.href = mailtoLink;
-            showNotification('📧 Email client opened successfully!', 'success');
-            
-            setTimeout(() => {
-                closeEmailModal();
-            }, 1500);
+            showNotification('Email opened successfully!', 'success');
+            setTimeout(() => closeEmail(), 1500);
         }
-
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
+        
+        // Phone call functionality
+        function makeCall(number) {
+            if (confirm(`Call ${number}?`)) {
+                showNotification(`Calling ${number}...`, 'info');
+                // In real app: window.location.href = `tel:${number}`;
+            }
         }
-
-        // Enhanced tax calculator
+        
+        // Tax calculator
         function calculateTax() {
             const amount = parseFloat(document.getElementById('investmentAmount').value);
             const sector = document.getElementById('sector').value;
-            const investmentType = document.getElementById('investmentType').value;
-            const resultDiv = document.getElementById('result');
-
+            const type = document.getElementById('investmentType').value;
+            
             if (isNaN(amount) || amount <= 0) {
-                resultDiv.innerHTML = '<p class="text-red-600 font-semibold text-lg">❌ Please enter a valid investment amount.</p>';
-                resultDiv.classList.remove('hidden');
-                showNotification('❌ Invalid investment amount', 'error');
+                showNotification('Please enter a valid amount', 'error');
                 return;
             }
-
-            const taxData = {
-                agriculture: { baseTax: 0.10, incentive: 0.06, description: 'Agriculture & Agribusiness' },
-                tourism: { baseTax: 0.15, incentive: 0.05, description: 'Tourism & Hospitality' },
-                minerals: { baseTax: 0.25, incentive: 0.08, description: 'Minerals & Mining' },
-                ict: { baseTax: 0.20, incentive: 0.10, description: 'ICT & Technology' }
-            };
-
-            const typeMultipliers = {
-                new: 1.0,
-                expansion: 0.85,
-                acquisition: 1.1
-            };
-
-            const { baseTax, incentive, description } = taxData[sector];
-            const typeMultiplier = typeMultipliers[investmentType];
             
-            const tax = amount * baseTax * typeMultiplier;
+            const taxRates = {
+                agriculture: { base: 0.10, incentive: 0.06 },
+                tourism: { base: 0.15, incentive: 0.05 },
+                minerals: { base: 0.25, incentive: 0.08 },
+                ict: { base: 0.20, incentive: 0.10 }
+            };
+            
+            const typeMultipliers = { new: 1.0, expansion: 0.85, acquisition: 1.1 };
+            
+            const { base, incentive } = taxRates[sector];
+            const multiplier = typeMultipliers[type];
+            
+            const baseTax = amount * base * multiplier;
             const incentiveAmount = amount * incentive;
-            const netTax = Math.max(0, tax - incentiveAmount);
-            const savings = tax - netTax;
-
-            resultDiv.innerHTML = `
-                <div class="space-y-6">
-                    <h4 class="text-2xl font-bold text-gray-900 mb-6 text-center">💼 Tax Calculation Results</h4>
-                    
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="bg-gradient-to-br from-yellow-100 to-yellow-50 border-2 border-yellow-300 p-6 rounded-xl">
-                            <div class="text-sm text-gray-600 font-medium">Investment Amount</div>
-                            <div class="text-3xl font-bold text-gray-900">$${amount.toLocaleString()}</div>
-                        </div>
-                        <div class="bg-gradient-to-br from-blue-100 to-blue-50 border-2 border-blue-300 p-6 rounded-xl">
-                            <div class="text-sm text-gray-600 font-medium">ATMS Sector</div>
-                            <div class="text-xl font-semibold text-gray-900">${description}</div>
-                        </div>
+            const netTax = Math.max(0, baseTax - incentiveAmount);
+            const savings = baseTax - netTax;
+            
+            document.getElementById('result').innerHTML = `
+                <h4 class="text-xl font-bold mb-4">Tax Calculation Results</h4>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="info-box">
+                        <div class="font-semibold">Investment Amount</div>
+                        <div class="text-lg">${amount.toLocaleString()}</div>
                     </div>
-                    
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="bg-gradient-to-br from-red-100 to-red-50 border-2 border-red-300 p-6 rounded-xl text-center">
-                            <div class="text-sm text-gray-600 font-medium">Base Tax (${(baseTax * 100).toFixed(1)}%)</div>
-                            <div class="text-2xl font-bold text-red-600">$${tax.toLocaleString()}</div>
-                        </div>
-                        <div class="bg-gradient-to-br from-yellow-100 to-yellow-50 border-2 border-yellow-300 p-6 rounded-xl text-center">
-                            <div class="text-sm text-gray-600 font-medium">ATMS Incentives (${(incentive * 100).toFixed(1)}%)</div>
-                            <div class="text-2xl font-bold text-yellow-600">-$${incentiveAmount.toLocaleString()}</div>
-                        </div>
-                        <div class="bg-gradient-to-br from-green-100 to-green-50 border-2 border-green-300 p-6 rounded-xl text-center">
-                            <div class="text-sm text-gray-600 font-medium">Net Tax Payable</div>
-                            <div class="text-2xl font-bold text-green-600">$${netTax.toLocaleString()}</div>
-                        </div>
+                    <div class="info-box">
+                        <div class="font-semibold">Sector</div>
+                        <div class="text-lg capitalize">${sector}</div>
                     </div>
-                    
-                    <div class="bg-gradient-to-r from-yellow-100 via-green-100 to-blue-100 border-2 border-yellow-300 p-8 rounded-xl text-center">
-                        <div class="text-sm text-gray-600 font-medium">🎉 Total ATMS Sector Savings</div>
-                        <div class="text-4xl font-bold text-gray-900 my-2">$${savings.toLocaleString()}</div>
-                        <div class="text-sm text-gray-500 mt-2">
-                            Investment Type: ${investmentType.charAt(0).toUpperCase() + investmentType.slice(1)} 
-                            (${((1 - typeMultiplier) * 100).toFixed(1)}% ${typeMultiplier < 1 ? 'discount' : typeMultiplier > 1 ? 'premium' : 'standard rate'})
-                        </div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-red-100 p-4 rounded-lg text-center">
+                        <div class="font-semibold text-red-700">Base Tax</div>
+                        <div class="text-xl font-bold text-red-600">${baseTax.toLocaleString()}</div>
                     </div>
-                    
-                    <div class="text-sm text-gray-500 bg-gray-50 border-2 border-gray-200 p-4 rounded-xl">
-                        <strong>⚠️ Disclaimer:</strong> This is an estimate for planning purposes. Actual tax obligations may vary based on specific circumstances. 
-                        Please consult <a href="https://www.ura.go.ug" target="_blank" class="text-blue-600 hover:underline font-medium">Uganda Revenue Authority (URA)</a> for precise calculations and official guidance.
+                    <div class="bg-yellow-100 p-4 rounded-lg text-center">
+                        <div class="font-semibold text-yellow-700">Incentives</div>
+                        <div class="text-xl font-bold text-yellow-600">-${incentiveAmount.toLocaleString()}</div>
                     </div>
+                    <div class="bg-green-100 p-4 rounded-lg text-center">
+                        <div class="font-semibold text-green-700">Net Tax</div>
+                        <div class="text-xl font-bold text-green-600">${netTax.toLocaleString()}</div>
+                    </div>
+                </div>
+                <div class="mt-4 p-4 bg-blue-100 rounded-lg text-center">
+                    <div class="font-semibold text-blue-700">Total Savings</div>
+                    <div class="text-2xl font-bold text-blue-600">${savings.toLocaleString()}</div>
+                </div>
+                <div class="mt-4 text-sm text-gray-500">
+                    <strong>Note:</strong> This is an estimate. Consult URA for official calculations.
                 </div>
             `;
             
-            resultDiv.classList.remove('hidden');
-            showNotification('🧮 Tax calculation completed successfully!', 'success');
+            document.getElementById('result').classList.remove('hidden');
+            showNotification('Tax calculation completed!', 'success');
         }
-
-        // Enhanced notification system
+        
+        // Chat functionality
+        function openChat() {
+            showNotification('Connecting to our assistant...', 'info');
+            setTimeout(() => {
+                showNotification('Assistant: Hello! How can I help you with ATMS services?', 'success');
+            }, 2000);
+        }
+        
+        // Notification system
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
-            notification.className = `fixed top-6 right-6 z-50 px-8 py-6 rounded-2xl shadow-2xl text-white font-medium transform transition-all duration-500 translate-x-full max-w-md`;
+            notification.className = `fixed top-6 right-6 z-50 px-6 py-4 rounded-lg shadow-lg text-white font-medium transform transition-all duration-300 translate-x-full`;
             
-            // Set notification style based on type
             switch(type) {
                 case 'success':
-                    notification.classList.add('bg-gradient-to-r', 'from-green-500', 'to-green-600');
-                    notification.innerHTML = `
-                        <div class="flex items-center">
-                            <svg class="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                            </svg>
-                            <span>${message}</span>
-                        </div>
-                    `;
-                    break;
-                case 'warning':
-                    notification.classList.add('bg-gradient-to-r', 'from-yellow-500', 'to-yellow-600');
-                    notification.innerHTML = `
-                        <div class="flex items-center">
-                            <svg class="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                            </svg>
-                            <span>${message}</span>
-                        </div>
-                    `;
+                    notification.classList.add('bg-green-500');
                     break;
                 case 'error':
-                    notification.classList.add('bg-gradient-to-r', 'from-red-500', 'to-red-600');
-                    notification.innerHTML = `
-                        <div class="flex items-center">
-                                                        <svg class="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                            </svg>
-                            <span>${message}</span>
-                        </div>
-                    `;
+                    notification.classList.add('bg-red-500');
                     break;
-                default: // info
-                    notification.classList.add('bg-gradient-to-r', 'from-blue-500', 'to-blue-600');
-                    notification.innerHTML = `
-                        <div class="flex items-center">
-                            <svg class="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
-                            </svg>
-                            <span>${message}</span>
-                        </div>
-                    `;
+                case 'warning':
+                    notification.classList.add('bg-yellow-500');
+                    break;
+                default:
+                    notification.classList.add('bg-blue-500');
             }
-
+            
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <span>${message}</span>
+                </div>
+            `;
+            
             document.body.appendChild(notification);
-
+            
             // Animate in
             setTimeout(() => {
                 notification.classList.remove('translate-x-full');
                 notification.classList.add('translate-x-0');
             }, 10);
-
-            // Auto-dismiss after 5 seconds
+            
+            // Auto-dismiss
             setTimeout(() => {
                 notification.classList.add('opacity-0', 'translate-x-full');
-                setTimeout(() => {
-                    notification.remove();
-                }, 500);
-            }, 5000);
-
-            // Allow manual dismiss
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+            
+            // Click to dismiss
             notification.addEventListener('click', () => {
                 notification.classList.add('opacity-0', 'translate-x-full');
-                setTimeout(() => {
-                    notification.remove();
-                }, 500);
+                setTimeout(() => notification.remove(), 300);
             });
         }
-
-        // Phone call functionality
-        function makePhoneCall(number) {
-            if (confirm(`Would you like to call ${number}?`)) {
-                showNotification(`📞 Calling ${number}...`, 'info');
-                // In a real app, you would use: window.location.href = `tel:${number}`;
-            }
-        }
-
-        // Initialize event listeners
+        
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Search input with suggestions
-            const searchInput = document.getElementById('searchInput');
-            searchInput.addEventListener('input', function() {
-                showSuggestions(this.value);
+            // Add smooth scrolling to navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
             });
-
-            // Click outside to hide suggestions
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.search-bar-container')) {
-                    hideSuggestions();
-                }
-            });
-
-            // Escape key to hide suggestions
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    hideSuggestions();
-                }
-            });
-
-            // Initialize service cards with animation
+            
+            // Add fade-in animation to service cards
             const cards = document.querySelectorAll('.service-card');
             cards.forEach((card, index) => {
-                card.classList.add('animate-fade-in');
-                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+            
+            // Add keyboard navigation for search
+            document.getElementById('searchInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    searchServices();
+                    document.getElementById('suggestions').style.display = 'none';
+                }
             });
         });
     </script>
