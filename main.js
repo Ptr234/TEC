@@ -1,4 +1,3 @@
-
 // Search functionality
 const services = [
     { name: "Business Registration", sector: "all", location: "kampala", type: "registration", description: "Company incorporation, business names, and certificate services", tags: ["Company registration", "Business names", "Certificates"], url: "https://www.ursb.go.ug", section: "#services" },
@@ -377,8 +376,60 @@ function makeCall(phone) {
     window.location.href = `tel:${phone}`;
 }
 
+// Updated download function with the new GitHub link
 function downloadBankableProjects() {
-    window.location.href = 'https://www.ugandainvest.go.ug/wp-content/uploads/2023/10/Investment-Opportunities-2023.pdf';
+    // GitHub raw file URL for direct download
+    const downloadUrl = 'https://github.com/Ptr234/TEC/raw/main/Bankable%20Projects%20-%202025.3%20comp.pdf';
+    
+    try {
+        // Create a temporary anchor element for download
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = 'Bankable Projects - 2025.3 comp.pdf'; // Filename for download
+        link.target = '_blank'; // Open in new tab as fallback
+        
+        // Add to DOM temporarily
+        document.body.appendChild(link);
+        
+        // Trigger download
+        link.click();
+        
+        // Remove from DOM
+        document.body.removeChild(link);
+        
+        // Show success notification
+        showNotification('Download started! Check your downloads folder.', 'success');
+    } catch (error) {
+        console.error('Download error:', error);
+        // Fallback: open in new tab
+        window.open(downloadUrl, '_blank');
+        showNotification('Opening PDF in new tab...', 'info');
+    }
+}
+
+// Notification function for user feedback
+function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transition-opacity duration-300 ${
+        type === 'success' ? 'bg-green-500 text-white' : 
+        type === 'error' ? 'bg-red-500 text-white' : 
+        'bg-blue-500 text-white'
+    }`;
+    notification.textContent = message;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
 }
 
 function openChat() {
