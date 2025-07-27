@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OneStopCentre Uganda - ATMS Services Directory</title>
+    <title>OneStopCentre Uganda - Business Simplified</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -18,20 +18,20 @@
             min-height: 100vh;
         }
         
-        /* Google-like Search Container */
+        /* Professional Rectangular Search Container */
         .search-container {
             background: white;
-            border-radius: 9999px; /* Oval shape */
-            box-shadow: 0 1px 6px rgba(32,33,36,0.28);
-            padding: 16px;
+            border-radius: 8px; /* Sharp rectangular corners */
+            box-shadow: 0 4px 12px rgba(32,33,36,0.2); /* Subtle shadow for depth */
+            padding: 24px; /* Increased padding for spacious look */
             margin: 80px auto;
-            max-width: 584px;
+            max-width: 600px; /* Slightly wider for balance */
             position: relative;
             transition: box-shadow 0.2s ease;
         }
         
         .search-container:hover {
-            box-shadow: 0 1px 12px rgba(32,33,36,0.3);
+            box-shadow: 0 6px 16px rgba(32,33,36,0.3); /* Enhanced shadow on hover */
         }
         
         /* Search Suggestions */
@@ -41,7 +41,7 @@
             left: 0;
             right: 0;
             background: white;
-            border-radius: 0 0 24px 24px;
+            border-radius: 0 0 8px 8px; /* Match container's bottom corners */
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
             max-height: 300px;
             overflow-y: auto;
@@ -66,7 +66,7 @@
             background: linear-gradient(135deg, #ffd700, #ffa500);
             color: black;
             padding: 8px 16px;
-            border-radius: 9999px;
+            border-radius: 9999px; /* Keep buttons rounded for contrast */
             font-size: 14px;
             font-weight: 500;
             transition: all 0.3s ease;
@@ -81,12 +81,12 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         
-        /* Google-like Search Input */
+        /* Professional Rectangular Search Input */
         .search-input {
             width: 100%;
             padding: 12px 20px 12px 48px;
-            border: none;
-            border-radius: 9999px;
+            border: 1px solid #dfe1e5; /* Subtle border for definition */
+            border-radius: 6px; /* Slightly rounded input for contrast */
             font-size: 16px;
             font-family: 'Roboto', sans-serif;
             color: #202124;
@@ -96,7 +96,8 @@
         
         .search-input:focus {
             outline: none;
-            box-shadow: inset 0 0 0 1px #dfe1e5;
+            border-color: #ffd700; /* Highlight border on focus */
+            box-shadow: 0 0 0 2px rgba(255,215,0,0.2); /* Subtle focus ring */
         }
         
         /* Search Icon */
@@ -114,7 +115,7 @@
         .filter-select {
             padding: 12px 20px;
             border: 1px solid #dfe1e5;
-            border-radius: 9999px;
+            border-radius: 6px; /* Match input style */
             background: white;
             font-size: 16px;
             transition: all 0.3s ease;
@@ -334,10 +335,27 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
         
+        /* Checklist Modal */
+        .checklist-modal {
+            max-width: 600px;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .section-title { font-size: 2.5rem; }
-            .search-container { padding: 12px; margin: 40px auto; }
+            .search-container { padding: 16px; margin: 40px auto; max-width: 100%; }
             .chat-btn { bottom: 16px; left: 16px; }
             .back-to-top { bottom: 16px; right: 16px; }
             .suggestions { max-height: 200px; }
@@ -347,9 +365,7 @@
 <body class="bg-gray-50">
     <!-- Chat Button -->
     <button class="chat-btn" onclick="openChat()">
-        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-        </svg>
+        <span>🎧</span>
         Talk to Us
     </button>
 
@@ -377,6 +393,7 @@
                         <a href="#services" class="hover:text-yellow-400 transition-colors">Services</a>
                         <a href="#investments" class="hover:text-yellow-400 transition-colors">Investments</a>
                         <a href="#calculator" class="hover:text-yellow-400 transition-colors">Tax and Incentive Calculator</a>
+                        <a href="#" onclick="openChecklistModal()" class="hover:text-yellow-400 transition-colors">Checklist</a>
                     </nav>
                 </div>
             </div>
@@ -387,7 +404,7 @@
             <div class="container mx-auto px-4">
                 <div class="search-container">
                     <div class="text-center mb-8">
-                        <h2 class="text-4xl font-bold text-gray-900 mb-4">Explore ATMS Opportunities in Uganda</h2>
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4">Explore ATMS opportunities in Uganda</h2>
                         <p class="text-xl text-gray-600">Investing in Uganda Simplified</p>
                     </div>
                     
@@ -1038,6 +1055,42 @@
             </div>
         </div>
 
+        <!-- Checklist Selection Modal -->
+        <div id="checklistSelectionModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Select Checklist</h3>
+                    <button onclick="closeChecklistSelection()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                </div>
+                
+                <div class="space-y-4">
+                    <button onclick="openChecklist('services')" class="btn btn-primary w-full">Services Checklist</button>
+                    <button onclick="openChecklist('investments')" class="btn btn-primary w-full">Investments Checklist</button>
+                    <button onclick="openChecklist('calculator')" class="btn btn-primary w-full">Tax Checklist</button>
+                </div>
+                
+                <div class="flex justify-end mt-6">
+                    <button onclick="closeChecklistSelection()" class="btn bg-gray-300 text-gray-700">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checklist Modal -->
+        <div id="checklistModal" class="modal hidden">
+            <div class="modal-content checklist-modal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold" id="checklistTitle">Checklist</h3>
+                    <button onclick="closeChecklist()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                </div>
+                
+                <div id="checklistContent" class="space-y-4"></div>
+                
+                <div class="flex justify-end mt-6">
+                    <button onclick="closeChecklist()" class="btn btn-primary">Close</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Footer -->
         <footer class="bg-black text-white py-16">
             <div class="container mx-auto px-4">
@@ -1065,7 +1118,7 @@
                         <ul class="space-y-2">
                             <li><a href="#services" class="text-gray-300 hover:text-yellow-400">Services</a></li>
                             <li><a href="#investments" class="text-gray-300 hover:text-yellow-400">Investments</a></li>
-                            <li><a href="#calculator" class="text-gray-300 hover:text-yellow-400">Tax and  Incentive Calculator</a></li>
+                            <li><a href="#calculator" class="text-gray-300 hover:text-yellow-400">Tax and Incentive Calculator</a></li>
                         </ul>
                     </div>
                     
@@ -1101,6 +1154,37 @@
                 { title: 'Tourism Development', tags: ['hotel development', 'eco-tourism', 'tourism incentives'], sector: 'tourism', type: 'investment', section: 'investments' },
                 { title: 'Tech Innovation', tags: ['startup funding', 'digital infrastructure', 'innovation grants'], sector: 'ict', type: 'investment', section: 'investments' }
             ];
+            
+            // Checklist data
+            const checklists = {
+                services: [
+                    { step: "Choose Business Structure", description: "Select appropriate structure (Sole Proprietorship, Partnership, or Limited Company)" },
+                    { step: "Register Business Name", description: "Reserve and register your business name with URSB" },
+                    { step: "Obtain Tax Identification Number", description: "Register for TIN with URA for tax compliance" },
+                    { step: "Register for Social Security", description: "Enroll employees with NSSF for social security benefits" },
+                    { step: "Acquire Necessary Licenses", description: "Obtain sector-specific licenses (e.g., UCC for ICT, CMA for finance)" },
+                    { step: "Set Up Business Premises", description: "Secure a physical location and obtain trading license" },
+                    { step: "Open Business Bank Account", description: "Establish a corporate bank account for transactions" }
+                ],
+                investments: [
+                    { step: "Identify Investment Sector", description: "Choose an ATMS sector (Agriculture, Tourism, Minerals, ICT)" },
+                    { step: "Meet Minimum Investment", description: "Ensure investment meets minimum thresholds (e.g., USD 100K for general, USD 500K for tourism)" },
+                    { step: "Contact UIA", description: "Engage Uganda Investment Authority for facilitation and incentives" },
+                    { step: "Prepare Business Plan", description: "Develop a detailed business plan for investment approval" },
+                    { step: "Apply for Incentives", description: "Request tax holidays and other investment incentives" },
+                    { step: "Secure Funding", description: "Explore financing options (e.g., BOU for agriculture, NITA for tech)" },
+                    { step: "Monitor Compliance", description: "Ensure adherence to sector-specific regulations" }
+                ],
+                calculator: [
+                    { step: "Determine Investment Amount", description: "Calculate the total investment amount in USD" },
+                    { step: "Select ATMS Sector", description: "Choose the relevant sector for tax calculation" },
+                    { step: "Choose Investment Type", description: "Specify if investment is new, expansion, or acquisition" },
+                    { step: "Calculate Tax Obligations", description: "Use the tax calculator to estimate base tax and incentives" },
+                    { step: "Review Incentives", description: "Understand applicable tax holidays and reductions" },
+                    { step: "Consult URA", description: "Verify calculations with Uganda Revenue Authority" },
+                    { step: "Plan Financials", description: "Incorporate tax estimates into financial planning" }
+                ]
+            };
             
             // Debounce function for search
             function debounce(func, wait) {
@@ -1305,175 +1389,167 @@
                 setTimeout(() => closeEmail(), 1500);
             }
             
-            // Phone call functionality
-            function makeCall(number) {
-                if (confirm(`Call ${number}?`)) {
-                    showNotification(`Calling ${number}...`, 'info');
-                    // In real app: window.location.href = `tel:${number}`;
-                }
-            }
-            
-            // Tax calculator
-            function calculateTax() {
-                const amount = parseFloat(document.getElementById('investmentAmount').value);
-                const sector = document.getElementById('sector').value;
-                const type = document.getElementById('investmentType').value;
-                
-                if (isNaN(amount) || amount <= 0) {
-                    showNotification('Please enter a valid amount', 'error');
-                    return;
-                }
-                
-                const taxRates = {
-                    agriculture: { base: 0.10, incentive: 0.06 },
-                    tourism: { base: 0.15, incentive: 0.05 },
-                    minerals: { base: 0.25, incentive: 0.08 },
-                    ict: { base: 0.20, incentive: 0.10 }
-                };
-                
-                const typeMultipliers = { new: 1.0, expansion: 0.85, acquisition: 1.1 };
-                
-                const { base, incentive } = taxRates[sector];
-                const multiplier = typeMultipliers[type];
-                
-                const baseTax = amount * base * multiplier;
-                const incentiveAmount = amount * incentive;
-                const netTax = Math.max(0, baseTax - incentiveAmount);
-                const savings = baseTax - netTax;
-                
-                document.getElementById('result').innerHTML = `
-                    <h4 class="text-xl font-bold mb-4">Tax Calculation Results</h4>
-                    <div class="grid md:grid-cols-2 gap-4 mb-4">
-                        <div class="info-box">
-                            <div class="font-semibold">Investment Amount</div>
-                            <div class="text-lg">${amount.toLocaleString()}</div>
-                        </div>
-                        <div class="info-box">
-                            <div class="font-semibold">Sector</div>
-                            <div class="text-lg capitalize">${sector}</div>
-                        </div>
-                    </div>
-                    <div class="grid md:grid-cols-3 gap-4">
-                        <div class="bg-red-100 p-4 rounded-lg text-center">
-                            <div class="font-semibold text-red-700">Base Tax</div>
-                            <div class="text-xl font-bold text-red-600">${baseTax.toLocaleString()}</div>
-                        </div>
-                        <div class="bg-yellow-100 p-4 rounded-lg text-center">
-                            <div class="font-semibold text-yellow-700">Incentives</div>
-                            <div class="text-xl font-bold text-yellow-600">-${incentiveAmount.toLocaleString()}</div>
-                        </div>
-                        <div class="bg-green-100 p-4 rounded-lg text-center">
-                            <div class="font-semibold text-green-700">Net Tax</div>
-                            <div class="text-xl font-bold text-green-600">${netTax.toLocaleString()}</div>
-                        </div>
-                    </div>
-                    <div class="mt-4 p-4 bg-blue-100 rounded-lg text-center">
-                        <div class="font-semibold text-blue-700">Total Savings</div>
-                        <div class="text-2xl font-bold text-blue-600">${savings.toLocaleString()}</div>
-                    </div>
-                    <div class="mt-4 text-sm text-gray-500">
-                        <strong>Note:</strong> This is an estimate. Consult URA for official calculations.
-                    </div>
-                `;
-                
-                document.getElementById('result').classList.remove('hidden');
-                showNotification('Tax calculation completed!', 'success');
-            }
-            
-            // Chat functionality
-            function openChat() {
-                showNotification('Connecting to our assistant...', 'info');
-                setTimeout(() => {
-                    showNotification('Assistant: Hello! How can I help you with ATMS services?', 'success');
-                }, 2000);
-            }
-            
-            // Notification system
-            function showNotification(message, type = 'info') {
-                const notification = document.createElement('div');
-                notification.className = `fixed top-6 right-6 z-50 px-6 py-4 rounded-lg shadow-lg text-white font-medium transform transition-all duration-300 translate-x-full`;
-                
-                switch(type) {
-                    case 'success':
-                        notification.classList.add('bg-green-500');
-                        break;
-                    case 'error':
-                        notification.classList.add('bg-red-500');
-                        break;
-                    case 'warning':
-                        notification.classList.add('bg-yellow-500');
-                        break;
-                    default:
-                        notification.classList.add('bg-blue-500');
-                }
-                
-                notification.innerHTML = `
-                    <div class="flex items-center">
-                        <span>${message}</span>
-                    </div>
-                `;
-                
-                document.body.appendChild(notification);
-                
-                // Animate in
-                setTimeout(() => {
-                    notification.classList.remove('translate-x-full');
-                    notification.classList.add('translate-x-0');
-                }, 10);
-                
-                // Auto-dismiss
-                                // Auto-dismiss
-                setTimeout(() => {
-                    notification.classList.remove('translate-x-0');
-                    notification.classList.add('translate-x-full');
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 300);
-                }, 3000);
-            }
+           // Phone call functionality
+function makeCall(number) {
+    if (confirm(`Call ${number}?`)) {
+        showNotification(`Calling ${number}...`, 'info');
+        window.location.href = `tel:${number}`;
+    }
+}
 
-            // Initialize
-            document.addEventListener('DOMContentLoaded', () => {
-                // Initial filter
-                filterServices();
-                
-                // Clear search input
-                document.getElementById('searchInput').value = '';
-                
-                // Add keyboard navigation for suggestions
-                document.getElementById('searchInput').addEventListener('keydown', (e) => {
-                    const suggestions = document.getElementById('suggestions');
-                    const suggestionItems = suggestions.querySelectorAll('.suggestion-item');
-                    if (suggestionItems.length === 0) return;
-                    
-                    let currentIndex = Array.from(suggestionItems).findIndex(item => 
-                        item.classList.contains('active')
-                    );
-                    
-                    if (e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        if (currentIndex < suggestionItems.length - 1) {
-                            if (currentIndex >= 0) {
-                                suggestionItems[currentIndex].classList.remove('active');
-                            }
-                            currentIndex++;
-                            suggestionItems[currentIndex].classList.add('active');
-                            suggestionItems[currentIndex].scrollIntoView({ block: 'nearest' });
-                        }
-                    } else if (e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        if (currentIndex > 0) {
-                            suggestionItems[currentIndex].classList.remove('active');
-                            currentIndex--;
-                            suggestionItems[currentIndex].classList.add('active');
-                            suggestionItems[currentIndex].scrollIntoView({ block: 'nearest' });
-                        }
-                    } else if (e.key === 'Enter' && currentIndex >= 0) {
-                        e.preventDefault();
-                        suggestionItems[currentIndex].click();
-                    }
-                });
-            });
-        </script>
-    </body>
+// Chat functionality
+function openChat() {
+    showNotification('Opening live chat...', 'info');
+    setTimeout(() => {
+        alert('Live chat feature is under development. Please use the email or phone options to contact us.');
+    }, 1000);
+}
+
+// Tax calculator
+function calculateTax() {
+    const amount = parseFloat(document.getElementById('investmentAmount').value);
+    const sector = document.getElementById('sector').value;
+    const investmentType = document.getElementById('investmentType').value;
+    const resultDiv = document.getElementById('result');
+    
+    if (!amount || amount <= 0) {
+        showNotification('Please enter a valid investment amount', 'error');
+        return;
+    }
+    
+    let taxRate = 0.3; // Default corporate tax rate (30%)
+    let taxHoliday = 0;
+    let incentives = [];
+    
+    // Adjust tax rate and incentives based on sector
+    switch (sector) {
+        case 'agriculture':
+            taxHoliday = amount >= 500000 ? 10 : 5;
+            incentives.push(`Tax holiday: ${taxHoliday} years`, 'Duty-free import of agricultural equipment');
+            break;
+        case 'tourism':
+            taxHoliday = amount >= 500000 ? 10 : 7;
+            incentives.push(`Tax holiday: ${taxHoliday} years`, 'VAT exemption on hotel development');
+            break;
+        case 'minerals':
+            taxHoliday = amount >= 1000000 ? 10 : 5;
+            incentives.push(`Tax holiday: ${taxHoliday} years`, 'Reduced royalty rates');
+            break;
+        case 'ict':
+            taxHoliday = amount >= 100000 ? 7 : 3;
+            incentives.push(`Tax holiday: ${taxHoliday} years`, 'R&D tax credits');
+            break;
+    }
+    
+    // Adjust based on investment type
+    if (investmentType === 'expansion') {
+        taxRate *= 0.8; // 20% tax reduction for expansions
+        incentives.push('20% tax reduction for business expansion');
+    } else if (investmentType === 'acquisition') {
+        taxRate *= 0.9; // 10% tax reduction for acquisitions
+        incentives.push('10% tax reduction for acquisitions');
+    }
+    
+    const taxAmount = amount * taxRate;
+    const netTax = taxHoliday > 0 ? 0 : taxAmount;
+    
+    resultDiv.innerHTML = `
+        <h3 class="text-lg font-bold mb-4">Tax Calculation Results</h3>
+        <div class="space-y-2">
+            <p><strong>Investment Amount:</strong> USD ${amount.toLocaleString()}</p>
+            <p><strong>Sector:</strong> ${sector.charAt(0).toUpperCase() + sector.slice(1)}</p>
+            <p><strong>Investment Type:</strong> ${investmentType.charAt(0).toUpperCase() + investmentType.slice(1)}</p>
+            <p><strong>Base Tax Rate:</strong> ${(taxRate * 100).toFixed(1)}%</p>
+            <p><strong>Tax Amount:</strong> USD ${taxAmount.toLocaleString()}</p>
+            <p><strong>Effective Tax (after incentives):</strong> USD ${netTax.toLocaleString()}</p>
+            <p><strong>Incentives Applied:</strong></p>
+            <ul class="list-disc pl-5">
+                ${incentives.map(incentive => `<li>${incentive}</li>`).join('')}
+            </ul>
+        </div>
+    `;
+    resultDiv.classList.remove('hidden');
+    
+    showNotification('Tax calculation completed!', 'success');
+    resultDiv.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Notification system
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `fixed bottom-5 right-5 p-4 rounded-xl shadow-lg text-white z-[1001] transition-all duration-300 transform translate-y-0`;
+    
+    switch (type) {
+        case 'success':
+            notification.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            break;
+        case 'error':
+            notification.style.background = 'linear-gradient(135deg, #dc2626, #b91c1c)';
+            break;
+        case 'warning':
+            notification.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+            break;
+        case 'info':
+        default:
+            notification.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+    }
+    
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateY(20px)';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Checklist functionality
+function openChecklistModal() {
+    document.getElementById('checklistSelectionModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeChecklistSelection() {
+    document.getElementById('checklistSelectionModal').classList.add('hidden');
+    document.body.style.overflow = '';
+}
+
+function openChecklist(type) {
+    closeChecklistSelection();
+    const checklistModal = document.getElementById('checklistModal');
+    const checklistTitle = document.getElementById('checklistTitle');
+    const checklistContent = document.getElementById('checklistContent');
+    
+    checklistTitle.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Checklist`;
+    
+    checklistContent.innerHTML = checklists[type].map(item => `
+        <div class="checklist-item">
+            <svg width="24" height="24" fill="none" stroke="#10b981" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <div>
+                <h4 class="font-semibold">${item.step}</h4>
+                <p class="text-gray-600">${item.description}</p>
+            </div>
+        </div>
+    `).join('');
+    
+    checklistModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} checklist opened`, 'success');
+}
+
+function closeChecklist() {
+    document.getElementById('checklistModal').classList.add('hidden');
+    document.body.style.overflow = '';
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    filterServices();
+    document.getElementById('searchInput').addEventListener('input', debouncedSearch);
+});
+</script>
+</body>
 </html>
