@@ -520,9 +520,38 @@ function highlightElement(serviceName, section) {
     }
 }
 
-function performSearch(query) {
-    const suggestions = document.getElementById('suggestions') || document.querySelector('.suggestions-desktop');
+// Enhanced mobile search functionality
+function createMobileSuggestions() {
+    let mobileSuggestions = document.getElementById('mobileSuggestions');
+    if (!mobileSuggestions) {
+        mobileSuggestions = document.createElement('div');
+        mobileSuggestions.id = 'mobileSuggestions';
+        mobileSuggestions.className = 'mobile-suggestions';
+        mobileSuggestions.style.cssText = `
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-height: 60vh;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            margin: 0 1rem;
+        `;
+        document.body.appendChild(mobileSuggestions);
+    }
+    return mobileSuggestions;
+}
+
+function performSearch(query, isMobile = false) {
+    const suggestions = isMobile ? createMobileSuggestions() : 
+                      (document.getElementById('suggestions') || document.querySelector('.suggestions-desktop'));
     const searchInput = document.getElementById('searchInput');
+    
     if (!suggestions) {
         console.error('Suggestions element not found');
         showProfessionalNotification(
@@ -537,12 +566,14 @@ function performSearch(query) {
     
     if (query.trim() === '') {
         suggestions.style.display = 'none';
-        showProfessionalNotification(
-            'Search',
-            'Start typing to search for services',
-            'info',
-            2000
-        );
+        if (!isMobile) {
+            showProfessionalNotification(
+                'Search',
+                'Start typing to search for services',
+                'info',
+                2000
+            );
+        }
         return;
     }
 
@@ -602,22 +633,51 @@ function performSearch(query) {
             .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name))
             .slice(0, 3);
 
-    // Populate suggestions
+    // Populate suggestions with enhanced mobile support
     results.forEach((service, index) => {
         const div = document.createElement('div');
-        div.className = 'suggestion-item';
+        div.className = isMobile ? 'mobile-suggestion-item' : 'suggestion-item';
+        div.style.cssText = isMobile ? `
+            padding: 12px 16px;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        ` : '';
+        
         div.innerHTML = `
-            ${highlightMatch(service.name, query)}
-            <span class="text-sm text-gray-500 ml-2">(${service.section.replace('#', '')})</span>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                    ${highlightMatch(service.name, query)}
+                    <div class="text-sm text-gray-500">${service.description.slice(0, 60)}...</div>
+                </div>
+                <span class="text-xs text-gray-400">${service.section.replace('#', '')}</span>
+            </div>
         `;
+        
+        div.onmouseover = () => {
+            if (!isMobile) div.style.backgroundColor = '#f9fafb';
+        };
+        div.onmouseout = () => {
+            if (!isMobile) div.style.backgroundColor = 'transparent';
+        };
+        
         div.onclick = () => {
             highlightElement(service.name, service.section);
             addToSearchHistory(query);
             suggestions.style.display = 'none';
-            searchInput.value = ''; // Clear input
+            
+            // Clear all search inputs
+            const allSearchInputs = document.querySelectorAll('input[type="text"]');
+            allSearchInputs.forEach(input => {
+                if (input.placeholder && input.placeholder.toLowerCase().includes('search')) {
+                    input.value = '';
+                    input.blur();
+                }
+            });
+            
             showProfessionalNotification(
                 'Navigation',
-                `Navigating to ${service.name} in ${service.section.replace('#', '')} section`,
+                `Navigating to ${service.name}`,
                 'success'
             );
         };
@@ -627,14 +687,16 @@ function performSearch(query) {
     suggestions.style.display = results.length > 0 ? 'block' : 'none';
     currentSuggestionIndex = -1;
     
-    showProfessionalNotification(
-        filteredServices.length > 0 ? 'Search Results' : 'Suggested Services',
-        filteredServices.length > 0 
-            ? `Found ${filteredServices.length} matching services`
-            : `No exact matches for "${query}". Showing popular services.`,
-        filteredServices.length > 0 ? 'success' : 'info',
-        2000
-    );
+    if (!isMobile) {
+        showProfessionalNotification(
+            filteredServices.length > 0 ? 'Search Results' : 'Suggested Services',
+            filteredServices.length > 0 
+                ? `Found ${filteredServices.length} matching services`
+                : `No exact matches for "${query}". Showing popular services.`,
+            filteredServices.length > 0 ? 'success' : 'info',
+            2000
+        );
+    }
 }
 
 function highlightMatch(text, query) {
@@ -727,6 +789,349 @@ const debounce = (func, delay) => {
 };
 
 const debouncedSearch = debounce(performSearch, 300);
+const debouncedMobileSearch = debounce((query) => performSearch(query, true), 200);
+
+// Swipe Gesture System
+class SwipeGestureHandler {
+    constructor() {
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+        this.touchEndX = 0;
+        this.touchEndY = 0;
+        this.minSwipeDistance = 50;
+        this.maxVerticalDistance = 100;
+        this.swipeActions = {
+            left: this.defaultSwipeLeft.bind(this),
+            right: this.defaultSwipeRight.bind(this),
+            up: this.defaultSwipeUp.bind(this),
+            down: this.defaultSwipeDown.bind(this)
+        };
+        this.isEnabled = true;
+        this.init();
+    }
+
+    init() {
+        document.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+        document.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
+    }
+
+    handleTouchStart(e) {
+        if (!this.isEnabled) return;
+        this.touchStartX = e.changedTouches[0].screenX;
+        this.touchStartY = e.changedTouches[0].screenY;
+    }
+
+    handleTouchEnd(e) {
+        if (!this.isEnabled) return;
+        this.touchEndX = e.changedTouches[0].screenX;
+        this.touchEndY = e.changedTouches[0].screenY;
+        this.handleSwipe();
+    }
+
+    handleSwipe() {
+        const deltaX = this.touchEndX - this.touchStartX;
+        const deltaY = this.touchEndY - this.touchStartY;
+        const absDeltaX = Math.abs(deltaX);
+        const absDeltaY = Math.abs(deltaY);
+
+        // Determine swipe direction
+        if (absDeltaX > this.minSwipeDistance && absDeltaX > absDeltaY) {
+            // Horizontal swipe
+            if (Math.abs(deltaY) < this.maxVerticalDistance) {
+                if (deltaX > 0) {
+                    this.swipeActions.right();
+                } else {
+                    this.swipeActions.left();
+                }
+            }
+        } else if (absDeltaY > this.minSwipeDistance && absDeltaY > absDeltaX) {
+            // Vertical swipe
+            if (deltaY > 0) {
+                this.swipeActions.down();
+            } else {
+                this.swipeActions.up();
+            }
+        }
+    }
+
+    // Visual feedback for swipe actions
+    showSwipeFeedback(message, icon) {
+        let feedback = document.getElementById('swipeFeedback');
+        if (!feedback) {
+            feedback = document.createElement('div');
+            feedback.id = 'swipeFeedback';
+            feedback.className = 'swipe-feedback';
+            document.body.appendChild(feedback);
+        }
+        
+        feedback.innerHTML = `<span style="font-size: 18px; margin-right: 8px;">${icon}</span>${message}`;
+        feedback.classList.add('show');
+        
+        setTimeout(() => {
+            feedback.classList.remove('show');
+        }, 1500);
+    }
+
+    // Default swipe actions
+    defaultSwipeLeft() {
+        // Navigate to next section or close mobile menu
+        const mobileNav = document.getElementById('mobileNav');
+        if (mobileNav && mobileNav.classList.contains('active')) {
+            mobileNav.classList.remove('active');
+            this.showSwipeFeedback('Menu Closed', '✕');
+        } else {
+            this.navigateToNextSection();
+        }
+    }
+
+    defaultSwipeRight() {
+        // Open mobile menu or navigate to previous section
+        const mobileNav = document.getElementById('mobileNav');
+        if (mobileNav && !mobileNav.classList.contains('active')) {
+            mobileNav.classList.add('active');
+            this.showSwipeFeedback('Menu Opened', '☰');
+        } else {
+            this.navigateToPreviousSection();
+        }
+    }
+
+    defaultSwipeUp() {
+        // Scroll to top or close modals
+        const modals = document.querySelectorAll('.modal:not(.hidden)');
+        if (modals.length > 0) {
+            modals.forEach(modal => modal.classList.add('hidden'));
+            this.showSwipeFeedback('Modals Closed', '↑');
+        } else {
+            scrollToTop();
+            this.showSwipeFeedback('Scroll to Top', '⬆️');
+        }
+    }
+
+    defaultSwipeDown() {
+        // Open search or scroll down
+        const searchInput = document.getElementById('searchInput');
+        const mobileSearchInputs = document.querySelectorAll('.search-input-mobile');
+        
+        if (searchInput && document.activeElement !== searchInput) {
+            if (mobileSearchInputs.length > 0) {
+                mobileSearchInputs[0].focus();
+                this.showSwipeFeedback('Search Activated', '🔍');
+            } else {
+                searchInput.focus();
+                this.showSwipeFeedback('Search Activated', '🔍');
+            }
+        } else {
+            window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+            this.showSwipeFeedback('Scroll Down', '⬇️');
+        }
+    }
+
+    navigateToNextSection() {
+        const sections = ['#hero', '#services', '#investments', '#calculator', '#support'];
+        const currentSection = this.getCurrentSection();
+        const currentIndex = sections.indexOf(currentSection);
+        const nextIndex = (currentIndex + 1) % sections.length;
+        
+        document.querySelector(sections[nextIndex])?.scrollIntoView({ behavior: 'smooth' });
+        this.showSwipeFeedback(`${sections[nextIndex].replace('#', '').toUpperCase()}`, '→');
+    }
+
+    navigateToPreviousSection() {
+        const sections = ['#hero', '#services', '#investments', '#calculator', '#support'];
+        const currentSection = this.getCurrentSection();
+        const currentIndex = sections.indexOf(currentSection);
+        const prevIndex = currentIndex <= 0 ? sections.length - 1 : currentIndex - 1;
+        
+        document.querySelector(sections[prevIndex])?.scrollIntoView({ behavior: 'smooth' });
+        this.showSwipeFeedback(`${sections[prevIndex].replace('#', '').toUpperCase()}`, '←');
+    }
+
+    getCurrentSection() {
+        const sections = ['#hero', '#services', '#investments', '#calculator', '#support'];
+        let current = '#hero';
+        
+        sections.forEach(sectionId => {
+            const element = document.querySelector(sectionId);
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    current = sectionId;
+                }
+            }
+        });
+        
+        return current;
+    }
+
+    // Configuration methods
+    setSwipeAction(direction, action) {
+        if (typeof action === 'function') {
+            this.swipeActions[direction] = action;
+        }
+    }
+
+    enable() {
+        this.isEnabled = true;
+    }
+
+    disable() {
+        this.isEnabled = false;
+    }
+
+    setMinSwipeDistance(distance) {
+        this.minSwipeDistance = distance;
+    }
+}
+
+// Initialize swipe handler
+let swipeHandler;
+
+// Swipe Configuration Panel
+function createSwipeConfigurationPanel() {
+    const panel = document.createElement('div');
+    panel.id = 'swipeConfigPanel';
+    panel.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 1000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        max-width: 200px;
+        backdrop-filter: blur(10px);
+    `;
+    
+    panel.innerHTML = `
+        <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 14px; font-weight: 600; color: #374151;">Swipe Actions</span>
+            <button id="toggleSwipeConfig" style="margin-left: auto; background: none; border: none; font-size: 18px; cursor: pointer;">×</button>
+        </div>
+        <div style="font-size: 12px; color: #6b7280; line-height: 1.4;">
+            <div>← Left: Next section</div>
+            <div>→ Right: Menu/Previous</div>
+            <div>↑ Up: Close modals/Top</div>
+            <div>↓ Down: Search/Scroll</div>
+        </div>
+        <div style="margin-top: 8px; display: flex; gap: 4px;">
+            <button id="enableSwipes" style="padding: 4px 8px; background: #10b981; color: white; border: none; border-radius: 4px; font-size: 11px; cursor: pointer;">Enable</button>
+            <button id="disableSwipes" style="padding: 4px 8px; background: #ef4444; color: white; border: none; border-radius: 4px; font-size: 11px; cursor: pointer;">Disable</button>
+        </div>
+    `;
+    
+    document.body.appendChild(panel);
+    
+    // Show panel initially for 3 seconds, then hide
+    setTimeout(() => {
+        panel.style.transform = 'translateX(0)';
+        setTimeout(() => {
+            panel.style.transform = 'translateX(100%)';
+        }, 3000);
+    }, 1000);
+    
+    // Panel controls
+    document.getElementById('toggleSwipeConfig').onclick = () => {
+        const isVisible = panel.style.transform === 'translateX(0px)';
+        panel.style.transform = isVisible ? 'translateX(100%)' : 'translateX(0)';
+    };
+    
+    document.getElementById('enableSwipes').onclick = () => {
+        swipeHandler.enable();
+        showProfessionalNotification('Swipe Gestures', 'Enabled', 'success', 2000);
+    };
+    
+    document.getElementById('disableSwipes').onclick = () => {
+        swipeHandler.disable();
+        showProfessionalNotification('Swipe Gestures', 'Disabled', 'info', 2000);
+    };
+    
+    // Show/hide panel on double tap in bottom-right corner
+    let lastTap = 0;
+    document.addEventListener('touchend', (e) => {
+        const currentTime = new Date().getTime();
+        const tapLength = currentTime - lastTap;
+        const touch = e.changedTouches[0];
+        const x = touch.clientX;
+        const y = touch.clientY;
+        
+        if (tapLength < 500 && tapLength > 0 && 
+            x > window.innerWidth - 100 && y > window.innerHeight - 100) {
+            const isVisible = panel.style.transform === 'translateX(0px)';
+            panel.style.transform = isVisible ? 'translateX(100%)' : 'translateX(0)';
+        }
+        lastTap = currentTime;
+    });
+}
+
+// Mobile Performance Enhancements
+function enhanceMobilePerformance() {
+    // Throttle resize events
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            // Recalculate mobile suggestions position
+            const mobileSuggestions = document.getElementById('mobileSuggestions');
+            if (mobileSuggestions) {
+                mobileSuggestions.style.maxHeight = `${window.innerHeight * 0.6}px`;
+            }
+        }, 100);
+    }, { passive: true });
+    
+    // Optimize images for mobile
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.loading = 'lazy';
+        img.decoding = 'async';
+    });
+    
+    // Enable hardware acceleration for animations
+    const animatedElements = document.querySelectorAll('.notification, .swipe-feedback, .mobile-suggestion-item');
+    animatedElements.forEach(el => {
+        el.style.willChange = 'transform, opacity';
+        el.style.transform = 'translateZ(0)'; // Force hardware acceleration
+    });
+    
+    // Intersection Observer for better scroll performance
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, { 
+            threshold: 0.1,
+            rootMargin: '50px'
+        });
+        
+        document.querySelectorAll('section, .service-card').forEach(el => {
+            observer.observe(el);
+        });
+    }
+    
+    // Reduce motion for users who prefer it
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.style.setProperty('--animation-duration', '0.01ms');
+        swipeHandler.setMinSwipeDistance(30); // Shorter swipe distance for accessibility
+    }
+    
+    // Optimize touch events for better responsiveness
+    let lastTouchTime = 0;
+    document.addEventListener('touchstart', (e) => {
+        const currentTime = Date.now();
+        if (currentTime - lastTouchTime < 50) {
+            e.preventDefault(); // Prevent double-tap zoom
+        }
+        lastTouchTime = currentTime;
+    }, { passive: false });
+}
 
 // Resource Loading Error Handler
 function handleResourceError(resourceType, fallback = null) {
@@ -780,16 +1185,34 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
     
-    // Bind mobile search inputs
+    // Bind mobile search inputs with enhanced functionality
     mobileSearchInputs.forEach((input, index) => {
         try {
             input.addEventListener('input', () => {
-                // Sync with desktop search and trigger search
+                // Sync with desktop search and trigger mobile-optimized search
                 if (searchInput) {
                     searchInput.value = input.value;
                 }
-                debouncedSearch(input.value);
+                debouncedMobileSearch(input.value);
             });
+            
+            input.addEventListener('focus', () => {
+                // Show mobile-friendly search interface
+                input.style.transform = 'scale(1.02)';
+                input.style.transition = 'transform 0.2s';
+            });
+            
+            input.addEventListener('blur', () => {
+                input.style.transform = 'scale(1)';
+                // Hide mobile suggestions after a delay
+                setTimeout(() => {
+                    const mobileSuggestions = document.getElementById('mobileSuggestions');
+                    if (mobileSuggestions) {
+                        mobileSuggestions.style.display = 'none';
+                    }
+                }, 200);
+            });
+            
             input.addEventListener('keydown', handleKeyNavigation);
         } catch (error) {
             console.error(`Error binding mobile search input ${index}:`, error);
@@ -797,6 +1220,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     updateSearchHistory();
+    
+    // Initialize swipe gesture handler for mobile
+    swipeHandler = new SwipeGestureHandler();
+    
+    // Add mobile-specific optimizations
+    if ('ontouchstart' in window) {
+        // Enable fast tap for mobile
+        document.body.style.touchAction = 'manipulation';
+        
+        // Add mobile swipe configuration UI
+        createSwipeConfigurationPanel();
+        
+        // Optimize scroll behavior for mobile
+        let isScrolling = false;
+        let scrollTimeout;
+        
+        document.addEventListener('touchmove', () => {
+            isScrolling = true;
+            swipeHandler.disable();
+            clearTimeout(scrollTimeout);
+        }, { passive: true });
+        
+        document.addEventListener('touchend', () => {
+            if (isScrolling) {
+                scrollTimeout = setTimeout(() => {
+                    swipeHandler.enable();
+                    isScrolling = false;
+                }, 300);
+            }
+        }, { passive: true });
+        
+        // Enhance mobile performance
+        enhanceMobilePerformance();
+    }
     
     // Hide loading overlay
     setTimeout(() => {

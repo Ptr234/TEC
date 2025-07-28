@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneStopCentre Uganda - Business Simplified</title>
+    
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Meta tags for SEO and social sharing -->
+    <meta name="description" content="OneStopCentre Uganda - Your gateway to simplified business services, ATMS investments, and government compliance in Uganda. Streamline registration, tax, and licensing processes.">
+    <meta name="keywords" content="Uganda business, ATMS, agriculture, tourism, minerals, ICT, investment, tax calculator, business registration, government services">
+    <meta name="author" content="OneStopCentre Uganda">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://onestopcentre.ug/">
+    <meta property="og:title" content="OneStopCentre Uganda - Business Simplified">
+    <meta property="og:description" content="Your gateway to simplified business services, ATMS investments, and government compliance in Uganda.">
+    <meta property="og:image" content="/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://onestopcentre.ug/">
+    <meta property="twitter:title" content="OneStopCentre Uganda - Business Simplified">
+    <meta property="twitter:description" content="Your gateway to simplified business services, ATMS investments, and government compliance in Uganda.">
+    <meta property="twitter:image" content="/twitter-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iI0ZGRDcwMCIvPgo8dGV4dCB4PSIxNiIgeT0iMjAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMwMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk88L3RleHQ+Cjwvc3ZnPgo=">
+    
+    <!-- Theme color -->
+    <meta name="theme-color" content="#fbbf24">
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Critical CSS for performance -->
+    <style>
+        /* Critical loading styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 50%, #f3f4f6 100%);
+            overflow-x: hidden;
+        }
+        
+        /* Loading state */
+        #root {
+            min-height: 100vh;
+        }
+        
+        /* Reduce flash of unstyled content */
+        .loading-fallback {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #fbbf24;
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            .loading-spinner {
+                animation: none;
+                border: 3px solid #fbbf24;
+            }
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            body {
+                background: white;
+                color: black;
+            }
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/index-KJygkNE2.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DEPejbmJ.css">
+</head>
+<body>
+    <!-- Loading fallback for users with JavaScript disabled -->
+    <noscript>
+        <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+            <h1>OneStopCentre Uganda</h1>
+            <p>This application requires JavaScript to run. Please enable JavaScript in your browser.</p>
+            <p>For assistance, call <a href="tel:+256775692335">+256 775 692 335</a></p>
+        </div>
+    </noscript>
+    
+    <!-- React app root -->
+    <div id="root">
+        <!-- Fallback loading screen -->
+        <div class="loading-fallback" id="loading-fallback">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <h1 style="font-size: 1.8rem; margin: 0 0 10px 0; font-weight: 700;">OneStopCentre Uganda</h1>
+                <p style="color: #fbbf24; margin: 0; font-size: 1rem;">Loading your gateway to simplified business services...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Remove loading fallback once React loads -->
+    <script>
+        // Remove loading fallback once React takes over
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const loadingFallback = document.getElementById('loading-fallback');
+                if (loadingFallback && window.React) {
+                    loadingFallback.style.display = 'none';
+                }
+            }, 100);
+        });
+    </script>
+    
+    <!-- React app script -->
+</body>
+</html>

@@ -1,0 +1,65 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@apply",
+      "description": "Apply Tailwind CSS utility classes",
+      "references": [
+        {
+          "name": "Tailwind CSS @apply directive",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#apply"
+        }
+      ]
+    },
+    {
+      "name": "@layer",
+      "description": "Define custom CSS layers for Tailwind CSS",
+      "references": [
+        {
+          "name": "Tailwind CSS @layer directive",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#layer"
+        }
+      ]
+    },
+    {
+      "name": "@variants",
+      "description": "Generate utility variants in Tailwind CSS",
+      "references": [
+        {
+          "name": "Tailwind CSS @variants directive",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#variants"
+        }
+      ]
+    },
+    {
+      "name": "@responsive",
+      "description": "Generate responsive variants in Tailwind CSS",
+      "references": [
+        {
+          "name": "Tailwind CSS @responsive directive",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#responsive"
+        }
+      ]
+    },
+    {
+      "name": "@screen",
+      "description": "Create media queries using Tailwind CSS breakpoints",
+      "references": [
+        {
+          "name": "Tailwind CSS @screen directive",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#screen"
+        }
+      ]
+    },
+    {
+      "name": "@tailwind",
+      "description": "Inject Tailwind CSS styles",
+      "references": [
+        {
+          "name": "Tailwind CSS @tailwind directive",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#tailwind"
+        }
+      ]
+    }
+  ]
+}

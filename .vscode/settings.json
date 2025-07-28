@@ -1,3 +1,22 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "css.validate": false,
+    "scss.validate": false,
+    "less.validate": false,
+    "tailwindCSS.includeLanguages": {
+        "css": "css",
+        "postcss": "postcss"
+    },
+    "tailwindCSS.experimental.classRegex": [
+        ["@apply\\s+([^;]+);", 1]
+    ],
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "css.lint.unknownAtRules": "ignore",
+    "scss.lint.unknownAtRules": "ignore",
+    "postcss.validate": false
 }
