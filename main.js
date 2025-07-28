@@ -454,14 +454,21 @@ function levenshteinDistance(a, b) {
 const services = [
     { name: "Business Registration", sector: "all", location: "kampala", type: "registration", description: "Company incorporation, business names, and certificate services", tags: ["Company registration", "Business names", "Certificates"], section: "#services", weight: 2 },
     { name: "Tax Registration", sector: "all", location: "kampala", type: "registration", description: "VAT, PAYE registration and customs clearance services", tags: ["VAT registration", "PAYE", "Customs"], section: "#services", weight: 2 },
-    { name: "Social Security", sector: "all", location: "kampala", type: "registration", description: "Employee social security and pension services", tags: ["Employee registration", "Pension", "Benefits"], section: "#services", weight: 1 },
-    { name: "Communications License", sector: "ict", location: "kampala", type: "licensing", description: "Telecommunications and broadcasting licensing services", tags: ["Telecom license", "Broadcasting", "ISP license"], section: "#services", weight: 1 },
-    { name: "Investment Facilitation", sector: "all", location: "kampala", type: "investment", description: "One-stop investment services and incentives", tags: ["Investment license", "Tax incentives", "Facilitation"], section: "#services", weight: 1 },
-    { name: "Capital Markets", sector: "all", location: "kampala", type: "licensing", description: "Securities licensing and market regulation services", tags: ["Securities license", "Investment advisory", "Market surveillance"], section: "#services", weight: 1 },
-    { name: "Agricultural Credit", sector: "agriculture", location: "kampala", type: "investment", description: "Low-interest credit for agricultural investments and value chains", tags: ["Agricultural loans", "Value chains", "Farm financing"], section: "#investments", weight: 1 },
-    { name: "Tourism Development", sector: "tourism", location: "kampala", type: "investment", description: "Hotel development and eco-tourism investment opportunities", tags: ["Hotel development", "Eco-tourism", "Tourism incentives"], section: "#investments", weight: 1 },
-    { name: "Tech Innovation", sector: "ict", location: "kampala", type: "investment", description: "Startup funding and digital infrastructure investments", tags: ["Startup funding", "Digital infrastructure", "Innovation grants"], section: "#investments", weight: 1 },
-    { name: "Tax Calculator", sector: "all", location: "all", type: "calculator", description: "Calculate potential tax obligations and incentives", tags: ["Tax", "Calculator", "Incentives"], section: "#calculator", weight: 2 }
+    { name: "Social Security", sector: "all", location: "kampala", type: "registration", description: "Employee social security and pension services", tags: ["Employee registration", "Pension", "Benefits", "NSSF"], section: "#services", weight: 2 },
+    { name: "Communications License", sector: "ict", location: "kampala", type: "licensing", description: "Telecommunications and broadcasting licensing services", tags: ["Telecom license", "Broadcasting", "ISP license", "UCC"], section: "#services", weight: 1 },
+    { name: "Investment Facilitation", sector: "all", location: "kampala", type: "investment", description: "One-stop investment services and incentives", tags: ["Investment license", "Tax incentives", "Facilitation", "UIA"], section: "#services", weight: 1 },
+    { name: "Capital Markets", sector: "all", location: "kampala", type: "licensing", description: "Securities licensing and market regulation services", tags: ["Securities license", "Investment advisory", "Market surveillance", "CMA"], section: "#services", weight: 1 },
+    { name: "Agricultural Credit", sector: "agriculture", location: "kampala", type: "investment", description: "Low-interest credit for agricultural investments and value chains", tags: ["Agricultural loans", "Value chains", "Farm financing", "BOU"], section: "#investments", weight: 1 },
+    { name: "Tourism Development", sector: "tourism", location: "kampala", type: "investment", description: "Hotel development and eco-tourism investment opportunities", tags: ["Hotel development", "Eco-tourism", "Tourism incentives", "UTB"], section: "#investments", weight: 1 },
+    { name: "Tech Innovation", sector: "ict", location: "kampala", type: "investment", description: "Startup funding and digital infrastructure investments", tags: ["Startup funding", "Digital infrastructure", "Innovation grants", "NITA"], section: "#investments", weight: 1 },
+    { name: "Minerals Development", sector: "minerals", location: "kampala", type: "investment", description: "Mining and mineral processing investment opportunities", tags: ["Mining", "Mineral processing", "Extraction", "Geology"], section: "#investments", weight: 1 },
+    { name: "SME Development", sector: "all", location: "kampala", type: "investment", description: "Small and medium enterprise development funding", tags: ["SME", "Small business", "Startup funding", "Entrepreneurship"], section: "#investments", weight: 1 },
+    { name: "Export Development", sector: "all", location: "kampala", type: "investment", description: "Export-oriented business development opportunities", tags: ["Export", "Trade", "International business", "Market access"], section: "#investments", weight: 1 },
+    { name: "Infrastructure Development", sector: "infrastructure", location: "kampala", type: "investment", description: "Infrastructure projects and development investments", tags: ["Infrastructure", "Construction", "Roads", "Utilities"], section: "#investments", weight: 1 },
+    { name: "Manufacturing Development", sector: "manufacturing", location: "kampala", type: "investment", description: "Manufacturing and industrial development opportunities", tags: ["Manufacturing", "Industrial", "Production", "Factory"], section: "#investments", weight: 1 },
+    { name: "Energy Development", sector: "energy", location: "kampala", type: "investment", description: "Renewable energy and power generation investments", tags: ["Energy", "Solar", "Hydroelectric", "Power generation"], section: "#investments", weight: 1 },
+    { name: "Healthcare Investment", sector: "healthcare", location: "kampala", type: "investment", description: "Healthcare facilities and medical services investments", tags: ["Healthcare", "Medical", "Hospital", "Clinic"], section: "#investments", weight: 1 },
+    { name: "Tax Calculator", sector: "all", location: "all", type: "calculator", description: "Calculate potential tax obligations and incentives", tags: ["Tax", "Calculator", "Incentives", "ATMS"], section: "#calculator", weight: 2 }
 ];
 
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
@@ -514,10 +521,10 @@ function highlightElement(serviceName, section) {
 }
 
 function performSearch(query) {
-    const suggestions = document.getElementById('suggestions');
+    const suggestions = document.getElementById('suggestions') || document.querySelector('.suggestions-desktop');
     const searchInput = document.getElementById('searchInput');
-    if (!suggestions || !searchInput) {
-        console.error('Suggestions or searchInput element not found');
+    if (!suggestions) {
+        console.error('Suggestions element not found');
         showProfessionalNotification(
             'System Error',
             'Search components not available',
@@ -721,34 +728,93 @@ const debounce = (func, delay) => {
 
 const debouncedSearch = debounce(performSearch, 300);
 
+// Resource Loading Error Handler
+function handleResourceError(resourceType, fallback = null) {
+    console.warn(`${resourceType} failed to load, using fallback`);
+    if (fallback) {
+        return fallback;
+    }
+}
+
+// Font Loading with Fallback
+function loadFontsWithFallback() {
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            console.log('Fonts loaded successfully');
+        }).catch(() => {
+            console.warn('Font loading failed, using system fonts');
+            document.body.style.fontFamily = 'Arial, sans-serif';
+        });
+    }
+}
+
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing...');
     
-    // Bind search input
+    // Load fonts with fallback
+    loadFontsWithFallback();
+    
+    // Bind search inputs with error handling
     const searchInput = document.getElementById('searchInput');
+    const mobileSearchInputs = document.querySelectorAll('.search-input-mobile');
+    
     if (searchInput) {
-        searchInput.addEventListener('input', () => debouncedSearch(searchInput.value));
-        searchInput.addEventListener('keydown', handleKeyNavigation);
+        try {
+            searchInput.addEventListener('input', () => debouncedSearch(searchInput.value));
+            searchInput.addEventListener('keydown', handleKeyNavigation);
+        } catch (error) {
+            console.error('Error binding search input:', error);
+            showProfessionalNotification(
+                'System Error',
+                'Search functionality may be limited',
+                'warning'
+            );
+        }
     } else {
         console.error('searchInput not found');
         showProfessionalNotification(
-            'System Error',
-            'Search input not available',
-            'error'
+            'System Notice',
+            'Search input loading...',
+            'info'
         );
     }
     
+    // Bind mobile search inputs
+    mobileSearchInputs.forEach((input, index) => {
+        try {
+            input.addEventListener('input', () => {
+                // Sync with desktop search and trigger search
+                if (searchInput) {
+                    searchInput.value = input.value;
+                }
+                debouncedSearch(input.value);
+            });
+            input.addEventListener('keydown', handleKeyNavigation);
+        } catch (error) {
+            console.error(`Error binding mobile search input ${index}:`, error);
+        }
+    });
+    
     updateSearchHistory();
     
+    // Hide loading overlay
     setTimeout(() => {
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) {
+            loadingOverlay.classList.add('hidden');
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+            }, 500);
+        }
+        
         showProfessionalNotification(
             'Welcome to OneStopCentre Uganda',
             'Your gateway to simplified business services',
             'success',
             5000
         );
-    }, 1000);
+    }, 1500);
 
     window.addEventListener('scroll', () => {
         const backToTop = document.getElementById('backToTop');
