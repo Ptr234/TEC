@@ -20,10 +20,8 @@ function showProfessionalNotification(title, message, type = 'info', duration = 
     
     document.body.appendChild(notification);
     
-    // Trigger show animation
     setTimeout(() => notification.classList.add('show'), 100);
     
-    // Auto remove
     setTimeout(() => {
         notification.classList.remove('show');
         setTimeout(() => {
@@ -45,7 +43,6 @@ function navigateToSection(sectionId, moduleName) {
             'info'
         );
         
-        // Add subtle highlight effect to section
         section.style.background = 'rgba(255, 215, 0, 0.1)';
         setTimeout(() => {
             section.style.background = 'transparent';
@@ -424,16 +421,39 @@ function showNotification(message, type = 'info') {
     showProfessionalNotification(titles[type], message, type, 3000);
 }
 
+// Simple Levenshtein distance for fuzzy matching
+function levenshteinDistance(a, b) {
+    const matrix = Array(b.length + 1).fill().map(() => Array(a.length + 1).fill(0));
+    for (let i = 0; i <= a.length; i++) matrix[0][i] = i;
+    for (let j = 0; j <= b.length; j++) matrix[j][0] = j;
+    for (let j = 1; j <= b.length; j++) {
+        for (let i = 1; i <= a.length; i++) {
+            const indicator = a[i - 1] === b[j - 1] ? 0 : 1;
+            matrix[j][i] = Math.min(
+                matrix[j][i - 1] + 1, // deletion
+                matrix[j - 1][i] + 1, // insertion
+                matrix[j - 1][i - 1] + indicator // substitution
+            );
+        }
+    }
+    return matrix[b.length][a.length];
+}
+
 // Search functionality
 const services = [
-    { name: "Business Registration", sector: "all", location: "kampala", type: "registration", description: "Company incorporation, business names, and certificate services", tags: ["Company registration", "Business names", "Certificates"], url: "https://www.ursb.go.ug", section: "#services" },
-    { name: "Tax Registration", sector: "all", location: "kampala", type: "registration", description: "VAT, PAYE registration and customs clearance services", tags: ["VAT registration", "PAYE", "Customs"], url: "https://www.ura.go.ug", section: "#services" },
-    { name: "Social Security", sector: "all", location: "kampala", type: "registration", description: "Employee social security and pension services", tags: ["Employee registration", "Pension", "Benefits"], url: "https://www.nssfug.org", section: "#services" },
-    { name: "Agricultural Credit", sector: "agriculture", location: "kampala", type: "investment", description: "Low-interest credit for agricultural investments and value chains", tags: ["Agricultural loans", "Value chains", "Farm financing"], url: "https://www.bou.or.ug", section: "#investments" },
-    { name: "Tax Calculator", sector: "all", location: "all", type: "calculator", description: "Calculate potential tax obligations and incentives", tags: ["Tax", "Calculator", "Incentives"], url: "", section: "#calculator" }
+    { name: "Business Registration", sector: "all", location: "kampala", type: "registration", description: "Company incorporation, business names, and certificate services", tags: ["Company registration", "Business names", "Certificates"], url: "https://www.ursb.go.ug", section: "#services", weight: 2 },
+    { name: "Tax Registration", sector: "all", location: "kampala", type: "registration", description: "VAT, PAYE registration and customs clearance services", tags: ["VAT registration", "PAYE", "Customs"], url: "https://www.ura.go.ug", section: "#services", weight: 2 },
+    { name: "Social Security", sector: "all", location: "kampala", type: "registration", description: "Employee social security and pension services", tags: ["Employee registration", "Pension", "Benefits"], url: "https://www.nssfug.org", section: "#services", weight: 1 },
+    { name: "Communications License", sector: "ict", location: "kampala", type: "licensing", description: "Telecommunications and broadcasting licensing services", tags: ["Telecom license", "Broadcasting", "ISP license"], url: "https://www.ucc.co.ug", section: "#services", weight: 1 },
+    { name: "Investment Facilitation", sector: "all", location: "kampala", type: "investment", description: "One-stop investment services and incentives", tags: ["Investment license", "Tax incentives", "Facilitation"], url: "https://www.ugandainvest.go.ug", section: "#services", weight: 1 },
+    { name: "Capital Markets", sector: "all", location: "kampala", type: "licensing", description: "Securities licensing and market regulation services", tags: ["Securities license", "Investment advisory", "Market surveillance"], url: "https://www.cmauganda.co.ug", section: "#services", weight: 1 },
+    { name: "Agricultural Credit", sector: "agriculture", location: "kampala", type: "investment", description: "Low-interest credit for agricultural investments and value chains", tags: ["Agricultural loans", "Value chains", "Farm financing"], url: "https://www.bou.or.ug", section: "#investments", weight: 1 },
+    { name: "Tourism Development", sector: "tourism", location: "kampala", type: "investment", description: "Hotel development and eco-tourism investment opportunities", tags: ["Hotel development", "Eco-tourism", "Tourism incentives"], url: "https://www.visituganda.com", section: "#investments", weight: 1 },
+    { name: "Tech Innovation", sector: "ict", location: "kampala", type: "investment", description: "Startup funding and digital infrastructure investments", tags: ["Startup funding", "Digital infrastructure", "Innovation grants"], url: "https://www.nita.go.ug", section: "#investments", weight: 1 },
+    { name: "Tax Calculator", sector: "all", location: "all", type: "calculator", description: "Calculate potential tax obligations and incentives", tags: ["Tax", "Calculator", "Incentives"], url: "", section: "#calculator", weight: 2 }
 ];
 
-let searchHistory = [];
+let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
 let currentSuggestionIndex = -1;
 
 function updateSearchHistory() {
@@ -449,73 +469,125 @@ function updateSearchHistory() {
         historyContainer.appendChild(button);
     });
     historyContainer.classList.toggle('hidden', searchHistory.length === 0);
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 }
 
 function highlightElement(serviceName, section) {
     document.querySelectorAll('.highlight-card').forEach(el => el.classList.remove('highlight-card'));
     
-    if (section === '#calculator') {
-        const calculatorCard = document.querySelector('#calculator .service-card');
-        if (calculatorCard) {
-            calculatorCard.classList.add('highlight-card');
-            setTimeout(() => {
-                calculatorCard.classList.remove('highlight-card');
-            }, 3000);
-        }
-    } else {
-        const cards = document.querySelectorAll(`${section} .service-card`);
-        cards.forEach(card => {
-            const title = card.querySelector('h3');
-            if (title && title.textContent.toLowerCase() === serviceName.toLowerCase()) {
-                card.classList.add('highlight-card');
-                setTimeout(() => {
-                    card.classList.remove('highlight-card');
-                }, 3000);
+    const sectionElement = document.querySelector(section);
+    if (sectionElement) {
+        sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (section === '#calculator') {
+            const calculatorCard = sectionElement.querySelector('.service-card');
+            if (calculatorCard) {
+                calculatorCard.classList.add('highlight-card');
+                setTimeout(() => calculatorCard.classList.remove('highlight-card'), 3000);
             }
-        });
+        } else {
+            const cards = sectionElement.querySelectorAll('.service-card');
+            cards.forEach(card => {
+                const title = card.querySelector('h3');
+                if (title && title.textContent.toLowerCase().includes(serviceName.toLowerCase())) {
+                    card.classList.add('highlight-card');
+                    setTimeout(() => card.classList.remove('highlight-card'), 3000);
+                }
+            });
+        }
     }
 }
 
 function performSearch(query) {
     const suggestions = document.getElementById('suggestions');
-    if (!suggestions) return;
+    const searchInput = document.getElementById('searchInput');
+    if (!suggestions || !searchInput) {
+        console.error('Suggestions or searchInput element not found');
+        showProfessionalNotification(
+            'System Error',
+            'Search components not available',
+            'error'
+        );
+        return;
+    }
     
     suggestions.innerHTML = '';
     
     if (query.trim() === '') {
         suggestions.style.display = 'none';
+        showProfessionalNotification(
+            'Search',
+            'Start typing to search for services',
+            'info',
+            2000
+        );
         return;
     }
 
-    const filteredServices = services
-        .map(service => {
-            let score = 0;
-            const queryLower = query.toLowerCase();
-            
-            if (service.name.toLowerCase().includes(queryLower)) score += 3;
-            if (service.description.toLowerCase().includes(queryLower)) score += 2;
-            const tagMatches = service.tags.filter(tag => tag.toLowerCase().includes(queryLower)).length;
-            score += tagMatches;
-            
-            if (searchHistory.includes(queryLower)) score += 1;
-            
-            return { ...service, score };
-        })
-        .filter(service => service.score > 0)
-        .sort((a, b) => b.score - a.score);
+    const queryLower = query.toLowerCase().trim();
+    const queryWords = queryLower.split(/\s+/);
 
-    filteredServices.forEach((service, index) => {
+    const scoredServices = services.map(service => {
+        let score = service.weight || 1; // Base score from weight
+        const nameLower = service.name.toLowerCase();
+        const descLower = service.description.toLowerCase();
+        const tagsLower = service.tags.map(tag => tag.toLowerCase());
+        const sectorLower = service.sector.toLowerCase();
+        const typeLower = service.type.toLowerCase();
+
+        // Scoring for each word in the query
+        queryWords.forEach(word => {
+            if (nameLower.includes(word)) score += 4; // High weight for name
+            if (descLower.includes(word)) score += 2; // Medium weight for description
+            tagsLower.forEach(tag => {
+                if (tag.includes(word)) score += 1.5; // Weight for tags
+            });
+            if (sectorLower.includes(word)) score += 1; // Bonus for sector
+            if (typeLower.includes(word)) score += 1; // Bonus for type
+            if (nameLower.startsWith(word)) score += 2; // Boost for prefix match
+            if (descLower.startsWith(word)) score += 1; // Boost for description prefix
+        });
+
+        // Fuzzy matching for typos (queries >= 3 chars)
+        if (queryWords.some(word => word.length >= 3)) {
+            queryWords.forEach(word => {
+                if (word.length < 3) return;
+                const nameDistance = Math.min(...nameLower.split(' ').map(w => levenshteinDistance(word, w)));
+                if (nameDistance <= 2) score += 2 / (nameDistance + 1); // Fuzzy match on name
+                const tagDistance = Math.min(...tagsLower.map(tag => levenshteinDistance(word, tag)));
+                if (tagDistance <= 2) score += 1 / (tagDistance + 1); // Fuzzy match on tags
+            });
+        }
+
+        // Boost for recent searches
+        if (searchHistory.some(term => term.includes(queryLower) || queryLower.includes(term))) {
+            score += 1;
+        }
+
+        return { ...service, score };
+    });
+
+    // Filter and sort services
+    const filteredServices = scoredServices
+        .filter(service => service.score > 1) // Include any service with a score above base weight
+        .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+
+    // Fallback to popular services if no matches
+    const results = filteredServices.length > 0 
+        ? filteredServices.slice(0, 5)
+        : services
+            .map(service => ({ ...service, score: service.weight || 1 }))
+            .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name))
+            .slice(0, 3);
+
+    // Populate suggestions
+    results.forEach((service, index) => {
         const div = document.createElement('div');
         div.className = 'suggestion-item';
         div.innerHTML = `
             ${highlightMatch(service.name, query)}
-            <span style="font-size: 12px; color: #6b7280; margin-left: 8px;">${service.location.charAt(0).toUpperCase() + service.location.slice(1)}</span>
+            <span class="text-sm text-gray-500 ml-2">(${service.section.replace('#', '')})</span>
         `;
         div.onclick = () => {
-            const section = document.querySelector(service.section);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-            }
             highlightElement(service.name, service.section);
             if (service.url) {
                 window.open(service.url, '_blank');
@@ -527,37 +599,47 @@ function performSearch(query) {
             }
             addToSearchHistory(query);
             suggestions.style.display = 'none';
+            searchInput.value = ''; // Clear input
         };
         suggestions.appendChild(div);
     });
 
-    suggestions.style.display = filteredServices.length > 0 ? 'block' : 'none';
+    suggestions.style.display = results.length > 0 ? 'block' : 'none';
     currentSuggestionIndex = -1;
     
-    if (filteredServices.length > 0) {
-        showProfessionalNotification(
-            'Search Results',
-            `Found ${filteredServices.length} matching services`,
-            'info',
-            2000
-        );
-    }
+    showProfessionalNotification(
+        filteredServices.length > 0 ? 'Search Results' : 'Suggested Services',
+        filteredServices.length > 0 
+            ? `Found ${filteredServices.length} matching services`
+            : `No exact matches for "${query}". Showing popular services.`,
+        filteredServices.length > 0 ? 'success' : 'info',
+        2000
+    );
 }
 
 function highlightMatch(text, query) {
-    const regex = new RegExp(`(${query})`, 'gi');
-    return text.replace(regex, '<span class="highlight">$1</span>');
+    const queryWords = query.toLowerCase().trim().split(/\s+/);
+    let highlightedText = text;
+    queryWords.forEach(word => {
+        if (word.length >= 1) {
+            const regex = new RegExp(`(${word})`, 'gi');
+            highlightedText = highlightedText.replace(regex, '<span class="highlight">$1</span>');
+        }
+    });
+    return highlightedText;
 }
 
 function addToSearchHistory(term) {
-    if (!searchHistory.includes(term)) {
+    term = term.toLowerCase().trim();
+    if (term && !searchHistory.includes(term)) {
         searchHistory.unshift(term);
         if (searchHistory.length > 5) searchHistory.pop();
         updateSearchHistory();
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
         showProfessionalNotification(
             'Search History Updated',
             `"${term}" added to recent searches`,
-            'success',
+            'info',
             2000
         );
     }
@@ -572,16 +654,12 @@ function quickSearch(term) {
         
         const service = services.find(s => s.name.toLowerCase().includes(term.toLowerCase()));
         if (service && service.section) {
-            const section = document.querySelector(service.section);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-                highlightElement(service.name, service.section);
-                showProfessionalNotification(
-                    'Quick Search',
-                    `Navigating to ${service.name}`,
-                    'info'
-                );
-            }
+            highlightElement(service.name, service.section);
+            showProfessionalNotification(
+                'Quick Search',
+                `Navigating to ${service.name}`,
+                'success'
+            );
         }
     }
 }
@@ -605,6 +683,9 @@ function handleKeyNavigation(event) {
     } else if (event.key === 'Enter' && currentSuggestionIndex >= 0) {
         event.preventDefault();
         suggestionItems[currentSuggestionIndex].click();
+    } else if (event.key === 'Escape') {
+        suggestions.style.display = 'none';
+        currentSuggestionIndex = -1;
     }
 }
 
@@ -631,9 +712,21 @@ const debouncedSearch = debounce(performSearch, 300);
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing...');
     
+    // Bind search input
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', () => debouncedSearch(searchInput.value));
+    } else {
+        console.error('searchInput not found');
+        showProfessionalNotification(
+            'System Error',
+            'Search input not available',
+            'error'
+        );
+    }
+    
     updateSearchHistory();
     
-    // Show welcome notification
     setTimeout(() => {
         showProfessionalNotification(
             'Welcome to OneStopCentre Uganda',
@@ -643,7 +736,6 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }, 1000);
 
-    // Back to top functionality
     window.addEventListener('scroll', () => {
         const backToTop = document.getElementById('backToTop');
         if (backToTop) {
@@ -651,7 +743,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Click outside to close suggestions
     document.addEventListener('click', (e) => {
         const suggestions = document.getElementById('suggestions');
         if (suggestions && !e.target.closest('#searchInput') && !e.target.closest('.suggestions')) {
@@ -660,7 +751,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
