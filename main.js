@@ -1,12 +1,82 @@
+// Enhanced notification system
+function showProfessionalNotification(title, message, type = 'info', duration = 4000) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    
+    const icons = {
+        success: '✓',
+        error: '✕',
+        info: 'ℹ',
+        warning: '⚠'
+    };
+    
+    notification.innerHTML = `
+        <div class="notification-icon">${icons[type]}</div>
+        <div class="notification-content">
+            <div class="notification-title">${title}</div>
+            <div class="notification-message">${message}</div>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Trigger show animation
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Auto remove
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 400);
+    }, duration);
+}
+
+// Enhanced navigation function for modules
+function navigateToSection(sectionId, moduleName) {
+    const section = document.querySelector(sectionId);
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showProfessionalNotification(
+            `Navigating to ${moduleName}`,
+            `Accessing ${moduleName} section with comprehensive information`,
+            'info'
+        );
+        
+        // Add subtle highlight effect to section
+        section.style.background = 'rgba(255, 215, 0, 0.1)';
+        setTimeout(() => {
+            section.style.background = 'transparent';
+        }, 2000);
+    } else {
+        showProfessionalNotification(
+            'Navigation Error',
+            `Unable to locate ${moduleName} section`,
+            'error'
+        );
+    }
+}
+
 // Global functions - Define first for onclick handlers
 function openChecklistModal() {
     console.log('Opening checklist modal');
     const modal = document.getElementById('checklistSelectionModal');
     if (modal) {
         modal.classList.remove('hidden');
-        showNotification('Opening checklist selection', 'info');
+        showProfessionalNotification(
+            'Checklist Selection',
+            'Choose from available business checklists',
+            'info'
+        );
     } else {
         console.error('checklistSelectionModal not found');
+        showProfessionalNotification(
+            'System Error',
+            'Checklist modal not available',
+            'error'
+        );
     }
 }
 
@@ -15,7 +85,11 @@ function closeChecklistSelection() {
     const modal = document.getElementById('checklistSelectionModal');
     if (modal) {
         modal.classList.add('hidden');
-        showNotification('Checklist selection closed', 'info');
+        showProfessionalNotification(
+            'Selection Cancelled',
+            'Checklist selection closed',
+            'info'
+        );
     }
 }
 
@@ -27,14 +101,20 @@ function openChecklist(type) {
     
     if (!modal || !title || !content) {
         console.error('Checklist modal elements not found');
+        showProfessionalNotification(
+            'System Error',
+            'Checklist components not available',
+            'error'
+        );
         return;
     }
     
     let checklistItems = [];
+    let checklistTitle = '';
     
     switch (type) {
         case 'services':
-            title.textContent = 'Services Checklist';
+            checklistTitle = 'Services Checklist';
             checklistItems = [
                 { name: 'Business Registration', description: 'Register your company with URSB', mandatory: true },
                 { name: 'Tax Registration', description: 'Obtain TIN and register for VAT/PAYE with URA', mandatory: true },
@@ -45,7 +125,7 @@ function openChecklist(type) {
             ];
             break;
         case 'investments':
-            title.textContent = 'Investments Checklist';
+            checklistTitle = 'Investments Checklist';
             checklistItems = [
                 { name: 'Agricultural Credit', description: 'Apply for low-interest loans with BOU', mandatory: false },
                 { name: 'Tourism Development', description: 'Explore hotel/eco-tourism incentives with UTB', mandatory: false },
@@ -54,7 +134,7 @@ function openChecklist(type) {
             ];
             break;
         case 'calculator':
-            title.textContent = 'Tax Checklist';
+            checklistTitle = 'Tax Checklist';
             checklistItems = [
                 { name: 'Verify Investment Amount', description: 'Ensure accurate investment figures', mandatory: true },
                 { name: 'Select ATMS Sector', description: 'Choose appropriate sector for tax rates', mandatory: true },
@@ -64,9 +144,15 @@ function openChecklist(type) {
             break;
         default:
             console.error('Unknown checklist type:', type);
+            showProfessionalNotification(
+                'Invalid Request',
+                `Unknown checklist type: ${type}`,
+                'error'
+            );
             return;
     }
 
+    title.textContent = checklistTitle;
     content.innerHTML = checklistItems.map(item => `
         <div class="checklist-item">
             <input type="checkbox" class="mt-1" ${item.mandatory ? 'checked disabled' : ''}>
@@ -80,7 +166,11 @@ function openChecklist(type) {
 
     closeChecklistSelection();
     modal.classList.remove('hidden');
-    showNotification(`Opened ${type} checklist`, 'success');
+    showProfessionalNotification(
+        `${checklistTitle} Opened`,
+        `Displaying ${checklistItems.length} checklist items`,
+        'success'
+    );
 }
 
 function closeChecklist() {
@@ -88,28 +178,51 @@ function closeChecklist() {
     const modal = document.getElementById('checklistModal');
     if (modal) {
         modal.classList.add('hidden');
-        showNotification('Checklist closed', 'info');
+        showProfessionalNotification(
+            'Checklist Closed',
+            'Requirements checklist has been closed',
+            'info'
+        );
     }
 }
 
 function toggleMobileNav() {
-    document.getElementById('mobileNav').classList.toggle('active');
-    showNotification('Mobile navigation toggled', 'info');
+    const mobileNav = document.getElementById('mobileNav');
+    mobileNav.classList.toggle('active');
+    showProfessionalNotification(
+        'Mobile Navigation',
+        'Mobile menu toggled',
+        'info',
+        2000
+    );
 }
 
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    showNotification('Scrolling to top', 'info');
+    showProfessionalNotification(
+        'Navigation',
+        'Scrolling to top of page',
+        'info',
+        2000
+    );
 }
 
 function makeCall(phone) {
     window.location.href = `tel:${phone}`;
-    showNotification(`Initiating call to ${phone}`, 'info');
+    showProfessionalNotification(
+        'Initiating Call',
+        `Connecting to ${phone}`,
+        'success'
+    );
 }
 
 function openChat() {
     window.location.href = 'https://wa.me/+256775692335';
-    showNotification('Opening WhatsApp chat', 'info');
+    showProfessionalNotification(
+        'WhatsApp Support',
+        'Opening WhatsApp chat for instant support',
+        'success'
+    );
 }
 
 function downloadBankableProjects() {
@@ -123,11 +236,19 @@ function downloadBankableProjects() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        showNotification('Downloading Bankable Projects PDF...', 'success');
+        showProfessionalNotification(
+            'Download Started',
+            'Bankable Projects PDF download initiated',
+            'success'
+        );
     } catch (error) {
         console.error('Download error:', error);
         window.open(downloadUrl, '_blank');
-        showNotification('Unable to download directly. Opening PDF in new tab...', 'error');
+        showProfessionalNotification(
+            'Download Alternative',
+            'Opening PDF in new tab - download may follow',
+            'warning'
+        );
     }
 }
 
@@ -140,7 +261,11 @@ function calculateTax() {
     if (isNaN(amount) || amount <= 0) {
         resultDiv.innerHTML = '<p class="text-red-600">Please enter a valid investment amount.</p>';
         resultDiv.classList.remove('hidden');
-        showNotification('Invalid investment amount entered', 'error');
+        showProfessionalNotification(
+            'Input Error',
+            'Please provide a valid investment amount',
+            'error'
+        );
         return;
     }
 
@@ -190,14 +315,22 @@ function calculateTax() {
         <p class="text-sm text-gray-600 mt-4">Note: These are estimated figures. Consult with URA for precise calculations.</p>
     `;
     resultDiv.classList.remove('hidden');
-    showNotification('Tax calculation completed', 'success');
+    showProfessionalNotification(
+        'Calculation Complete',
+        `Tax calculation for USD ${amount.toLocaleString()} in ${sector} sector`,
+        'success'
+    );
 }
 
 function openEmail(service, email) {
     document.getElementById('modalService').value = service;
     document.getElementById('modalEmail').dataset.email = email;
     document.getElementById('emailModal').classList.remove('hidden');
-    showNotification(`Opening email form for ${service}`, 'info');
+    showProfessionalNotification(
+        'Email Form Opened',
+        `Composing email for ${service}`,
+        'info'
+    );
 }
 
 function closeEmail() {
@@ -205,7 +338,11 @@ function closeEmail() {
     document.getElementById('modalName').value = '';
     document.getElementById('modalEmail').value = '';
     document.getElementById('modalMessage').value = '';
-    showNotification('Email form closed', 'info');
+    showProfessionalNotification(
+        'Email Form Closed',
+        'Email composition cancelled',
+        'info'
+    );
 }
 
 function sendEmail() {
@@ -216,7 +353,11 @@ function sendEmail() {
     const recipient = document.getElementById('modalEmail').dataset.email;
 
     if (!name || !email || !message) {
-        showNotification('Please fill in all email fields', 'error');
+        showProfessionalNotification(
+            'Incomplete Form',
+            'Please fill in all required fields',
+            'error'
+        );
         return;
     }
 
@@ -224,7 +365,11 @@ function sendEmail() {
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
     window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
     closeEmail();
-    showNotification('Email sent successfully', 'success');
+    showProfessionalNotification(
+        'Email Prepared',
+        'Opening default email client with pre-filled message',
+        'success'
+    );
 }
 
 function filterServices() {
@@ -234,6 +379,7 @@ function filterServices() {
     const servicesList = document.getElementById('servicesList');
     const cards = servicesList.getElementsByClassName('service-card');
 
+    let visibleCount = 0;
     Array.from(cards).forEach(card => {
         const cardSector = card.dataset.sector;
         const cardLocation = card.dataset.location;
@@ -243,9 +389,16 @@ function filterServices() {
         const matchesLocation = location === 'all' || cardLocation === location;
         const matchesType = serviceType === 'all' || cardType === serviceType;
 
-        card.style.display = matchesSector && matchesLocation && matchesType ? 'block' : 'none';
+        const isVisible = matchesSector && matchesLocation && matchesType;
+        card.style.display = isVisible ? 'block' : 'none';
+        if (isVisible) visibleCount++;
     });
-    showNotification('Filters applied successfully', 'success');
+    
+    showProfessionalNotification(
+        'Filters Applied',
+        `Showing ${visibleCount} matching services`,
+        'success'
+    );
 }
 
 function clearFilters() {
@@ -253,28 +406,22 @@ function clearFilters() {
     document.getElementById('locationFilter').value = 'all';
     document.getElementById('serviceTypeFilter').value = 'all';
     filterServices();
-    showNotification('Filters cleared', 'success');
+    showProfessionalNotification(
+        'Filters Reset',
+        'All filters cleared - showing all services',
+        'info'
+    );
 }
 
+// Legacy notification function for backwards compatibility
 function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transition-opacity duration-300 ${
-        type === 'success' ? 'bg-green-500 text-white' : 
-        type === 'error' ? 'bg-red-500 text-white' : 
-        'bg-blue-500 text-white'
-    }`;
-    notification.textContent = message;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        setTimeout(() => {
-            if (document.body.contains(notification)) {
-                document.body.removeChild(notification);
-            }
-        }, 300);
-    }, 3000);
+    const titles = {
+        success: 'Success',
+        error: 'Error',
+        info: 'Information',
+        warning: 'Warning'
+    };
+    showProfessionalNotification(titles[type], message, type, 3000);
 }
 
 // Search functionality
@@ -372,7 +519,11 @@ function performSearch(query) {
             highlightElement(service.name, service.section);
             if (service.url) {
                 window.open(service.url, '_blank');
-                showNotification(`Navigating to ${service.name} website`, 'info');
+                showProfessionalNotification(
+                    'External Link',
+                    `Opening ${service.name} website`,
+                    'info'
+                );
             }
             addToSearchHistory(query);
             suggestions.style.display = 'none';
@@ -382,6 +533,15 @@ function performSearch(query) {
 
     suggestions.style.display = filteredServices.length > 0 ? 'block' : 'none';
     currentSuggestionIndex = -1;
+    
+    if (filteredServices.length > 0) {
+        showProfessionalNotification(
+            'Search Results',
+            `Found ${filteredServices.length} matching services`,
+            'info',
+            2000
+        );
+    }
 }
 
 function highlightMatch(text, query) {
@@ -394,7 +554,12 @@ function addToSearchHistory(term) {
         searchHistory.unshift(term);
         if (searchHistory.length > 5) searchHistory.pop();
         updateSearchHistory();
-        showNotification(`Added "${term}" to search history`, 'success');
+        showProfessionalNotification(
+            'Search History Updated',
+            `"${term}" added to recent searches`,
+            'success',
+            2000
+        );
     }
 }
 
@@ -411,7 +576,11 @@ function quickSearch(term) {
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth' });
                 highlightElement(service.name, service.section);
-                showNotification(`Viewing ${service.name}`, 'info');
+                showProfessionalNotification(
+                    'Quick Search',
+                    `Navigating to ${service.name}`,
+                    'info'
+                );
             }
         }
     }
@@ -463,6 +632,16 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing...');
     
     updateSearchHistory();
+    
+    // Show welcome notification
+    setTimeout(() => {
+        showProfessionalNotification(
+            'Welcome to OneStopCentre Uganda',
+            'Your gateway to simplified business services',
+            'success',
+            5000
+        );
+    }, 1000);
 
     // Back to top functionality
     window.addEventListener('scroll', () => {
@@ -488,6 +667,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });
+                showProfessionalNotification(
+                    'Navigation',
+                    `Scrolling to ${target.id || 'section'}`,
+                    'info',
+                    2000
+                );
             }
         });
     });
