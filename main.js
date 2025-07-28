@@ -35,7 +35,14 @@ function showProfessionalNotification(title, message, type = 'info', duration = 
 // Enhanced navigation function for modules
 function navigateToSection(sectionId, moduleName) {
     const section = document.querySelector(sectionId);
+    const mobileNav = document.getElementById('mobileNav');
+    
     if (section) {
+        // Hide mobile navigation menu if open
+        if (mobileNav) {
+            mobileNav.classList.remove('active');
+        }
+        
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         showProfessionalNotification(
             `Navigating to ${moduleName}`,
@@ -195,6 +202,10 @@ function toggleMobileNav() {
 }
 
 function scrollToTop() {
+    const mobileNav = document.getElementById('mobileNav');
+    if (mobileNav) {
+        mobileNav.classList.remove('active');
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
     showProfessionalNotification(
         'Navigation',
@@ -441,16 +452,16 @@ function levenshteinDistance(a, b) {
 
 // Search functionality
 const services = [
-    { name: "Business Registration", sector: "all", location: "kampala", type: "registration", description: "Company incorporation, business names, and certificate services", tags: ["Company registration", "Business names", "Certificates"], url: "https://www.ursb.go.ug", section: "#services", weight: 2 },
-    { name: "Tax Registration", sector: "all", location: "kampala", type: "registration", description: "VAT, PAYE registration and customs clearance services", tags: ["VAT registration", "PAYE", "Customs"], url: "https://www.ura.go.ug", section: "#services", weight: 2 },
-    { name: "Social Security", sector: "all", location: "kampala", type: "registration", description: "Employee social security and pension services", tags: ["Employee registration", "Pension", "Benefits"], url: "https://www.nssfug.org", section: "#services", weight: 1 },
-    { name: "Communications License", sector: "ict", location: "kampala", type: "licensing", description: "Telecommunications and broadcasting licensing services", tags: ["Telecom license", "Broadcasting", "ISP license"], url: "https://www.ucc.co.ug", section: "#services", weight: 1 },
-    { name: "Investment Facilitation", sector: "all", location: "kampala", type: "investment", description: "One-stop investment services and incentives", tags: ["Investment license", "Tax incentives", "Facilitation"], url: "https://www.ugandainvest.go.ug", section: "#services", weight: 1 },
-    { name: "Capital Markets", sector: "all", location: "kampala", type: "licensing", description: "Securities licensing and market regulation services", tags: ["Securities license", "Investment advisory", "Market surveillance"], url: "https://www.cmauganda.co.ug", section: "#services", weight: 1 },
-    { name: "Agricultural Credit", sector: "agriculture", location: "kampala", type: "investment", description: "Low-interest credit for agricultural investments and value chains", tags: ["Agricultural loans", "Value chains", "Farm financing"], url: "https://www.bou.or.ug", section: "#investments", weight: 1 },
-    { name: "Tourism Development", sector: "tourism", location: "kampala", type: "investment", description: "Hotel development and eco-tourism investment opportunities", tags: ["Hotel development", "Eco-tourism", "Tourism incentives"], url: "https://www.visituganda.com", section: "#investments", weight: 1 },
-    { name: "Tech Innovation", sector: "ict", location: "kampala", type: "investment", description: "Startup funding and digital infrastructure investments", tags: ["Startup funding", "Digital infrastructure", "Innovation grants"], url: "https://www.nita.go.ug", section: "#investments", weight: 1 },
-    { name: "Tax Calculator", sector: "all", location: "all", type: "calculator", description: "Calculate potential tax obligations and incentives", tags: ["Tax", "Calculator", "Incentives"], url: "", section: "#calculator", weight: 2 }
+    { name: "Business Registration", sector: "all", location: "kampala", type: "registration", description: "Company incorporation, business names, and certificate services", tags: ["Company registration", "Business names", "Certificates"], section: "#services", weight: 2 },
+    { name: "Tax Registration", sector: "all", location: "kampala", type: "registration", description: "VAT, PAYE registration and customs clearance services", tags: ["VAT registration", "PAYE", "Customs"], section: "#services", weight: 2 },
+    { name: "Social Security", sector: "all", location: "kampala", type: "registration", description: "Employee social security and pension services", tags: ["Employee registration", "Pension", "Benefits"], section: "#services", weight: 1 },
+    { name: "Communications License", sector: "ict", location: "kampala", type: "licensing", description: "Telecommunications and broadcasting licensing services", tags: ["Telecom license", "Broadcasting", "ISP license"], section: "#services", weight: 1 },
+    { name: "Investment Facilitation", sector: "all", location: "kampala", type: "investment", description: "One-stop investment services and incentives", tags: ["Investment license", "Tax incentives", "Facilitation"], section: "#services", weight: 1 },
+    { name: "Capital Markets", sector: "all", location: "kampala", type: "licensing", description: "Securities licensing and market regulation services", tags: ["Securities license", "Investment advisory", "Market surveillance"], section: "#services", weight: 1 },
+    { name: "Agricultural Credit", sector: "agriculture", location: "kampala", type: "investment", description: "Low-interest credit for agricultural investments and value chains", tags: ["Agricultural loans", "Value chains", "Farm financing"], section: "#investments", weight: 1 },
+    { name: "Tourism Development", sector: "tourism", location: "kampala", type: "investment", description: "Hotel development and eco-tourism investment opportunities", tags: ["Hotel development", "Eco-tourism", "Tourism incentives"], section: "#investments", weight: 1 },
+    { name: "Tech Innovation", sector: "ict", location: "kampala", type: "investment", description: "Startup funding and digital infrastructure investments", tags: ["Startup funding", "Digital infrastructure", "Innovation grants"], section: "#investments", weight: 1 },
+    { name: "Tax Calculator", sector: "all", location: "all", type: "calculator", description: "Calculate potential tax obligations and incentives", tags: ["Tax", "Calculator", "Incentives"], section: "#calculator", weight: 2 }
 ];
 
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
@@ -473,6 +484,11 @@ function updateSearchHistory() {
 }
 
 function highlightElement(serviceName, section) {
+    const mobileNav = document.getElementById('mobileNav');
+    if (mobileNav) {
+        mobileNav.classList.remove('active');
+    }
+    
     document.querySelectorAll('.highlight-card').forEach(el => el.classList.remove('highlight-card'));
     
     const sectionElement = document.querySelector(section);
@@ -589,17 +605,14 @@ function performSearch(query) {
         `;
         div.onclick = () => {
             highlightElement(service.name, service.section);
-            if (service.url) {
-                window.open(service.url, '_blank');
-                showProfessionalNotification(
-                    'External Link',
-                    `Opening ${service.name} website`,
-                    'info'
-                );
-            }
             addToSearchHistory(query);
             suggestions.style.display = 'none';
             searchInput.value = ''; // Clear input
+            showProfessionalNotification(
+                'Navigation',
+                `Navigating to ${service.name} in ${service.section.replace('#', '')} section`,
+                'success'
+            );
         };
         suggestions.appendChild(div);
     });
@@ -657,7 +670,7 @@ function quickSearch(term) {
             highlightElement(service.name, service.section);
             showProfessionalNotification(
                 'Quick Search',
-                `Navigating to ${service.name}`,
+                `Navigating to ${service.name} in ${service.section.replace('#', '')} section`,
                 'success'
             );
         }
@@ -716,6 +729,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('input', () => debouncedSearch(searchInput.value));
+        searchInput.addEventListener('keydown', handleKeyNavigation);
     } else {
         console.error('searchInput not found');
         showProfessionalNotification(
@@ -755,7 +769,14 @@ document.addEventListener('DOMContentLoaded', () => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
+            const mobileNav = document.getElementById('mobileNav');
+            
             if (target) {
+                // Hide mobile navigation menu if open
+                if (mobileNav) {
+                    mobileNav.classList.remove('active');
+                }
+                
                 target.scrollIntoView({ behavior: 'smooth' });
                 showProfessionalNotification(
                     'Navigation',
