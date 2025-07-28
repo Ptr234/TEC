@@ -1,0 +1,6 @@
+{
+  "css.lint.validProperties": [],
+  "files.associations": {
+    "**/dist/*.css": "plaintext"
+  }
+}
