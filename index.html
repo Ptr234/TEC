@@ -39,33 +39,91 @@
         </svg>
     </div>
 
-    <!-- Hero Section -->
-    <div class="hero-bg">
-        <header class="bg-black-80 backdrop-blur-sm text-white py-4 md:py-6">
-            <div class="container mx-auto px-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3 md:gap-4">
-                        <img src="https://github.com/Ptr234/TEC/blob/main/WhatsApp%20Image%202025-07-27%20at%2018.38.34%20(1).jpeg?raw=true" alt="OneStopCentre UG Logo" class="h-10 md:h-12 w-auto">
+    <!-- Enhanced Top Header -->
+    <div class="top-header text-white py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <img src="https://github.com/Ptr234/TEC/blob/main/WhatsApp%20Image%202025-07-27%20at%2018.38.34%20(1).jpeg?raw=true" alt="OneStopCentre UG Logo" class="h-10 w-auto">
+                    <div>
+                        <h1 class="text-xl lg:text-2xl font-bold">OneStopCentre Uganda</h1>
+                        <p class="text-yellow-400 text-sm">Investing in Uganda Simplified</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center gap-4 text-sm">
+                    <span>📧 info@oscdigitaltool.com</span>
+                    <span>📞 +256 775 692 335</span>
+                </div>
+                <div class="hamburger md:hidden" onclick="toggleMobileNav()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Main Navigation -->
+    <div class="main-nav text-white py-4">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 nav-modules">
+                <!-- Services Module -->
+                <div class="nav-module" onclick="navigateToSection('#services', 'Services')">
+                    <div class="flex items-center">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
                         <div>
-                            <h1 class="text-lg md:text-2xl lg:text-3xl font-bold">OneStopCentre Uganda</h1>
-                            <p class="text-yellow-400 text-xs md:text-sm">Investing in Uganda Simplified</p>
+                            <div class="nav-module-title">Services</div>
+                            <div class="nav-module-desc">Registration & Licensing</div>
                         </div>
                     </div>
-                    <nav class="hidden md:flex space-x-6">
-                        <a href="#services" class="hover:text-yellow-400 transition-colors">Services</a>
-                        <a href="#investments" class="hover:text-yellow-400 transition-colors">Investments</a>
-                        <a href="#calculator" class="hover:text-yellow-400 transition-colors">Tax Calculator</a>
-                        <a href="#" onclick="openChecklistModal()" class="hover:text-yellow-400 transition-colors">Checklist</a>
-                    </nav>
-                    <div class="hamburger md:hidden" onclick="toggleMobileNav()">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                </div>
+
+                <!-- Investments Module -->
+                <div class="nav-module" onclick="navigateToSection('#investments', 'Investments')">
+                    <div class="flex items-center">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <div class="nav-module-title">Investments</div>
+                            <div class="nav-module-desc">Funding & Opportunities</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tax Calculator Module -->
+                <div class="nav-module" onclick="navigateToSection('#calculator', 'Tax Calculator')">
+                    <div class="flex items-center">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                        </svg>
+                        <div>
+                            <div class="nav-module-title">Tax Calculator</div>
+                            <div class="nav-module-desc">ATMS Tax Rates</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Checklist Module -->
+                <div class="nav-module" onclick="openChecklistModal()">
+                    <div class="flex items-center">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <div class="nav-module-title">Checklist</div>
+                            <div class="nav-module-desc">Requirements Guide</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </div>
 
+    <!-- Hero Section -->
+    <div class="hero-bg">
         <section class="py-10 md:py-20">
             <div class="container mx-auto px-4">
                 <div class="search-container">
@@ -80,8 +138,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
                             <input type="text" id="searchInput" placeholder="Search services, licenses, permits..." 
-                                   <input type="text" id="searchInput" placeholder="Search services, licenses, permits..." 
-                                          class="search-input" oninput="debouncedSearch(this.value)" autocomplete="off" onkeydown="handleKeyNavigation(event)">
+                                   class="search-input" oninput="debouncedSearch(this.value)" autocomplete="off" onkeydown="handleKeyNavigation(event)">
                             <div id="suggestions" class="suggestions"></div>
                         </div>
                         <div id="searchHistory" class="flex flex-wrap gap-1 md:gap-2 hidden">
